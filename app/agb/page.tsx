@@ -1,0 +1,98 @@
+import type { Metadata } from "next";
+import Link from "next/link";
+import { DraftNotice, PageHeader, Placeholder } from "@/components/ui";
+import { getCatalog } from "@/lib/catalog";
+
+export const metadata: Metadata = { title: "Allgemeine Geschäftsbedingungen" };
+
+export default async function TermsPage() {
+  const { business } = await getCatalog();
+  return (
+    <>
+      <PageHeader
+        eyebrow="AGB"
+        title="Allgemeine Geschäftsbedingungen"
+        lede="Arbeitsfassung für Verkäufe an Verbraucher in Deutschland. Vor dem Launch rechtlich prüfen lassen."
+      />
+      <div className="mx-auto max-w-3xl space-y-8 px-5 py-12 leading-relaxed">
+        <DraftNotice>Vertragspartner, Gewährleistung und Gefahrübergang müssen zur tatsächlichen Lieferung passen.</DraftNotice>
+        <section>
+          <h2 className="text-2xl font-medium">1. Geltung</h2>
+          <p className="mt-3">
+            Diese Bedingungen gelten für Bestellungen im Shop Badezimmer durch Verbraucher mit Lieferadresse in Deutschland.
+            Vertragspartner ist <Placeholder value={business.legalName} label="der noch einzutragende Anbieter" />.
+          </p>
+        </section>
+        <section>
+          <h2 className="text-2xl font-medium">2. Angebot und Vertragsschluss</h2>
+          <p className="mt-3">
+            Die Produktseiten sind eine Aufforderung zur Bestellung. Ein Kaufvertrag kommt erst zustande, wenn die Zahlung
+            über den konfigurierten Zahlungsanbieter bestätigt ist. Solange kein Anbieter konfiguriert ist, erzeugt das
+            Formular nur eine unverbindliche Anfrage und keinen Kaufvertrag.
+          </p>
+          <p className="mt-3">
+            Maße, Materialien, Heiztechnik und Lieferumfang sind nur verbindlich, soweit sie auf der Produktseite als bestätigt
+            gekennzeichnet sind. Abbildungen zeigen das Gestaltungskonzept.
+          </p>
+        </section>
+        <section>
+          <h2 className="text-2xl font-medium">3. Preise und Versand</h2>
+          <p className="mt-3">
+            Preise sind Bruttopreise in Euro inklusive der gesetzlichen Mehrwertsteuer. Der Versandpreis wird vor dem Absenden
+            ausgewiesen und ist im Gesamtbetrag enthalten. Weitere Gebühren werden nicht nachträglich hinzugefügt. Details stehen
+            auf der Seite <Link href="/versand" className="underline underline-offset-4">Versand und Lieferung</Link>.
+          </p>
+        </section>
+        <section>
+          <h2 className="text-2xl font-medium">4. Zahlung</h2>
+          <p className="mt-3">
+            Die Zahlung erfolgt über Stripe, sobald das Konto angebunden ist. Welche Zahlungsarten Stripe anzeigt, hängt von
+            der Freischaltung im Händlerkonto ab. Kartendaten werden nicht bei uns gespeichert. Ohne bestätigte Zahlung liefern
+            wir nicht.
+          </p>
+        </section>
+        <section>
+          <h2 className="text-2xl font-medium">5. Lieferung</h2>
+          <p className="mt-3">
+            Geliefert wird innerhalb Deutschlands als Sperrgut. Eine Lieferfrist nennen wir nur, wenn sie als bestätigt
+            gekennzeichnet ist. Montage und elektrischer Anschluss sind nur geschuldet, wenn das ausdrücklich so konfiguriert
+            ist. Der Anschluss darf erst nach vorliegenden Herstellerangaben durch eine Elektrofachkraft erfolgen.
+          </p>
+        </section>
+        <section>
+          <h2 className="text-2xl font-medium">6. Eigentumsvorbehalt</h2>
+          <p className="mt-3">Die Ware bleibt bis zur vollständigen Zahlung unser Eigentum.</p>
+        </section>
+        <section>
+          <h2 className="text-2xl font-medium">7. Widerruf</h2>
+          <p className="mt-3">
+            Verbrauchern steht das gesetzliche Widerrufsrecht zu. Die Belehrung und das Musterformular stehen auf der Seite{" "}
+            <Link href="/widerruf" className="underline underline-offset-4">Rückgabe und Widerruf</Link>.
+          </p>
+        </section>
+        <section>
+          <h2 className="text-2xl font-medium">8. Gewährleistung</h2>
+          <p className="mt-3">
+            Es gilt das gesetzliche Mängelrecht. Eine zusätzliche Garantie wird nicht eingeräumt. Gesetzliche Rechte werden
+            durch diese Bedingungen nicht eingeschränkt.
+          </p>
+        </section>
+        <section>
+          <h2 className="text-2xl font-medium">9. Haftung</h2>
+          <p className="mt-3">
+            Wir haften unbeschränkt bei Vorsatz und grober Fahrlässigkeit sowie bei Verletzung von Leben, Körper oder Gesundheit.
+            Bei einfacher Fahrlässigkeit haften wir nur für die Verletzung wesentlicher Vertragspflichten, begrenzt auf den
+            vorhersehbaren, vertragstypischen Schaden. Zwingende Haftung nach dem Produkthaftungsgesetz bleibt unberührt.
+          </p>
+        </section>
+        <section>
+          <h2 className="text-2xl font-medium">10. Streitbeilegung</h2>
+          <p className="mt-3">
+            Eine Teilnahme an einem Streitbeilegungsverfahren ist derzeit nicht erklärt. Die EU-Online-Streitbeilegungsplattform
+            ist eingestellt.
+          </p>
+        </section>
+      </div>
+    </>
+  );
+}

@@ -1,0 +1,321 @@
+{
+  "vatRate": 0.19,
+  "installationText": "Die Montage ist im Preis nicht enthalten, solange sie im Shop nicht ausdrücklich als enthalten konfiguriert ist. Anschlusswerte, Absicherung und die erforderliche Zuleitung sind vom Lieferanten noch nicht bestätigt. Die Kabine darf erst angeschlossen werden, wenn diese Angaben vorliegen, und nur durch eine qualifizierte Elektrofachkraft.",
+  "shipping": {
+    "destination": "Deutschland",
+    "costCents": 18900,
+    "label": "Spedition innerhalb Deutschlands",
+    "dispatchText": "Die Zeit bis zur Übergabe an die Spedition ist noch nicht bestätigt.",
+    "deliveryEstimateText": "",
+    "deliveryEstimateConfirmed": false,
+    "trackingAvailable": false,
+    "trackingText": "Eine Sendungsverfolgung wird bereitgestellt, sobald der Versanddienstleister sie unterstützt und ein Sendungslink vorliegt. Aktuell ist kein Tracking-System angebunden.",
+    "bulkyGoodsText": "Die Kabinen sind Sperrgut und werden per Spedition geliefert. Ob die Leistung bis zur Bordsteinkante, bis zur ersten Tür oder weiter reicht, ist noch nicht bestätigt. Ein Transport in höhere Etagen ohne Aufzug ist nicht automatisch enthalten.",
+    "appointmentRequired": true,
+    "appointmentText": "Bei einer Speditionslieferung ist in der Regel ein Liefertermin abzustimmen. Nach aktueller Einstellung muss der Termin bestätigt werden, bevor die Kabine zugestellt wird. Das ist eine Shop-Einstellung und vor dem Launch mit dem Spediteur abzugleichen.",
+    "assemblyIncluded": false,
+    "assemblyText": "Aufstellung und Montage sind nicht im Preis enthalten. Der elektrische Anschluss ist getrennt davon zu betrachten und erst nach bestätigten Herstellerangaben durch eine Elektrofachkraft zulässig.",
+    "remoteText": "Geliefert wird derzeit nur innerhalb Deutschlands. Inseln ohne feste Straßenanbindung, eingeschränkte Zufahrten und Adressen, die eine Spedition nicht regulär anfährt, können ausgeschlossen oder nur gegen einen extra ausgewiesenen Aufpreis beliefert werden. Solange kein weiterer Zuschlag hinterlegt ist, gilt an der Kasse nur der angezeigte Versandpreis. Kann eine Adresse nicht beliefert werden, bestätigen wir die Lieferung nicht.",
+    "damageText": "Prüfen Sie die Sendung bei der Annahme. Sichtbare Schäden lassen Sie auf den Frachtpapieren vermerken, bevor Sie den Empfang bestätigen. Fotografieren Sie Verpackung, Beschädigung und, soweit vorhanden, das Typenschild. Melden Sie den Schaden unverzüglich über die Kontaktseite, möglichst noch am Liefertag. Wir stimmen das Weitere mit dem Versanddienstleister ab. Dieser Ablauf ist vor dem Launch mit dem Spediteur zu bestätigen. Gesetzliche Rechte bleiben unberührt.",
+    "reservationHours": 2
+  },
+  "business": {
+    "legalName": "",
+    "owner": "",
+    "street": "",
+    "zip": "",
+    "city": "",
+    "country": "Deutschland",
+    "email": "",
+    "phone": "",
+    "register": "",
+    "vatId": "",
+    "responsiblePerson": ""
+  },
+  "products": [
+    {
+      "slug": "kompakt-sauna-one",
+      "sku": "BAD-KS-001",
+      "name": "Kompakt Sauna One",
+      "priceCents": 89900,
+      "stock": 3,
+      "shortDescription": "Eine kompakte Heimsauna für entspannte Wellnessmomente auf kleinem Raum.",
+      "description": [
+        "Die Kompakt Sauna One ist für kleine Wohnungen und Bäder gedacht. Das Gestaltungskonzept zeigt eine helle Holzkabine mit gerundeten Kanten, einer Glastür und warmem Licht im Innenraum.",
+        "Maße, Holzart, Heiztechnik, elektrische Werte und der genaue Lieferumfang gelten erst nach Bestätigung durch den Lieferanten."
+      ],
+      "productType": "infrarot",
+      "features": [
+        "Kompaktes Kabinenformat",
+        "Helles Holz im Gestaltungskonzept",
+        "Glastür",
+        "Warmes Licht im Innenraum"
+      ],
+      "targetUse": "Kleine Wohnungen und Bäder.",
+      "images": [
+        {
+          "src": "/images/kompakt-sauna-one.webp",
+          "alt": "Kompakt Sauna One: helle, gerundete Holz-Mini-Sauna mit Glastür in einem kleinen Badezimmer"
+        },
+        {
+          "src": "/images/kompakt-sauna-one-detail.webp",
+          "alt": "Nahaufnahme der Glastür und der hellen Holzfront der Kompakt Sauna One"
+        }
+      ],
+      "specs": [
+        {
+          "label": "Modell",
+          "value": "BAD-KS-001",
+          "status": "verified"
+        },
+        {
+          "label": "Produktart",
+          "value": "Infrarot-Mini-Sauna, keine klassische Sauna mit Saunaofen",
+          "status": "unconfirmed"
+        },
+        {
+          "label": "Ungefähre Außenmaße (B × T × H)",
+          "value": "ca. 105 × 100 × 195 cm",
+          "status": "illustrative"
+        },
+        {
+          "label": "Material",
+          "value": "Naturholz, genaue Holzart offen",
+          "status": "unconfirmed"
+        },
+        {
+          "label": "Front",
+          "value": "Glastür, Glasart und Stärke offen",
+          "status": "unconfirmed"
+        },
+        {
+          "label": "Heizleistung",
+          "value": "Vom Lieferanten zu bestätigen, kein Wert hinterlegt",
+          "status": "unconfirmed"
+        },
+        {
+          "label": "Elektrischer Anschluss",
+          "value": "Anschlusswerte offen",
+          "status": "unconfirmed"
+        },
+        {
+          "label": "Lieferumfang",
+          "value": "Nicht abschließend bestätigt",
+          "status": "unconfirmed"
+        }
+      ]
+    },
+    {
+      "slug": "nordik-mini-sauna",
+      "sku": "BAD-NS-002",
+      "name": "Nordik Mini Sauna",
+      "priceCents": 114900,
+      "stock": 3,
+      "shortDescription": "Skandinavisches Design trifft auf natürliche Materialien und modernen Saunakomfort.",
+      "description": [
+        "Die Nordik Mini Sauna folgt einem schmalen, hellen Kabinenbild: helles Holz, ein dunkler Glasrahmen, eine Sitzbank aus Holz und eine kompakte Grundfläche.",
+        "Technische Daten veröffentlichen wir erst, wenn der Lieferant sie bestätigt hat."
+      ],
+      "productType": "infrarot",
+      "features": [
+        "Schmales, ruhiges Kabinenbild",
+        "Holzsitzbank",
+        "Glasfront mit dunklem Rahmen",
+        "Kompakte Grundfläche"
+      ],
+      "targetUse": "Moderne Wohnungen und Wellnessecken.",
+      "images": [
+        {
+          "src": "/images/nordik-mini-sauna.webp",
+          "alt": "Nordik Mini Sauna: schmale helle Kabine mit dunklem Glasrahmen in einem ruhigen Wellnessraum"
+        }
+      ],
+      "specs": [
+        {
+          "label": "Modell",
+          "value": "BAD-NS-002",
+          "status": "verified"
+        },
+        {
+          "label": "Produktart",
+          "value": "Infrarot-Mini-Sauna, keine klassische Sauna mit Saunaofen",
+          "status": "unconfirmed"
+        },
+        {
+          "label": "Ungefähre Außenmaße (B × T × H)",
+          "value": "ca. 95 × 90 × 205 cm",
+          "status": "illustrative"
+        },
+        {
+          "label": "Material",
+          "value": "Helles Holz, genaue Holzart offen",
+          "status": "unconfirmed"
+        },
+        {
+          "label": "Front",
+          "value": "Glasfront, Rahmen- und Glasausführung offen",
+          "status": "unconfirmed"
+        },
+        {
+          "label": "Heizleistung",
+          "value": "Vom Lieferanten zu bestätigen, kein Wert hinterlegt",
+          "status": "unconfirmed"
+        },
+        {
+          "label": "Elektrischer Anschluss",
+          "value": "Anschlusswerte offen",
+          "status": "unconfirmed"
+        },
+        {
+          "label": "Lieferumfang",
+          "value": "Nicht abschließend bestätigt",
+          "status": "unconfirmed"
+        }
+      ]
+    },
+    {
+      "slug": "premium-relax-sauna",
+      "sku": "BAD-PR-003",
+      "name": "Premium Relax Sauna",
+      "priceCents": 139900,
+      "stock": 3,
+      "shortDescription": "Eine elegante Mini-Sauna mit großzügiger Glasfront für ein hochwertiges Wellnesserlebnis zu Hause.",
+      "description": [
+        "Die Premium Relax Sauna ist die großzügigere Kabine im Sortiment. Die Bilder zeigen eine Holzkabine mit großer Glasfront, zwei Sitzebenen und warmem Innenlicht.",
+        "Die zwei Sitzebenen gehören zum gezeigten Entwurf. Ob die gelieferte Kabine genauso ausgeführt wird, steht erst mit der Lieferantenbestätigung fest."
+      ],
+      "productType": "infrarot",
+      "features": [
+        "Große Glasfront",
+        "Zwei Sitzebenen im Entwurf",
+        "Holzoberfläche in warmem Ton",
+        "Innenlicht im Gestaltungskonzept"
+      ],
+      "targetUse": "Anspruchsvolle Wellnessbereiche zu Hause.",
+      "images": [
+        {
+          "src": "/images/premium-relax-sauna.webp",
+          "alt": "Premium Relax Sauna: Holzkabine mit großer zweiflügeliger Glasfront und zwei Sitzebenen"
+        },
+        {
+          "src": "/images/premium-relax-sauna-detail.webp",
+          "alt": "Zweite Ansicht der Premium Relax Sauna mit Glasfront, zwei Holzbänken und warmem Innenlicht"
+        }
+      ],
+      "specs": [
+        {
+          "label": "Modell",
+          "value": "BAD-PR-003",
+          "status": "verified"
+        },
+        {
+          "label": "Produktart",
+          "value": "Infrarot-Mini-Sauna, keine klassische Sauna mit Saunaofen",
+          "status": "unconfirmed"
+        },
+        {
+          "label": "Ungefähre Außenmaße (B × T × H)",
+          "value": "ca. 160 × 120 × 200 cm",
+          "status": "illustrative"
+        },
+        {
+          "label": "Sitzebenen",
+          "value": "Zwei Ebenen im Bildentwurf, Ausführung offen",
+          "status": "illustrative"
+        },
+        {
+          "label": "Material",
+          "value": "Naturholz, genaue Holzart offen",
+          "status": "unconfirmed"
+        },
+        {
+          "label": "Heizleistung",
+          "value": "Vom Lieferanten zu bestätigen, kein Wert hinterlegt",
+          "status": "unconfirmed"
+        },
+        {
+          "label": "Elektrischer Anschluss",
+          "value": "Anschlusswerte offen",
+          "status": "unconfirmed"
+        },
+        {
+          "label": "Lieferumfang",
+          "value": "Nicht abschließend bestätigt",
+          "status": "unconfirmed"
+        }
+      ]
+    },
+    {
+      "slug": "panorama-mini-sauna",
+      "sku": "BAD-PM-004",
+      "name": "Panorama Mini Sauna",
+      "priceCents": 159900,
+      "stock": 3,
+      "shortDescription": "Eine stilvolle Heimsauna mit Panoramaglas und einer warmen, natürlichen Atmosphäre.",
+      "description": [
+        "Die Panorama Mini Sauna setzt auf eine breite Glasfront, einen Holzinnenraum und ein ruhiges, zeitgenössisches Äußeres. Vorgesehen ist sie für größere Bäder, Home-Gyms und Räume, die der Erholung dienen.",
+        "Die Glasfront auf den Bildern ist Teil des Gestaltungskonzepts. Verbindliche Maße, die Glasart und die Technik folgen nach Bestätigung durch den Lieferanten."
+      ],
+      "productType": "infrarot",
+      "features": [
+        "Breite Glasfront",
+        "Holzinnenraum",
+        "Zeitgenössische Außenform",
+        "Warmes Innenlicht im Entwurf"
+      ],
+      "targetUse": "Großzügige Bäder, Home-Gyms und eigene Wellnessräume.",
+      "images": [
+        {
+          "src": "/images/panorama-mini-sauna.webp",
+          "alt": "Panorama Mini Sauna: breite Kabine mit geschlossener Glasfront in einem Wellnessraum"
+        },
+        {
+          "src": "/images/panorama-mini-sauna-detail.webp",
+          "alt": "Blick durch die Glasfront der Panorama Mini Sauna auf Sitzbank und warmes Licht"
+        }
+      ],
+      "specs": [
+        {
+          "label": "Modell",
+          "value": "BAD-PM-004",
+          "status": "verified"
+        },
+        {
+          "label": "Produktart",
+          "value": "Infrarot-Mini-Sauna, keine klassische Sauna mit Saunaofen",
+          "status": "unconfirmed"
+        },
+        {
+          "label": "Ungefähre Außenmaße (B × T × H)",
+          "value": "ca. 210 × 110 × 190 cm",
+          "status": "illustrative"
+        },
+        {
+          "label": "Front",
+          "value": "Panorama-Glasfront, Glasart offen",
+          "status": "illustrative"
+        },
+        {
+          "label": "Material",
+          "value": "Holzinnenraum und Holzseiten, genaue Holzart offen",
+          "status": "unconfirmed"
+        },
+        {
+          "label": "Heizleistung",
+          "value": "Vom Lieferanten zu bestätigen, kein Wert hinterlegt",
+          "status": "unconfirmed"
+        },
+        {
+          "label": "Elektrischer Anschluss",
+          "value": "Anschlusswerte offen",
+          "status": "unconfirmed"
+        },
+        {
+          "label": "Lieferumfang",
+          "value": "Nicht abschließend bestätigt",
+          "status": "unconfirmed"
+        }
+      ]
+    }
+  ]
+}
