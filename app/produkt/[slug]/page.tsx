@@ -21,6 +21,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   return {
     title: product.name,
     description: product.shortDescription,
+    robots: { index: true, follow: true },
     openGraph: { images: [product.images[0].src] },
   };
 }
