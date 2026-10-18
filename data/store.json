@@ -54,12 +54,8 @@
       "targetUse": "Kleine Wohnungen und Bäder.",
       "images": [
         {
-          "src": "/images/kompakt-sauna-one.webp",
+          "src": "/images/kompakt-sauna-one-main.webp",
           "alt": "Kompakt Sauna One: helle, gerundete Holz-Mini-Sauna mit Glastür in einem kleinen Badezimmer"
-        },
-        {
-          "src": "/images/kompakt-sauna-one-detail.webp",
-          "alt": "Nahaufnahme der Glastür und der hellen Holzfront der Kompakt Sauna One"
         }
       ],
       "specs": [
@@ -126,7 +122,7 @@
       "targetUse": "Moderne Wohnungen und Wellnessecken.",
       "images": [
         {
-          "src": "/images/nordik-mini-sauna.webp",
+          "src": "/images/nordik-mini-sauna-main.webp",
           "alt": "Nordik Mini Sauna: schmale helle Kabine mit dunklem Glasrahmen in einem ruhigen Wellnessraum"
         }
       ],
@@ -194,12 +190,8 @@
       "targetUse": "Anspruchsvolle Wellnessbereiche zu Hause.",
       "images": [
         {
-          "src": "/images/premium-relax-sauna.webp",
+          "src": "/images/premium-relax-sauna-main.webp",
           "alt": "Premium Relax Sauna: Holzkabine mit großer zweiflügeliger Glasfront und zwei Sitzebenen"
-        },
-        {
-          "src": "/images/premium-relax-sauna-detail.webp",
-          "alt": "Zweite Ansicht der Premium Relax Sauna mit Glasfront, zwei Holzbänken und warmem Innenlicht"
         }
       ],
       "specs": [
@@ -266,12 +258,8 @@
       "targetUse": "Großzügige Bäder, Home-Gyms und eigene Wellnessräume.",
       "images": [
         {
-          "src": "/images/panorama-mini-sauna.webp",
+          "src": "/images/panorama-mini-sauna-main.webp",
           "alt": "Panorama Mini Sauna: breite Kabine mit geschlossener Glasfront in einem Wellnessraum"
-        },
-        {
-          "src": "/images/panorama-mini-sauna-detail.webp",
-          "alt": "Blick durch die Glasfront der Panorama Mini Sauna auf Sitzbank und warmes Licht"
         }
       ],
       "specs": [
@@ -338,7 +326,7 @@
       "targetUse": "Bad oder ein kompakter Wellnessraum.",
       "images": [
         {
-          "src": "/images/eichenholz-mini-sauna.webp",
+          "src": "/images/eichenholz-mini-sauna-main.webp",
           "alt": "Eichenholz Mini Sauna: kompakte Holzkabine mit großer Glastür und warmer Innenbeleuchtung in einem hellen Bad"
         }
       ],
@@ -406,7 +394,7 @@
       "targetUse": "Ein eigener Wellnessraum mit Platz für eine breitere Glasfront.",
       "images": [
         {
-          "src": "/images/aurora-panorama-mini-sauna.webp",
+          "src": "/images/aurora-panorama-mini-sauna-main.webp",
           "alt": "Aurora Panorama Mini Sauna: geschwungene Holzkabine mit breiter Glasfront und warmem Innenlicht in einem Wellnessraum"
         }
       ],
