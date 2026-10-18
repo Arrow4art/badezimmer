@@ -18,7 +18,7 @@ export const metadata: Metadata = {
     template: "%s · Badezimmer",
   },
   description:
-    "Kompakte Mini-Saunen für zu Hause. Vier Modelle, Preise in Euro inklusive Mehrwertsteuer, Versand innerhalb Deutschlands.",
+    "Kompakte Mini-Saunen für zu Hause. Sechs Modelle, Preise in Euro inklusive Mehrwertsteuer, Versand innerhalb Deutschlands.",
   robots:
     process.env.ALLOW_INDEXING === "true"
       ? { index: true, follow: true }

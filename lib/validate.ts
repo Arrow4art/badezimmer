@@ -15,7 +15,7 @@ export function parseCheckout(body: unknown): { ok: true; data: CheckoutInput } 
   if (text(record.companyWebsite, 200)) return { ok: false, error: "Die Eingaben konnten nicht verarbeitet werden." };
 
   const rawItems = Array.isArray(record.items) ? record.items : [];
-  const items = rawItems.slice(0, 4).map((item) => {
+  const items = rawItems.slice(0, 6).map((item) => {
     const line = item as Record<string, unknown>;
     return {
       slug: text(line.slug, 80),

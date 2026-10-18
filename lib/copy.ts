@@ -59,7 +59,7 @@ export const benefits = [
 export const steps = [
   {
     title: "Modell wählen",
-    text: "Vier Mini-Saunen mit festem Preis, sichtbarem Shop-Bestand und einer klaren Produktart.",
+    text: "Sechs Mini-Saunen mit festem Preis, sichtbarem Shop-Bestand und einer klaren Produktart.",
   },
   {
     title: "Lieferung prüfen",

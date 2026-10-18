@@ -316,6 +316,142 @@
           "status": "unconfirmed"
         }
       ]
+    },
+    {
+      "slug": "eichenholz-mini-sauna",
+      "sku": "BAD-EM-005",
+      "name": "Eichenholz Mini Sauna",
+      "priceCents": 124900,
+      "stock": 3,
+      "shortDescription": "Entdecke deine persönliche Wellness-Oase mit der Eichenholz Mini Sauna. Das moderne Design und die natürliche Holzoptik machen sie zu einer stilvollen Ergänzung für dein Zuhause.",
+      "description": [
+        "Die Eichenholz Mini Sauna ist als kompakte Heimkabine für Bad oder Wellnessraum gedacht. Die Bilder zeigen eine warme, holzähnliche Außenansicht, eine große Glastür mit schlichtem Rahmen, warmes Innenlicht und eine platzsparende Sitzbank.",
+        "Die Holzart ist noch nicht bestätigt. Eiche ist die gestalterische Richtung, kein geprüfter Werkstoffnachweis. Maße, Heiztechnik, Leistung, elektrischer Anschluss, Lieferumfang und Montage gelten erst nach Bestätigung durch den Lieferanten."
+      ],
+      "productType": "infrarot",
+      "features": [
+        "Kompaktes Kabinenformat im Entwurf",
+        "Warme holzähnliche Außenansicht",
+        "Große Glastür im Entwurf",
+        "Warmes Innenlicht im Entwurf"
+      ],
+      "targetUse": "Bad oder ein kompakter Wellnessraum.",
+      "images": [
+        {
+          "src": "/images/eichenholz-mini-sauna.webp",
+          "alt": "Eichenholz Mini Sauna: kompakte Holzkabine mit großer Glastür und warmer Innenbeleuchtung in einem hellen Bad"
+        }
+      ],
+      "specs": [
+        {
+          "label": "Modell",
+          "value": "BAD-EM-005",
+          "status": "verified"
+        },
+        {
+          "label": "Produktart",
+          "value": "Infrarot-Mini-Sauna, keine klassische Sauna mit Saunaofen",
+          "status": "unconfirmed"
+        },
+        {
+          "label": "Material",
+          "value": "Holzoptik im Entwurf, genaue Holzart offen",
+          "status": "unconfirmed"
+        },
+        {
+          "label": "Front",
+          "value": "Große Glastür im Entwurf, Glasart und Stärke offen",
+          "status": "unconfirmed"
+        },
+        {
+          "label": "Maße und Platz",
+          "value": "Vom Lieferanten zu bestätigen, kein Maß hinterlegt",
+          "status": "unconfirmed"
+        },
+        {
+          "label": "Heizleistung",
+          "value": "Vom Lieferanten zu bestätigen, kein Wert hinterlegt",
+          "status": "unconfirmed"
+        },
+        {
+          "label": "Elektrischer Anschluss",
+          "value": "Anschlusswerte offen",
+          "status": "unconfirmed"
+        },
+        {
+          "label": "Lieferumfang",
+          "value": "Nicht abschließend bestätigt",
+          "status": "unconfirmed"
+        }
+      ]
+    },
+    {
+      "slug": "aurora-panorama-mini-sauna",
+      "sku": "BAD-AP-006",
+      "name": "Aurora Panorama Mini Sauna",
+      "priceCents": 154900,
+      "stock": 3,
+      "shortDescription": "Die Aurora Panorama Mini Sauna verbindet eine moderne Glasfront mit einer natürlichen, warmen Atmosphäre. Genieße stilvolles Saunadesign in deinem eigenen Zuhause.",
+      "description": [
+        "Die Aurora Panorama Mini Sauna ist eine eigene Kabine neben der Panorama Mini Sauna. Die Bilder zeigen eine geschwungene Außenform, eine breite Glasfront, einen Holzinnenraum und warmes Licht in einem Wellnessraum.",
+        "Glasart, Rundung, Maße, Holzart, Heiztechnik und der elektrische Anschluss sind noch nicht bestätigt. Die Sitzanordnung auf den Bildern gehört zum Entwurf und ist keine zugesicherte Ausführung."
+      ],
+      "productType": "infrarot",
+      "features": [
+        "Geschwungene Außenform im Entwurf",
+        "Breite Glasfront im Entwurf",
+        "Holzinnenraum im Entwurf",
+        "Sitzanordnung nur im Bildentwurf"
+      ],
+      "targetUse": "Ein eigener Wellnessraum mit Platz für eine breitere Glasfront.",
+      "images": [
+        {
+          "src": "/images/aurora-panorama-mini-sauna.webp",
+          "alt": "Aurora Panorama Mini Sauna: geschwungene Holzkabine mit breiter Glasfront und warmem Innenlicht in einem Wellnessraum"
+        }
+      ],
+      "specs": [
+        {
+          "label": "Modell",
+          "value": "BAD-AP-006",
+          "status": "verified"
+        },
+        {
+          "label": "Produktart",
+          "value": "Infrarot-Mini-Sauna, keine klassische Sauna mit Saunaofen",
+          "status": "unconfirmed"
+        },
+        {
+          "label": "Material",
+          "value": "Holzinnenraum im Entwurf, genaue Holzart offen",
+          "status": "unconfirmed"
+        },
+        {
+          "label": "Front",
+          "value": "Panorama-Glasfront mit geschwungener Außenform im Entwurf, Glasart offen",
+          "status": "illustrative"
+        },
+        {
+          "label": "Maße und Platz",
+          "value": "Vom Lieferanten zu bestätigen, kein Maß hinterlegt",
+          "status": "unconfirmed"
+        },
+        {
+          "label": "Heizleistung",
+          "value": "Vom Lieferanten zu bestätigen, kein Wert hinterlegt",
+          "status": "unconfirmed"
+        },
+        {
+          "label": "Elektrischer Anschluss",
+          "value": "Anschlusswerte offen",
+          "status": "unconfirmed"
+        },
+        {
+          "label": "Lieferumfang",
+          "value": "Nicht abschließend bestätigt",
+          "status": "unconfirmed"
+        }
+      ]
     }
   ]
 }

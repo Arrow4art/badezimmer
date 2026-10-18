@@ -48,7 +48,7 @@ export default async function HomePage() {
         <div className="flex items-end justify-between gap-4">
           <div>
             <p className="text-xs font-medium uppercase tracking-[0.22em] text-moss">Sortiment</p>
-            <h2 className="mt-2 text-3xl font-medium tracking-tight">Vier Mini-Saunen</h2>
+            <h2 className="mt-2 text-3xl font-medium tracking-tight">Sechs Mini-Saunen</h2>
           </div>
           <Link href="/shop" className="text-sm underline underline-offset-4">
             Alle Modelle

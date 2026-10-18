@@ -11,7 +11,7 @@ export default async function ShopPage() {
     <>
       <PageHeader
         eyebrow="Shop"
-        title="Vier Mini-Saunen, klar bepreist."
+        title="Sechs Mini-Saunen, klar bepreist."
         lede="Jeder Preis enthält 19 % MwSt. Der Versand kommt dazu und steht vor dem Abschluss. Der Bestand ist der hinterlegte Shop-Bestand."
       />
       <ShopBrowser products={catalog.products} vatRate={catalog.vatRate} />

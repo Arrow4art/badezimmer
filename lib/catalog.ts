@@ -17,6 +17,8 @@ const KNOWN_SLUGS = [
   "nordik-mini-sauna",
   "premium-relax-sauna",
   "panorama-mini-sauna",
+  "eichenholz-mini-sauna",
+  "aurora-panorama-mini-sauna",
 ];
 
 function reservedQty(orders: Order[], slug: string): number {
@@ -265,7 +267,7 @@ export async function listOrders(): Promise<Order[]> {
 }
 
 export function validateAdminUpdate(input: AdminUpdate): string | null {
-  if (input.products.length !== 4) return "Es müssen genau vier Produkte bleiben.";
+  if (input.products.length !== KNOWN_SLUGS.length) return "Es müssen genau sechs Produkte bleiben.";
   const slugs = input.products.map((product) => product.slug);
   if (slugs.slice().sort().join() !== KNOWN_SLUGS.slice().sort().join()) {
     return "Die Modelle dürfen nicht ersetzt werden.";
