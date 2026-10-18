@@ -32,7 +32,7 @@ export function ProductCard({ product, vatRate }: { product: PublicProduct; vatR
         </h2>
         <p className="mt-3 text-lg">{formatEUR(product.priceCents)}</p>
         <p className="text-sm text-muted">inkl. {percent} % MwSt., zzgl. Versand</p>
-        <p className="mt-2 text-sm">{product.available > 0 ? `${product.available} verfügbar` : "Nicht verfügbar"}</p>
+        <p className="mt-2 text-sm">{product.available > 0 ? "Auf Lager" : "Nicht verfügbar"}</p>
         <div className="mt-5 flex flex-col gap-2 sm:flex-row">
           <Link href={`/produkt/${product.slug}`} className={btnSecondary}>
             Produkt ansehen

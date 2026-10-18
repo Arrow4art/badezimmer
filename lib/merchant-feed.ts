@@ -43,7 +43,6 @@ export function buildGoogleFeed(catalog: Catalog, origin: string): string {
         tag("g:image_link", images[0]),
         ...images.slice(1).map((image) => tag("g:additional_image_link", image)),
         tag("g:availability", product.available > 0 ? "in_stock" : "out_of_stock"),
-        tag("g:quantity", String(product.available)),
         tag("g:price", price(product.priceCents)),
         tag("g:brand", "Badezimmer"),
         tag("g:mpn", product.sku),

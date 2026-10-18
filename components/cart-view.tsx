@@ -53,7 +53,7 @@ export function CartView({ catalog }: { catalog: Catalog }) {
                 <Link href={`/produkt/${product.slug}`}>{product.name}</Link>
               </h2>
               <p className="mt-1 text-sm text-muted">{formatEUR(product.priceCents)} inkl. MwSt.</p>
-              <p className="text-sm text-muted">{product.available} verfügbar</p>
+              <p className="text-sm text-muted">{product.available > 0 ? "Auf Lager" : "Nicht verfügbar"}</p>
               <div className="mt-3 flex flex-wrap items-center gap-3">
                 <label className="text-sm" htmlFor={`qty-${product.slug}`}>
                   Menge

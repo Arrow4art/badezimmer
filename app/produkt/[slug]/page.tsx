@@ -44,7 +44,7 @@ export default async function ProductPage({ params }: Props) {
     { q: "Welche Produktart ist das?", a: kind.explanation },
     {
       q: "Wie viele Stück sind verfügbar?",
-      a: `Im Shop sind ${product.stock} Stück hinterlegt, davon ${product.available} jetzt auswählbar. Das ist kein Live-Bestand eines externen Lagersystems.`,
+      a: "Das Modell ist im Shop bestellbar. Die Menge im Warenkorb bleibt auf den hinterlegten Bestand begrenzt. Das ist kein Live-Bestand eines externen Lagersystems.",
     },
     {
       q: "Was kostet der Versand?",
