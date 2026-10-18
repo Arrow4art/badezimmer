@@ -69,6 +69,7 @@ export default async function ProductPage({ params }: Props) {
       priceCurrency: "EUR",
       price: (product.priceCents / 100).toFixed(2),
       availability: product.available > 0 ? "https://schema.org/InStock" : "https://schema.org/OutOfStock",
+      inventoryLevel: { "@type": "QuantitativeValue", value: product.available },
       url: `${siteUrl()}/produkt/${product.slug}`,
     },
   };
