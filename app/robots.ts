@@ -6,8 +6,8 @@ export default function robots(): MetadataRoute.Robots {
     return {
       rules: {
         userAgent: "*",
-        allow: ["/feeds/google.xml", "/produkt/", "/shop", "/images/", "/google055d10e31ef05c2e.html"],
-        disallow: "/",
+        allow: ["/", "/feeds/google.xml", "/produkt/", "/shop", "/images/", "/google055d10e31ef05c2e.html"],
+        disallow: ["/admin", "/kasse", "/warenkorb", "/bestellung", "/api/"],
       },
     };
   }

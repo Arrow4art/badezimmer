@@ -2,6 +2,7 @@ import type { Metadata, Viewport } from "next";
 import { Outfit } from "next/font/google";
 import { CartProvider } from "@/components/cart-context";
 import { Footer } from "@/components/footer";
+import { GoogleAdsTag } from "@/components/google-ads-tag";
 import { Header } from "@/components/header";
 import { getCatalog } from "@/lib/catalog";
 import "./globals.css";
@@ -38,6 +39,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
   return (
     <html lang="de">
       <body className={`${outfit.className} bg-cream text-ink antialiased`}>
+        <GoogleAdsTag />
         <a
           href="#inhalt"
           className="sr-only focus:not-sr-only focus:absolute focus:left-4 focus:top-4 focus:z-50 focus:rounded-full focus:bg-forest focus:px-4 focus:py-2 focus:text-cream"
