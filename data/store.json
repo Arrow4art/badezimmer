@@ -38,7 +38,7 @@
       "sku": "BAD-KS-001",
       "name": "Kompakt Sauna One",
       "priceCents": 89900,
-      "stock": 3,
+      "stock": 5,
       "shortDescription": "Eine kompakte Heimsauna für entspannte Wellnessmomente auf kleinem Raum.",
       "description": [
         "Die Kompakt Sauna One ist für kleine Wohnungen und Bäder gedacht. Das Gestaltungskonzept zeigt eine helle Holzkabine mit gerundeten Kanten, einer Glastür und warmem Licht im Innenraum.",
@@ -110,7 +110,7 @@
       "sku": "BAD-NS-002",
       "name": "Nordik Mini Sauna",
       "priceCents": 114900,
-      "stock": 3,
+      "stock": 5,
       "shortDescription": "Skandinavisches Design trifft auf natürliche Materialien und modernen Saunakomfort.",
       "description": [
         "Die Nordik Mini Sauna folgt einem schmalen, hellen Kabinenbild: helles Holz, ein dunkler Glasrahmen, eine Sitzbank aus Holz und eine kompakte Grundfläche.",
@@ -178,7 +178,7 @@
       "sku": "BAD-PR-003",
       "name": "Premium Relax Sauna",
       "priceCents": 139900,
-      "stock": 3,
+      "stock": 5,
       "shortDescription": "Eine elegante Mini-Sauna mit großzügiger Glasfront für ein hochwertiges Wellnesserlebnis zu Hause.",
       "description": [
         "Die Premium Relax Sauna ist die großzügigere Kabine im Sortiment. Die Bilder zeigen eine Holzkabine mit großer Glasfront, zwei Sitzebenen und warmem Innenlicht.",
@@ -250,7 +250,7 @@
       "sku": "BAD-PM-004",
       "name": "Panorama Mini Sauna",
       "priceCents": 159900,
-      "stock": 3,
+      "stock": 5,
       "shortDescription": "Eine stilvolle Heimsauna mit Panoramaglas und einer warmen, natürlichen Atmosphäre.",
       "description": [
         "Die Panorama Mini Sauna setzt auf eine breite Glasfront, einen Holzinnenraum und ein ruhiges, zeitgenössisches Äußeres. Vorgesehen ist sie für größere Bäder, Home-Gyms und Räume, die der Erholung dienen.",
