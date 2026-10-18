@@ -20,6 +20,17 @@ export function GoogleAdsTag() {
           });
           gtag('set', 'ads_data_redaction', true);
           gtag('set', 'url_passthrough', true);
+          try {
+            var saved = localStorage.getItem('badezimmer-consent');
+            if (saved === 'granted' || saved === 'denied') {
+              gtag('consent', 'update', {
+                ad_storage: saved,
+                ad_user_data: saved,
+                ad_personalization: saved,
+                analytics_storage: saved
+              });
+            }
+          } catch (e) {}
           gtag('js', new Date());
           gtag('config', '${googleAdsId}');
         `}

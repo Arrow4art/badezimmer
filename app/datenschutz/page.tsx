@@ -68,9 +68,9 @@ export default async function PrivacyPage() {
           <h2 className="text-2xl font-medium">Warenkorb und Cookies</h2>
           <p className="mt-3">
             Der Warenkorb liegt im lokalen Speicher des Browsers und wird nicht als Profil ausgewertet. Für die
-            Shop-Verwaltung setzen wir ein notwendiges, httpOnly-Sitzungscookie. Das Google-Tag für Google Ads ist
-            eingebunden, Werbungsspeicher und personalisierte Werbung sind jedoch standardmäßig abgelehnt. Marketing-Cookies
-            werden dadurch nicht gesetzt. Google kann eine cookiefreie Verbindung erhalten, um das Tag zu erkennen.
+            Shop-Verwaltung setzen wir ein notwendiges, httpOnly-Sitzungscookie. Das Google-Tag für Google Ads startet mit
+            abgelehntem Werbungsspeicher. Erst wenn Sie im Hinweis auf „Zustimmen“ klicken, werden Werbungsspeicher und
+            personalisierte Werbung erlaubt. „Ablehnen“ lässt den Speicher aus. Die Wahl bleibt in diesem Browser gespeichert.
           </p>
         </section>
         <section>

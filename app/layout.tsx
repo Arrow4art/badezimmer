@@ -1,6 +1,7 @@
 import type { Metadata, Viewport } from "next";
 import { Outfit } from "next/font/google";
 import { CartProvider } from "@/components/cart-context";
+import { ConsentBanner } from "@/components/consent-banner";
 import { Footer } from "@/components/footer";
 import { GoogleAdsTag } from "@/components/google-ads-tag";
 import { Header } from "@/components/header";
@@ -50,6 +51,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
           <Header />
           <main id="inhalt">{children}</main>
           <Footer business={catalog.business} />
+          <ConsentBanner />
         </CartProvider>
       </body>
     </html>
