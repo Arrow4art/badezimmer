@@ -51,7 +51,7 @@ export function orderMessage(order: Order): { subject: string; text: string } {
         "Lieferadresse:",
         address,
         "",
-        "Eine Lieferzeit nennen wir nur, wenn sie vom Lieferanten bestätigt ist.",
+        "Die Lieferung innerhalb Deutschlands dauert 0–1 Werktage. Die Spedition stimmt den Termin vorher mit Ihnen ab.",
         "Montage und elektrischer Anschluss richten sich nach den Hinweisen im Shop.",
       ].join("\n"),
     };

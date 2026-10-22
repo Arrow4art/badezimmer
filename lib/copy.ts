@@ -63,7 +63,7 @@ export const steps = [
   },
   {
     title: "Lieferung prüfen",
-    text: "Kostenlose Lieferung innerhalb Deutschlands. Gebiet und Lieferhinweise stehen vor dem Absenden.",
+    text: "Kostenlose Lieferung innerhalb Deutschlands in 0–1 Werktagen. Lieferhinweise stehen vor dem Absenden.",
   },
   {
     title: "Aufstellen und anschließen",
@@ -95,7 +95,7 @@ export function buildFaqs(products: Pick<PublicProduct, "name" | "productType">[
     },
     {
       q: "Wie lange dauert die Lieferung?",
-      a: "Eine Lieferzeit zeigen wir nur, wenn sie im Shop als vom Lieferanten bestätigt markiert ist. Solange das nicht der Fall ist, nennen wir keine Frist.",
+      a: "Die Lieferung innerhalb Deutschlands dauert 0–1 Werktage. Den genauen Liefertermin stimmt die Spedition vorher mit Ihnen ab.",
     },
     {
       q: "Ist die Montage enthalten?",
