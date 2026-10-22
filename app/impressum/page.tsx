@@ -11,7 +11,9 @@ export default async function ImpressumPage() {
       <PageHeader eyebrow="Rechtliches" title="Impressum" lede="Angaben gemäß § 5 DDG." />
       <div className="mx-auto max-w-3xl space-y-6 px-5 py-12 leading-relaxed">
         <p>
-          <Placeholder value={business.legalName} label="Name oder Firma" />
+          Badezimmer
+          <br />
+          Inhaber: <Placeholder value={business.legalName} label="Name oder Firma" /> (Einzelunternehmen)
           <br />
           <Placeholder value={business.street} label="Straße und Hausnummer" />
           <br />

@@ -40,7 +40,7 @@ export function Footer({ business }: { business: BusinessInfo }) {
         </div>
         <div className="text-sm leading-relaxed text-cream/75">
           <p className="text-xs uppercase tracking-[0.18em] text-cream/50">Kontakt</p>
-          <p className="mt-3">{business.legalName || "Badezimmer"}</p>
+          <p className="mt-3">Badezimmer</p>
           {place.length > 0 ? <p className="mt-1">{place.join(", ")}</p> : null}
           {business.email ? (
             <a href={`mailto:${business.email}`} className="mt-1 block text-cream/80 hover:text-cream">

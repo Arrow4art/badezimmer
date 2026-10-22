@@ -19,7 +19,8 @@ export default async function TermsPage() {
           <h2 className="text-2xl font-medium">1. Geltung</h2>
           <p className="mt-3">
             Diese Bedingungen gelten für Bestellungen im Shop Badezimmer durch Verbraucher mit Lieferadresse in Deutschland.
-            Vertragspartner ist <Placeholder value={business.legalName} label="Name oder Firma" />,{" "}
+            Vertragspartner ist <Placeholder value={business.legalName} label="Name oder Firma" />, handelnd unter
+            „Badezimmer“,{" "}
             {[business.street, [business.zip, business.city].filter(Boolean).join(" ")].filter(Boolean).join(", ")}, E-Mail{" "}
             {business.email}.
           </p>
