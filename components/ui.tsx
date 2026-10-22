@@ -32,15 +32,6 @@ export function PageHeader({
   );
 }
 
-export function DraftNotice({ children }: { children: React.ReactNode }) {
-  return (
-    <aside className="rounded-2xl border border-oak/50 bg-[#f6ecdf] px-4 py-3 text-sm leading-relaxed text-ink">
-      <p className="font-medium">Vor dem Launch prüfen</p>
-      <p className="mt-1 text-muted">{children}</p>
-    </aside>
-  );
-}
-
 export function Placeholder({ value, label }: { value?: string; label: string }) {
   if (value?.trim()) return <>{value}</>;
   return <span className="italic text-oak">[{label} noch einzutragen]</span>;

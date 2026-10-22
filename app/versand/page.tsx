@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { DraftNotice, PageHeader } from "@/components/ui";
+import { PageHeader } from "@/components/ui";
 import { getCatalog } from "@/lib/catalog";
 import { formatEUR } from "@/lib/money";
 
@@ -12,12 +12,9 @@ export default async function ShippingPage() {
       <PageHeader
         eyebrow="Versand"
         title="Versand und Lieferung"
-        lede="Die Werte auf dieser Seite sind die aktuelle Shop-Konfiguration und vor dem Launch mit Lieferant und Spedition zu bestätigen."
+        lede="Lieferung innerhalb Deutschlands per Spedition. Die Versandkosten sehen Sie vor dem Absenden der Bestellung."
       />
       <div className="mx-auto max-w-3xl space-y-8 px-5 py-12 leading-relaxed">
-        <DraftNotice>
-          Lieferzeit, Servicelevel und Zuschläge für schwierige Adressen dürfen erst als verbindlich gelten, wenn sie bestätigt sind.
-        </DraftNotice>
         <section>
           <h2 className="text-2xl font-medium">Liefergebiet</h2>
           <p className="mt-3">{shipping.destination}. Eine Lieferung in andere Länder ist nicht eingerichtet.</p>
@@ -58,7 +55,7 @@ export default async function ShippingPage() {
           <p className="mt-3">
             {shipping.appointmentRequired
               ? shipping.appointmentText
-              : "Nach aktueller Einstellung muss kein separater Termin bestätigt werden. Das bleibt mit dem Spediteur abzugleichen."}
+              : "Ein separater Liefertermin muss nicht bestätigt werden."}
           </p>
         </section>
         <section>

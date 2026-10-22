@@ -19,12 +19,21 @@ export default async function ContactPage() {
         <ContactForm />
         <aside className="text-sm leading-relaxed text-muted">
           <p className="font-medium text-ink">{business.legalName || "Badezimmer"}</p>
-          <p className="mt-2">{[business.street, business.zip, business.city].filter(Boolean).join(", ") || "Anschrift folgt im Impressum."}</p>
-          <p className="mt-2">{business.email || "E-Mail-Adresse folgt im Impressum."}</p>
-          <p>{business.phone || "Telefonnummer folgt im Impressum."}</p>
-          <p className="mt-4">
-            Die Nachricht wird im Shop gespeichert. Eine Weiterleitung per E-Mail erfolgt nur, wenn ein E-Mail-Anbieter konfiguriert ist.
-          </p>
+          {business.street ? (
+            <p className="mt-2">
+              {business.street}, {[business.zip, business.city].filter(Boolean).join(" ")}
+            </p>
+          ) : null}
+          {business.email ? (
+            <p className="mt-2">
+              E-Mail:{" "}
+              <a href={`mailto:${business.email}`} className="text-ink underline underline-offset-4">
+                {business.email}
+              </a>
+            </p>
+          ) : null}
+          {business.phone ? <p>Telefon: {business.phone}</p> : null}
+          <p className="mt-4">Am schnellsten erreichen Sie uns per E-Mail.</p>
         </aside>
       </div>
     </>

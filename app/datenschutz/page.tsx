@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { DraftNotice, PageHeader, Placeholder } from "@/components/ui";
+import { PageHeader, Placeholder } from "@/components/ui";
 import { getCatalog } from "@/lib/catalog";
 
 export const metadata: Metadata = { title: "Datenschutzerklärung" };
@@ -11,10 +11,9 @@ export default async function PrivacyPage() {
       <PageHeader
         eyebrow="Datenschutz"
         title="Datenschutzerklärung"
-        lede="Diese Erklärung beschreibt, welche Daten der Shop verarbeitet. Sie ist eine Arbeitsfassung und vor dem Launch zu prüfen."
+        lede="Diese Erklärung beschreibt, welche Daten der Shop verarbeitet."
       />
       <div className="mx-auto max-w-3xl space-y-8 px-5 py-12 leading-relaxed">
-        <DraftNotice>Verantwortlicher, Hosting und Auftragsverarbeiter müssen mit den echten Dienstleistern übereinstimmen.</DraftNotice>
         <section>
           <h2 className="text-2xl font-medium">Verantwortlicher</h2>
           <p className="mt-3">
@@ -26,8 +25,8 @@ export default async function PrivacyPage() {
         <section>
           <h2 className="text-2xl font-medium">Hosting</h2>
           <p className="mt-3">
-            Beim Aufruf der Seiten verarbeitet der Hoster technisch erforderliche Verbindungsdaten, etwa IP-Adresse und Zeitpunkt.
-            Der konkrete Hoster ist vor dem Launch hier zu benennen. Rechtsgrundlage ist Art. 6 Abs. 1 lit. f DSGVO, hilfsweise
+            Die Seiten werden bei Vercel Inc., USA, gehostet. Beim Aufruf verarbeitet Vercel technisch erforderliche
+            Verbindungsdaten, etwa IP-Adresse und Zeitpunkt. Dabei können Daten in den USA verarbeitet werden. Rechtsgrundlage ist Art. 6 Abs. 1 lit. f DSGVO, hilfsweise
             lit. b, soweit der Abruf einem Vertrag dient.
           </p>
         </section>

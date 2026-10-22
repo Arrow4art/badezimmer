@@ -6,14 +6,13 @@ import { Footer } from "@/components/footer";
 import { GoogleAdsTag } from "@/components/google-ads-tag";
 import { Header } from "@/components/header";
 import { getCatalog } from "@/lib/catalog";
+import { siteUrl } from "@/lib/site";
 import "./globals.css";
 
 const outfit = Outfit({ subsets: ["latin"], display: "swap" });
 
-const site = process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:3000";
-
 export const metadata: Metadata = {
-  metadataBase: new URL(site),
+  metadataBase: new URL(siteUrl()),
   title: {
     default: "Badezimmer — Mini-Saunen für zu Hause",
     template: "%s · Badezimmer",

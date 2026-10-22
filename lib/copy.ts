@@ -91,7 +91,7 @@ export function buildFaqs(products: Pick<PublicProduct, "name" | "productType">[
     },
     {
       q: "Wie hoch sind die Versandkosten?",
-      a: "Der Versand ist nicht pauschal kostenfrei. Der konfigurierte Speditionspreis steht im Warenkorb und an der Kasse, bevor Sie etwas absenden. Der Betrag ist ein Anfangswert und vor dem Launch mit dem Versanddienstleister zu bestätigen.",
+      a: "Der Versand ist nicht pauschal kostenfrei. Der konfigurierte Speditionspreis steht im Warenkorb und an der Kasse, bevor Sie etwas absenden.",
     },
     {
       q: "Wie lange dauert die Lieferung?",
@@ -111,19 +111,15 @@ export function buildFaqs(products: Pick<PublicProduct, "name" | "productType">[
     },
     {
       q: "Kann ich widerrufen?",
-      a: "Verbraucher haben bei Fernabsatzverträgen in der Regel ein 14-tägiges Widerrufsrecht. Der Ablauf, das Musterformular und der Hinweis zu Rücksendekosten bei Sperrgut stehen auf der Seite Rückgabe und Widerruf. Der Text ist vor dem Launch rechtlich zu prüfen.",
+      a: "Ja. Sie können innerhalb von 14 Tagen nach Erhalt ohne Angabe von Gründen widerrufen. Sie erhalten den Kaufpreis zurück, ein Umtausch wird nicht angeboten. Ablauf, Rücksendekosten bei Sperrgut und das Musterformular stehen auf der Seite Rückgabe und Widerruf.",
     },
     {
       q: "Gibt es Bewertungen, Garantien oder Prüfzeichen?",
       a: "Nein. Der Shop zeigt keine Kundenbewertungen, keine zusätzliche Garantie, keine Zertifikate und keine Energieeffizienzangaben, solange solche Nachweise nicht vorliegen.",
     },
     {
-      q: "Ist der Lagerbestand ein Live-Bestand?",
-      a: "Nein. Der angezeigte Bestand ist der im Shop hinterlegte Bestand. Er lässt sich im Admin-Bereich ändern und ist nicht mit einem externen Warenwirtschaftssystem verbunden.",
-    },
-    {
       q: "Was tue ich bei einem Transportschaden?",
-      a: "Vermerken Sie sichtbare Schäden bei der Annahme auf den Frachtpapieren und fotografieren Sie Verpackung und Kabine. Melden Sie den Schaden unverzüglich über die Kontaktseite. Der vorgesehene Ablauf steht auf der Seite Versand und ist vor dem Launch mit dem Spediteur abzustimmen.",
+      a: "Vermerken Sie sichtbare Schäden bei der Annahme auf den Frachtpapieren und fotografieren Sie Verpackung und Kabine. Melden Sie den Schaden unverzüglich an support@iwoody.de. Der Ablauf steht auf der Seite Versand.",
     },
   ];
 }

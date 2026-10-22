@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { DraftNotice, PageHeader } from "@/components/ui";
+import { PageHeader } from "@/components/ui";
 import { getCatalog } from "@/lib/catalog";
 
 export const metadata: Metadata = { title: "Zahlungsinformationen" };
@@ -15,9 +15,6 @@ export default async function PaymentPage() {
         lede="Alle Preise sind Bruttopreise. Der Versand steht vor dem Abschluss in der Summe. Versteckte Gebühren gibt es nicht."
       />
       <div className="mx-auto max-w-3xl space-y-8 px-5 py-12 leading-relaxed">
-        <DraftNotice>
-          Stripe muss im Händlerkonto für die gewünschten Zahlungsarten freigeschaltet sein. Dieser Shop speichert keine Kartendaten.
-        </DraftNotice>
         <section>
           <h2 className="text-2xl font-medium">Preise und Steuer</h2>
           <p className="mt-3">
@@ -30,12 +27,7 @@ export default async function PaymentPage() {
           <p className="mt-3">
             {catalog.paymentReady
               ? "Stripe ist konfiguriert. Nach der Kasse öffnet sich die Zahlungsseite von Stripe."
-              : "Stripe ist derzeit nicht konfiguriert. Der Shop führt keine Zahlung aus und markiert keine Bestellung als bezahlt."}
-          </p>
-          <p className="mt-3">
-            Sobald das Stripe-Konto es erlaubt, können dort in Deutschland übliche Methoden erscheinen, insbesondere Kreditkarte,
-            Klarna, PayPal und SEPA-Lastschrift. Welche Methoden tatsächlich angeboten werden, entscheidet die Freischaltung bei
-            Stripe, nicht eine Liste in diesem Shop.
+              : "Eine Online-Zahlung ist derzeit nicht freigeschaltet. Bestellungen gehen als unverbindliche Anfrage ein. Wir buchen nichts ab und melden uns per E-Mail."}
           </p>
         </section>
         <section>

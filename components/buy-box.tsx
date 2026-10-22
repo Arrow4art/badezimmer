@@ -15,7 +15,6 @@ export function BuyBox({ slug, available }: { slug: string; available: number })
     <div className="mt-6 rounded-3xl bg-paper p-5">
       <p className="text-sm">
         {max > 0 ? "Auf Lager" : "Nicht verfügbar"}
-        <span className="mt-1 block text-muted">Shop-Bestand, nicht an ein externes Lager angebunden.</span>
       </p>
       <div className="mt-4 flex items-center gap-3">
         <label htmlFor="menge" className="text-sm">

@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { DraftNotice, PageHeader, Placeholder } from "@/components/ui";
+import { PageHeader, Placeholder } from "@/components/ui";
 import { getCatalog } from "@/lib/catalog";
 
 export const metadata: Metadata = { title: "Rückgabe und Widerruf" };
@@ -11,10 +11,24 @@ export default async function WithdrawalPage() {
       <PageHeader
         eyebrow="Widerruf"
         title="Rückgabe und Widerruf"
-        lede="Verbraucher können einen Fernabsatzvertrag in der Regel innerhalb von 14 Tagen widerrufen. Dieser Text ist eine Arbeitsfassung."
+        lede="Sie können jede Bestellung innerhalb von 14 Tagen nach Erhalt ohne Angabe von Gründen zurückgeben."
       />
       <div className="mx-auto max-w-3xl space-y-8 px-5 py-12 leading-relaxed">
-        <DraftNotice>Bitte lassen Sie Widerrufsbelehrung und Rücksendekosten vor der Veröffentlichung rechtlich prüfen.</DraftNotice>
+        <section>
+          <h2 className="text-2xl font-medium">Rückgabe auf einen Blick</h2>
+          <ul className="mt-3 list-disc space-y-2 pl-5">
+            <li>Rückgabefrist: 14 Tage ab Erhalt der Ware.</li>
+            <li>Zurückgegeben werden können mangelfreie und mangelhafte Artikel.</li>
+            <li>Ein Umtausch gegen ein anderes Modell wird nicht angeboten. Sie erhalten den Kaufpreis zurück.</li>
+            <li>
+              Bei einer Rückgabe ohne Mangel tragen Sie die Kosten der Rücksendung. Bei einem Mangel tragen wir die Kosten.
+            </li>
+            <li>Die Erstattung erfolgt über dasselbe Zahlungsmittel, das Sie bei der Bestellung verwendet haben.</li>
+            <li>
+              Rückgaben melden Sie per E-Mail an <Placeholder value={business.email} label="E-Mail" />.
+            </li>
+          </ul>
+        </section>
         <section>
           <h2 className="text-2xl font-medium">Widerrufsrecht</h2>
           <p className="mt-3">
@@ -23,11 +37,12 @@ export default async function WithdrawalPage() {
             genommen haben.
           </p>
           <p className="mt-3">
-            Um das Widerrufsrecht auszuüben, müssen Sie uns mittels einer eindeutigen Erklärung informieren. Dafür reicht das
-            Kontaktformular, eine E-Mail oder das untenstehende Muster. Die Adresse steht im Impressum:{" "}
+            Um das Widerrufsrecht auszuüben, müssen Sie uns mittels einer eindeutigen Erklärung informieren, zum Beispiel per
+            E-Mail oder mit dem untenstehenden Muster:{" "}
             <Placeholder value={business.legalName} label="Name" />, <Placeholder value={business.street} label="Straße" />,{" "}
             <Placeholder value={[business.zip, business.city].filter(Boolean).join(" ")} label="Ort" />,{" "}
-            <Placeholder value={business.email} label="E-Mail" />.
+            <Placeholder value={business.email} label="E-Mail" />. Zur Wahrung der Frist reicht es, dass Sie die Mitteilung vor
+            Ablauf der Frist absenden.
           </p>
         </section>
         <section>
@@ -46,10 +61,9 @@ export default async function WithdrawalPage() {
         <section>
           <h2 className="text-2xl font-medium">Rücksendung von Sperrgut</h2>
           <p className="mt-3">
-            Sie tragen die unmittelbaren Kosten der Rücksendung. Eine Mini-Sauna ist Sperrgut. Die Rückgabe braucht in der
-            Regel eine Spedition. Die Kosten hängen von Maß, Gewicht und Adresse ab und können erheblich sein. Einen festen
-            Betrag nennen wir erst, wenn der Versanddienstleister ihn bestätigt hat. Bitte stimmen Sie die Abholung vor dem
-            Versand mit uns ab, damit die Kabine nicht unangekündigt zurückgeschickt wird.
+            Bei einem Widerruf ohne Mangel tragen Sie die unmittelbaren Kosten der Rücksendung. Eine Mini-Sauna ist Sperrgut
+            und wird per Spedition zurückgeschickt. Die Kosten hängen von Maß, Gewicht und Adresse ab und können erheblich
+            sein. Bitte stimmen Sie die Abholung vorher per E-Mail mit uns ab.
           </p>
           <p className="mt-3">
             Sie müssen für einen etwaigen Wertverlust nur aufkommen, wenn der Wertverlust auf einen Umgang zurückzuführen ist,
@@ -57,9 +71,20 @@ export default async function WithdrawalPage() {
           </p>
         </section>
         <section>
+          <h2 className="text-2xl font-medium">Mangelhafte Ware</h2>
+          <p className="mt-3">
+            Ist die Ware bei Lieferung beschädigt oder mangelhaft, gilt das gesetzliche Mängelrecht. Die Kosten der
+            Rücksendung übernehmen in diesem Fall wir. Melden Sie den Mangel mit Fotos per E-Mail.
+          </p>
+        </section>
+        <section>
           <h2 className="text-2xl font-medium">Muster-Widerrufsformular</h2>
           <div className="mt-3 rounded-3xl bg-paper p-5 text-sm">
-            <p>An <Placeholder value={business.legalName} label="Name" />, <Placeholder value={business.email} label="E-Mail" />:</p>
+            <p>
+              An <Placeholder value={business.legalName} label="Name" />, <Placeholder value={business.street} label="Straße" />,{" "}
+              <Placeholder value={[business.zip, business.city].filter(Boolean).join(" ")} label="Ort" />,{" "}
+              <Placeholder value={business.email} label="E-Mail" />:
+            </p>
             <p className="mt-3">
               Hiermit widerrufe(n) ich/wir den von mir/uns abgeschlossenen Vertrag über den Kauf der folgenden Waren:
             </p>

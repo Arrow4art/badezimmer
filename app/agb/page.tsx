@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { DraftNotice, PageHeader, Placeholder } from "@/components/ui";
+import { PageHeader, Placeholder } from "@/components/ui";
 import { getCatalog } from "@/lib/catalog";
 
 export const metadata: Metadata = { title: "Allgemeine Geschäftsbedingungen" };
@@ -12,15 +12,16 @@ export default async function TermsPage() {
       <PageHeader
         eyebrow="AGB"
         title="Allgemeine Geschäftsbedingungen"
-        lede="Arbeitsfassung für Verkäufe an Verbraucher in Deutschland. Vor dem Launch rechtlich prüfen lassen."
+        lede="Bedingungen für Bestellungen von Verbrauchern mit Lieferadresse in Deutschland."
       />
       <div className="mx-auto max-w-3xl space-y-8 px-5 py-12 leading-relaxed">
-        <DraftNotice>Vertragspartner, Gewährleistung und Gefahrübergang müssen zur tatsächlichen Lieferung passen.</DraftNotice>
         <section>
           <h2 className="text-2xl font-medium">1. Geltung</h2>
           <p className="mt-3">
             Diese Bedingungen gelten für Bestellungen im Shop Badezimmer durch Verbraucher mit Lieferadresse in Deutschland.
-            Vertragspartner ist <Placeholder value={business.legalName} label="der noch einzutragende Anbieter" />.
+            Vertragspartner ist <Placeholder value={business.legalName} label="Name oder Firma" />,{" "}
+            {[business.street, [business.zip, business.city].filter(Boolean).join(" ")].filter(Boolean).join(", ")}, E-Mail{" "}
+            {business.email}.
           </p>
         </section>
         <section>
@@ -88,8 +89,8 @@ export default async function TermsPage() {
         <section>
           <h2 className="text-2xl font-medium">10. Streitbeilegung</h2>
           <p className="mt-3">
-            Eine Teilnahme an einem Streitbeilegungsverfahren ist derzeit nicht erklärt. Die EU-Online-Streitbeilegungsplattform
-            ist eingestellt.
+            Wir sind nicht bereit und nicht verpflichtet, an Streitbeilegungsverfahren vor einer Verbraucherschlichtungsstelle
+            teilzunehmen.
           </p>
         </section>
       </div>

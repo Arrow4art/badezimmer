@@ -41,19 +41,19 @@ export function Footer({ business }: { business: BusinessInfo }) {
         <div className="text-sm leading-relaxed text-cream/75">
           <p className="text-xs uppercase tracking-[0.18em] text-cream/50">Kontakt</p>
           <p className="mt-3">{business.legalName || "Badezimmer"}</p>
-          {place.length > 0 ? <p className="mt-1">{place.join(", ")}</p> : <p className="mt-1">Anschrift folgt vor dem Launch im Impressum.</p>}
-          {business.email ? <p className="mt-1">{business.email}</p> : null}
+          {place.length > 0 ? <p className="mt-1">{place.join(", ")}</p> : null}
+          {business.email ? (
+            <a href={`mailto:${business.email}`} className="mt-1 block text-cream/80 hover:text-cream">
+              {business.email}
+            </a>
+          ) : null}
           {business.phone ? <p>{business.phone}</p> : null}
-          <Link href="/admin" className="mt-4 inline-block text-cream/50 hover:text-cream">
-            Shop-Verwaltung
-          </Link>
         </div>
       </div>
       <div className="border-t border-white/10">
         <p className="mx-auto max-w-6xl px-5 py-4 text-xs leading-relaxed text-cream/55">
-          Preise inklusive 19 % MwSt., zuzüglich der vor dem Abschluss angezeigten Versandkosten. Der Bestand ist ein
-          Shop-Bestand und kein Live-Lager. Zahlungen laufen nur über einen eingerichteten Zahlungsanbieter. Kartendaten
-          werden hier nicht gespeichert.
+          Preise inklusive 19 % MwSt., zuzüglich der vor dem Abschluss angezeigten Versandkosten. Kartendaten werden in
+          diesem Shop nicht gespeichert.
         </p>
       </div>
     </footer>

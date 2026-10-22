@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { DraftNotice, PageHeader, Placeholder } from "@/components/ui";
+import { PageHeader, Placeholder } from "@/components/ui";
 import { getCatalog } from "@/lib/catalog";
 
 export const metadata: Metadata = { title: "Impressum" };
@@ -8,9 +8,8 @@ export default async function ImpressumPage() {
   const { business } = await getCatalog();
   return (
     <>
-      <PageHeader eyebrow="Rechtliches" title="Impressum" lede="Angaben gemäß § 5 DDG. Leere Felder sind vor der Veröffentlichung zu ersetzen." />
+      <PageHeader eyebrow="Rechtliches" title="Impressum" lede="Angaben gemäß § 5 DDG." />
       <div className="mx-auto max-w-3xl space-y-6 px-5 py-12 leading-relaxed">
-        <DraftNotice>Ohne vollständige Anbieterkennzeichnung darf der Shop nicht öffentlich angeboten werden.</DraftNotice>
         <p>
           <Placeholder value={business.legalName} label="Name oder Firma" />
           <br />
@@ -20,25 +19,27 @@ export default async function ImpressumPage() {
           <br />
           {business.country || "Deutschland"}
         </p>
+        {business.owner ? <p>Vertreten durch: {business.owner}</p> : null}
         <p>
-          Vertreten durch: <Placeholder value={business.owner} label="vertretungsberechtigte Person" />
-        </p>
-        <p>
-          Telefon: <Placeholder value={business.phone} label="Telefon" />
-          <br />
           E-Mail: <Placeholder value={business.email} label="E-Mail" />
+          {business.phone ? (
+            <>
+              <br />
+              Telefon: {business.phone}
+            </>
+          ) : null}
         </p>
+        {business.register || business.vatId ? (
+          <p>
+            {business.register ? <>Register: {business.register}</> : null}
+            {business.register && business.vatId ? <br /> : null}
+            {business.vatId ? <>USt-IdNr.: {business.vatId}</> : null}
+          </p>
+        ) : null}
+        {business.responsiblePerson ? <p>Inhaltlich verantwortlich: {business.responsiblePerson}</p> : null}
         <p>
-          Register: <Placeholder value={business.register} label="Registergericht und Nummer, falls vorhanden" />
-          <br />
-          USt-IdNr.: <Placeholder value={business.vatId} label="USt-IdNr., falls vorhanden" />
-        </p>
-        <p>
-          Inhaltlich verantwortlich: <Placeholder value={business.responsiblePerson} label="verantwortliche Person" />
-        </p>
-        <p>
-          Eine Teilnahme an einem Streitbeilegungsverfahren vor einer Verbraucherschlichtungsstelle ist derzeit nicht erklärt
-          und vor dem Launch festzulegen. Die frühere EU-Online-Streitbeilegungsplattform wird nicht mehr betrieben.
+          Wir sind nicht bereit und nicht verpflichtet, an Streitbeilegungsverfahren vor einer Verbraucherschlichtungsstelle
+          teilzunehmen.
         </p>
       </div>
     </>
