@@ -6,7 +6,7 @@ import { getCatalog } from "@/lib/catalog";
 export const metadata: Metadata = { title: "Allgemeine Geschäftsbedingungen" };
 
 export default async function TermsPage() {
-  const { business } = await getCatalog();
+  const { business, paymentReady } = await getCatalog();
   return (
     <>
       <PageHeader
@@ -28,8 +28,10 @@ export default async function TermsPage() {
           <h2 className="text-2xl font-medium">2. Angebot und Vertragsschluss</h2>
           <p className="mt-3">
             Die Produktseiten sind eine Aufforderung zur Bestellung. Ein Kaufvertrag kommt erst zustande, wenn die Zahlung
-            über den konfigurierten Zahlungsanbieter bestätigt ist. Solange kein Anbieter konfiguriert ist, erzeugt das
-            Formular nur eine unverbindliche Anfrage und keinen Kaufvertrag.
+            über Stripe bestätigt ist.
+            {paymentReady
+              ? ""
+              : " Solange keine Online-Zahlung freigeschaltet ist, erzeugt das Formular nur eine unverbindliche Anfrage und keinen Kaufvertrag."}
           </p>
           <p className="mt-3">
             Maße, Materialien, Heiztechnik und Lieferumfang sind nur verbindlich, soweit sie auf der Produktseite als bestätigt
@@ -47,9 +49,8 @@ export default async function TermsPage() {
         <section>
           <h2 className="text-2xl font-medium">4. Zahlung</h2>
           <p className="mt-3">
-            Die Zahlung erfolgt über Stripe, sobald das Konto angebunden ist. Welche Zahlungsarten Stripe anzeigt, hängt von
-            der Freischaltung im Händlerkonto ab. Kartendaten werden nicht bei uns gespeichert. Ohne bestätigte Zahlung liefern
-            wir nicht.
+            Die Zahlung erfolgt über die Zahlungsseite von Stripe. Dort sehen Sie die verfügbaren Zahlungsarten. Kartendaten
+            werden nicht bei uns gespeichert. Ohne bestätigte Zahlung liefern wir nicht.
           </p>
         </section>
         <section>

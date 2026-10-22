@@ -26,7 +26,7 @@ export default async function PaymentPage() {
           <h2 className="text-2xl font-medium">Zahlungsarten</h2>
           <p className="mt-3">
             {catalog.paymentReady
-              ? "Stripe ist konfiguriert. Nach der Kasse öffnet sich die Zahlungsseite von Stripe."
+              ? "Sie bezahlen sicher über Stripe. Nach der Kasse öffnet sich die Zahlungsseite von Stripe. Dort sehen Sie alle verfügbaren Zahlungsarten."
               : "Eine Online-Zahlung ist derzeit nicht freigeschaltet. Bestellungen gehen als unverbindliche Anfrage ein. Wir buchen nichts ab und melden uns per E-Mail."}
           </p>
         </section>

@@ -51,7 +51,7 @@ function parseUpdate(body: unknown): AdminUpdate | null {
     vatId: text(businessRaw.vatId, 40),
     responsiblePerson: text(businessRaw.responsiblePerson, 160),
   };
-  const products = record.products.slice(0, 4).map((entry) => {
+  const products = record.products.slice(0, 6).map((entry) => {
     const product = entry as Record<string, unknown>;
     const productType: ProductType = product.productType === "traditionell" ? "traditionell" : "infrarot";
     return {

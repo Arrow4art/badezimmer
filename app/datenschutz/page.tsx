@@ -35,17 +35,18 @@ export default async function PrivacyPage() {
           <p className="mt-3">
             Für eine Anfrage oder eine Zahlung verarbeiten wir Name, E-Mail, Lieferadresse, Telefonnummer soweit angegeben,
             die gewählten Modelle und den Vorgangsstatus. Rechtsgrundlage ist Art. 6 Abs. 1 lit. b DSGVO, bei gesetzlichen
-            Aufbewahrungspflichten lit. c. Kartendaten, Prüfziffern und Ablaufdaten erheben wir nicht. Wenn Stripe genutzt
-            wird, gibt der Kunde diese Daten unmittelbar bei Stripe ein.
+            Aufbewahrungspflichten lit. c. Kartendaten, Prüfziffern und Ablaufdaten erheben wir nicht. Diese Daten geben Sie
+            unmittelbar bei Stripe ein. Bestellungen, Kontaktnachrichten und Newsletter-Anmeldungen speichern wir in einer
+            Datenbank von Upstash, Inc., die über Vercel bereitgestellt wird.
           </p>
         </section>
         <section>
           <h2 className="text-2xl font-medium">Stripe</h2>
           <p className="mt-3">
-            Ist Stripe konfiguriert, übermittelt der Shop die für die Zahlung nötigen Vorgangsdaten an Stripe Payments Europe,
-            Limited, bzw. die von Stripe benannten Stellen. Stripe ist dann eigener Verantwortlicher für die Zahlungsdaten oder
-            Auftragsverarbeiter, je nach Einrichtung des Kontos. Das ist im Stripe-Dashboard und in einem Vertrag nach Art. 28
-            DSGVO festzuhalten. Ohne Stripe-Schlüssel findet keine Übermittlung statt.
+            Für die Zahlung übermittelt der Shop die nötigen Vorgangsdaten an Stripe Payments Europe, Limited, 1 Grand Canal
+            Street Lower, Dublin, Irland. Dazu gehören Bestellnummer, E-Mail-Adresse, Modelle und Beträge. Stripe verarbeitet
+            die Zahlungsdaten als eigener Verantwortlicher. Rechtsgrundlage ist Art. 6 Abs. 1 lit. b DSGVO. Weitere
+            Informationen finden Sie in der Datenschutzerklärung von Stripe unter stripe.com/de/privacy.
           </p>
         </section>
         <section>

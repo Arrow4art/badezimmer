@@ -2,6 +2,7 @@ import { NextResponse } from "next/server";
 import { attachStripeSession, createInquiry, createPendingOrder, failPendingOrder } from "@/lib/catalog";
 import { notifyOrder } from "@/lib/notify";
 import { siteUrl } from "@/lib/site";
+import { readStore } from "@/lib/store";
 import { getStripe } from "@/lib/stripe";
 import type { Order } from "@/lib/types";
 import { parseCheckout } from "@/lib/validate";
@@ -9,10 +10,12 @@ import type Stripe from "stripe";
 
 export const dynamic = "force-dynamic";
 
-async function createSession(stripe: Stripe, order: Order) {
+async function createSession(stripe: Stripe, order: Order, reservationHours: number) {
+  const holdSeconds = Math.min(24, Math.max(1, reservationHours)) * 60 * 60;
   const base: Stripe.Checkout.SessionCreateParams = {
     mode: "payment",
     locale: "de",
+    expires_at: Math.floor(Date.now() / 1000) + holdSeconds,
     customer_email: order.customer.email,
     client_reference_id: order.id,
     metadata: { orderId: order.id },
@@ -68,7 +71,8 @@ export async function POST(request: Request) {
   if (!created.ok) return NextResponse.json({ error: created.error }, { status: 400 });
 
   try {
-    const session = await createSession(stripe, created.order);
+    const store = await readStore();
+    const session = await createSession(stripe, created.order, store.shipping.reservationHours);
     if (!session.url) throw new Error("Stripe lieferte keine Weiterleitung.");
     await attachStripeSession(created.order.id, session.id);
     return NextResponse.json({ mode: "stripe", id: created.order.id, url: session.url });

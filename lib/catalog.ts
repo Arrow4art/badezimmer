@@ -229,7 +229,7 @@ export async function markPaid(orderId: string, sessionId: string): Promise<Orde
     if (!order) return null;
     if (order.stripeSessionId && order.stripeSessionId !== sessionId) return order;
     if (order.status === "bezahlt") return order;
-    if (order.status !== "zahlung_ausstehend") return order;
+    if (order.status !== "zahlung_ausstehend" && order.status !== "abgelaufen") return order;
     const store = await readStore();
     for (const item of order.items) {
       const product = store.products.find((entry) => entry.slug === item.slug);
