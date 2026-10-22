@@ -3,7 +3,7 @@
   "installationText": "Die Montage ist im Preis nicht enthalten, solange sie im Shop nicht ausdrücklich als enthalten konfiguriert ist. Anschlusswerte, Absicherung und die erforderliche Zuleitung sind vom Lieferanten noch nicht bestätigt. Die Kabine darf erst angeschlossen werden, wenn diese Angaben vorliegen, und nur durch eine qualifizierte Elektrofachkraft.",
   "shipping": {
     "destination": "Deutschland",
-    "costCents": 18900,
+    "costCents": 0,
     "label": "Spedition innerhalb Deutschlands",
     "dispatchText": "Die Zeit bis zur Übergabe an die Spedition ist noch nicht bestätigt.",
     "deliveryEstimateText": "",
@@ -38,7 +38,7 @@
       "sku": "BAD-KS-001",
       "name": "Kompakt Sauna One",
       "priceCents": 89900,
-      "stock": 20,
+      "stock": 10,
       "shortDescription": "Eine kompakte Heimsauna für entspannte Wellnessmomente auf kleinem Raum.",
       "description": [
         "Die Kompakt Sauna One ist für kleine Wohnungen und Bäder gedacht. Das Gestaltungskonzept zeigt eine helle Holzkabine mit gerundeten Kanten, einer Glastür und warmem Licht im Innenraum.",
@@ -106,7 +106,7 @@
       "sku": "BAD-NS-002",
       "name": "Nordik Mini Sauna",
       "priceCents": 114900,
-      "stock": 20,
+      "stock": 10,
       "shortDescription": "Skandinavisches Design trifft auf natürliche Materialien und modernen Saunakomfort.",
       "description": [
         "Die Nordik Mini Sauna folgt einem schmalen, hellen Kabinenbild: helles Holz, ein dunkler Glasrahmen, eine Sitzbank aus Holz und eine kompakte Grundfläche.",
@@ -174,7 +174,7 @@
       "sku": "BAD-PR-003",
       "name": "Premium Relax Sauna",
       "priceCents": 139900,
-      "stock": 20,
+      "stock": 10,
       "shortDescription": "Eine elegante Mini-Sauna mit großzügiger Glasfront für ein hochwertiges Wellnesserlebnis zu Hause.",
       "description": [
         "Die Premium Relax Sauna ist die großzügigere Kabine im Sortiment. Die Bilder zeigen eine Holzkabine mit großer Glasfront, zwei Sitzebenen und warmem Innenlicht.",
@@ -242,7 +242,7 @@
       "sku": "BAD-PM-004",
       "name": "Panorama Mini Sauna",
       "priceCents": 159900,
-      "stock": 20,
+      "stock": 10,
       "shortDescription": "Eine stilvolle Heimsauna mit Panoramaglas und einer warmen, natürlichen Atmosphäre.",
       "description": [
         "Die Panorama Mini Sauna setzt auf eine breite Glasfront, einen Holzinnenraum und ein ruhiges, zeitgenössisches Äußeres. Vorgesehen ist sie für größere Bäder, Home-Gyms und Räume, die der Erholung dienen.",
@@ -310,7 +310,7 @@
       "sku": "BAD-EM-005",
       "name": "Eichenholz Mini Sauna",
       "priceCents": 124900,
-      "stock": 20,
+      "stock": 10,
       "shortDescription": "Entdecke deine persönliche Wellness-Oase mit der Eichenholz Mini Sauna. Das moderne Design und die natürliche Holzoptik machen sie zu einer stilvollen Ergänzung für dein Zuhause.",
       "description": [
         "Die Eichenholz Mini Sauna ist als kompakte Heimkabine für Bad oder Wellnessraum gedacht. Die Bilder zeigen eine warme, holzähnliche Außenansicht, eine große Glastür mit schlichtem Rahmen, warmes Innenlicht und eine platzsparende Sitzbank.",
@@ -378,7 +378,7 @@
       "sku": "BAD-AP-006",
       "name": "Aurora Panorama Mini Sauna",
       "priceCents": 154900,
-      "stock": 20,
+      "stock": 10,
       "shortDescription": "Die Aurora Panorama Mini Sauna verbindet eine moderne Glasfront mit einer natürlichen, warmen Atmosphäre. Genieße stilvolles Saunadesign in deinem eigenen Zuhause.",
       "description": [
         "Die Aurora Panorama Mini Sauna ist eine eigene Kabine neben der Panorama Mini Sauna. Die Bilder zeigen eine geschwungene Außenform, eine breite Glasfront, einen Holzinnenraum und warmes Licht in einem Wellnessraum.",

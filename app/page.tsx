@@ -56,7 +56,7 @@ export default async function HomePage() {
         </div>
         <div className="mt-8 grid gap-6 sm:grid-cols-2">
           {catalog.products.map((product) => (
-            <ProductCard key={product.slug} product={product} vatRate={catalog.vatRate} />
+            <ProductCard key={product.slug} product={product} vatRate={catalog.vatRate} shippingCents={catalog.shipping.costCents} />
           ))}
         </div>
       </section>

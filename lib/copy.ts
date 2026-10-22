@@ -59,11 +59,11 @@ export const benefits = [
 export const steps = [
   {
     title: "Modell wählen",
-    text: "Sechs Mini-Saunen mit festem Preis, sichtbarem Shop-Bestand und einer klaren Produktart.",
+    text: "Sechs Mini-Saunen mit festem Preis, sichtbarem Bestand und einer klaren Produktart.",
   },
   {
     title: "Lieferung prüfen",
-    text: "Versandkosten, Gebiet und Lieferhinweise stehen vor dem Absenden. Eine Lieferzeit nennen wir nur, wenn sie bestätigt ist.",
+    text: "Kostenlose Lieferung innerhalb Deutschlands. Gebiet und Lieferhinweise stehen vor dem Absenden.",
   },
   {
     title: "Aufstellen und anschließen",
@@ -91,7 +91,7 @@ export function buildFaqs(products: Pick<PublicProduct, "name" | "productType">[
     },
     {
       q: "Wie hoch sind die Versandkosten?",
-      a: "Der Versand ist nicht pauschal kostenfrei. Der konfigurierte Speditionspreis steht im Warenkorb und an der Kasse, bevor Sie etwas absenden.",
+      a: "Der Versand per Spedition innerhalb Deutschlands ist kostenlos. Die Summe im Warenkorb und an der Kasse ist der Endpreis.",
     },
     {
       q: "Wie lange dauert die Lieferung?",

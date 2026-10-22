@@ -14,7 +14,7 @@ export default async function ShopPage() {
         title="Sechs Mini-Saunen, klar bepreist."
         lede="Jeder Preis enthält 19 % MwSt. Der Versand kommt dazu und steht vor dem Abschluss. Der Bestand ist der hinterlegte Shop-Bestand."
       />
-      <ShopBrowser products={catalog.products} vatRate={catalog.vatRate} />
+      <ShopBrowser products={catalog.products} vatRate={catalog.vatRate} shippingCents={catalog.shipping.costCents} />
     </>
   );
 }

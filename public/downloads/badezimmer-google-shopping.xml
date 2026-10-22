@@ -11,7 +11,7 @@
       <g:link>https://www.iwoody.de/produkt/kompakt-sauna-one</g:link>
       <g:image_link>https://www.iwoody.de/images/kompakt-sauna-one-main.webp</g:image_link>
       <g:availability>in_stock</g:availability>
-      <g:quantity>20</g:quantity>
+      <g:quantity>10</g:quantity>
       <g:price>899.00 EUR</g:price>
       <g:brand>Badezimmer</g:brand>
       <g:mpn>BAD-KS-001</g:mpn>
@@ -25,7 +25,7 @@
       <g:shipping>
         <g:country>DE</g:country>
         <g:service>Spedition innerhalb Deutschlands</g:service>
-        <g:price>189.00 EUR</g:price>
+        <g:price>0.00 EUR</g:price>
       </g:shipping>
     </item>
     <item>
@@ -35,7 +35,7 @@
       <g:link>https://www.iwoody.de/produkt/nordik-mini-sauna</g:link>
       <g:image_link>https://www.iwoody.de/images/nordik-mini-sauna-main.webp</g:image_link>
       <g:availability>in_stock</g:availability>
-      <g:quantity>20</g:quantity>
+      <g:quantity>10</g:quantity>
       <g:price>1149.00 EUR</g:price>
       <g:brand>Badezimmer</g:brand>
       <g:mpn>BAD-NS-002</g:mpn>
@@ -49,7 +49,7 @@
       <g:shipping>
         <g:country>DE</g:country>
         <g:service>Spedition innerhalb Deutschlands</g:service>
-        <g:price>189.00 EUR</g:price>
+        <g:price>0.00 EUR</g:price>
       </g:shipping>
     </item>
     <item>
@@ -59,7 +59,7 @@
       <g:link>https://www.iwoody.de/produkt/premium-relax-sauna</g:link>
       <g:image_link>https://www.iwoody.de/images/premium-relax-sauna-main.webp</g:image_link>
       <g:availability>in_stock</g:availability>
-      <g:quantity>20</g:quantity>
+      <g:quantity>10</g:quantity>
       <g:price>1399.00 EUR</g:price>
       <g:brand>Badezimmer</g:brand>
       <g:mpn>BAD-PR-003</g:mpn>
@@ -73,7 +73,7 @@
       <g:shipping>
         <g:country>DE</g:country>
         <g:service>Spedition innerhalb Deutschlands</g:service>
-        <g:price>189.00 EUR</g:price>
+        <g:price>0.00 EUR</g:price>
       </g:shipping>
     </item>
     <item>
@@ -83,7 +83,7 @@
       <g:link>https://www.iwoody.de/produkt/panorama-mini-sauna</g:link>
       <g:image_link>https://www.iwoody.de/images/panorama-mini-sauna-main.webp</g:image_link>
       <g:availability>in_stock</g:availability>
-      <g:quantity>20</g:quantity>
+      <g:quantity>10</g:quantity>
       <g:price>1599.00 EUR</g:price>
       <g:brand>Badezimmer</g:brand>
       <g:mpn>BAD-PM-004</g:mpn>
@@ -97,7 +97,7 @@
       <g:shipping>
         <g:country>DE</g:country>
         <g:service>Spedition innerhalb Deutschlands</g:service>
-        <g:price>189.00 EUR</g:price>
+        <g:price>0.00 EUR</g:price>
       </g:shipping>
     </item>
     <item>
@@ -107,7 +107,7 @@
       <g:link>https://www.iwoody.de/produkt/eichenholz-mini-sauna</g:link>
       <g:image_link>https://www.iwoody.de/images/eichenholz-mini-sauna-main.webp</g:image_link>
       <g:availability>in_stock</g:availability>
-      <g:quantity>20</g:quantity>
+      <g:quantity>10</g:quantity>
       <g:price>1249.00 EUR</g:price>
       <g:brand>Badezimmer</g:brand>
       <g:mpn>BAD-EM-005</g:mpn>
@@ -121,7 +121,7 @@
       <g:shipping>
         <g:country>DE</g:country>
         <g:service>Spedition innerhalb Deutschlands</g:service>
-        <g:price>189.00 EUR</g:price>
+        <g:price>0.00 EUR</g:price>
       </g:shipping>
     </item>
     <item>
@@ -131,7 +131,7 @@
       <g:link>https://www.iwoody.de/produkt/aurora-panorama-mini-sauna</g:link>
       <g:image_link>https://www.iwoody.de/images/aurora-panorama-mini-sauna-photo.webp</g:image_link>
       <g:availability>in_stock</g:availability>
-      <g:quantity>20</g:quantity>
+      <g:quantity>10</g:quantity>
       <g:price>1549.00 EUR</g:price>
       <g:brand>Badezimmer</g:brand>
       <g:mpn>BAD-AP-006</g:mpn>
@@ -145,7 +145,7 @@
       <g:shipping>
         <g:country>DE</g:country>
         <g:service>Spedition innerhalb Deutschlands</g:service>
-        <g:price>189.00 EUR</g:price>
+        <g:price>0.00 EUR</g:price>
       </g:shipping>
     </item>
   </channel>

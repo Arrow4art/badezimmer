@@ -12,7 +12,11 @@ export default async function ShippingPage() {
       <PageHeader
         eyebrow="Versand"
         title="Versand und Lieferung"
-        lede="Lieferung innerhalb Deutschlands per Spedition. Die Versandkosten sehen Sie vor dem Absenden der Bestellung."
+        lede={
+          shipping.costCents === 0
+            ? "Kostenlose Lieferung innerhalb Deutschlands per Spedition."
+            : "Lieferung innerhalb Deutschlands per Spedition. Die Versandkosten sehen Sie vor dem Absenden der Bestellung."
+        }
       />
       <div className="mx-auto max-w-3xl space-y-8 px-5 py-12 leading-relaxed">
         <section>
@@ -22,9 +26,11 @@ export default async function ShippingPage() {
         <section>
           <h2 className="text-2xl font-medium">Versandkosten</h2>
           <p className="mt-3">
-            {formatEUR(shipping.costCents)} für „{shipping.label}“. Der Betrag ist nicht als kostenfreie Lieferung hinterlegt.
-            Er erscheint im Warenkorb und an der Kasse, bevor Sie etwas absenden. Weitere Zuschläge werden nur berechnet, wenn
-            sie vorher auf dieser Seite und an der Kasse stehen.
+            {shipping.costCents === 0
+              ? `Der Versand ist kostenlos („${shipping.label}“).`
+              : `${formatEUR(shipping.costCents)} für „${shipping.label}“.`}{" "}
+            Die Versandkosten stehen im Warenkorb und an der Kasse, bevor Sie etwas absenden. Weitere Zuschläge werden nur
+            berechnet, wenn sie vorher auf dieser Seite und an der Kasse stehen.
           </p>
         </section>
         <section>

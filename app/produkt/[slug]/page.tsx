@@ -7,7 +7,7 @@ import { Gallery } from "@/components/gallery";
 import { ProductCard } from "@/components/product-card";
 import { getCatalog, relatedProducts } from "@/lib/catalog";
 import { specStatusLabel, typeCopy } from "@/lib/copy";
-import { formatEUR } from "@/lib/money";
+import { formatEUR, formatShipping } from "@/lib/money";
 import { siteUrl } from "@/lib/site";
 import type { SpecStatus } from "@/lib/types";
 
@@ -44,11 +44,14 @@ export default async function ProductPage({ params }: Props) {
     { q: "Welche Produktart ist das?", a: kind.explanation },
     {
       q: "Wie viele Stück sind verfügbar?",
-      a: "Das Modell ist im Shop bestellbar. Die Menge im Warenkorb bleibt auf den hinterlegten Bestand begrenzt. Das ist kein Live-Bestand eines externen Lagersystems.",
+      a: "Das Modell ist im Shop bestellbar. Die Menge im Warenkorb ist auf den verfügbaren Bestand begrenzt.",
     },
     {
       q: "Was kostet der Versand?",
-      a: `Aktuell ${formatEUR(catalog.shipping.costCents)} für „${catalog.shipping.label}“. Der Betrag steht im Warenkorb und an der Kasse, bevor Sie etwas absenden.`,
+      a:
+        catalog.shipping.costCents === 0
+          ? `Der Versand innerhalb Deutschlands ist kostenlos („${catalog.shipping.label}“).`
+          : `${formatEUR(catalog.shipping.costCents)} für „${catalog.shipping.label}“. Der Betrag steht im Warenkorb und an der Kasse, bevor Sie etwas absenden.`,
     },
     {
       q: "Wie sind Widerruf und Rückgabe geregelt?",
@@ -71,6 +74,15 @@ export default async function ProductPage({ params }: Props) {
       availability: product.available > 0 ? "https://schema.org/InStock" : "https://schema.org/OutOfStock",
       inventoryLevel: { "@type": "QuantitativeValue", value: product.available },
       url: `${siteUrl()}/produkt/${product.slug}`,
+      shippingDetails: {
+        "@type": "OfferShippingDetails",
+        shippingRate: {
+          "@type": "MonetaryAmount",
+          value: (catalog.shipping.costCents / 100).toFixed(2),
+          currency: "EUR",
+        },
+        shippingDestination: { "@type": "DefinedRegion", addressCountry: "DE" },
+      },
     },
   };
 
@@ -91,7 +103,8 @@ export default async function ProductPage({ params }: Props) {
           <p className="mt-2 text-sm text-muted">Modell {product.sku}</p>
           <p className="mt-5 text-3xl">{formatEUR(product.priceCents)}</p>
           <p className="text-sm text-muted">
-            inkl. {percent} % MwSt., zzgl. Versand {formatEUR(catalog.shipping.costCents)}
+            inkl. {percent} % MwSt.,{" "}
+            {catalog.shipping.costCents === 0 ? "kostenloser Versand" : `zzgl. Versand ${formatEUR(catalog.shipping.costCents)}`}
           </p>
           <p className="mt-4 leading-relaxed">{product.shortDescription}</p>
           <BuyBox slug={product.slug} available={product.available} />
@@ -153,7 +166,7 @@ export default async function ProductPage({ params }: Props) {
             <div>
               <dt className="text-muted">Kosten</dt>
               <dd>
-                {formatEUR(catalog.shipping.costCents)} · {catalog.shipping.label}
+                {formatShipping(catalog.shipping.costCents)} · {catalog.shipping.label}
               </dd>
             </div>
             <div>
@@ -196,7 +209,7 @@ export default async function ProductPage({ params }: Props) {
         <h2 className="text-2xl font-medium">Weitere Modelle</h2>
         <div className="mt-6 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
           {related.map((item) => (
-            <ProductCard key={item.slug} product={item} vatRate={catalog.vatRate} />
+            <ProductCard key={item.slug} product={item} vatRate={catalog.vatRate} shippingCents={catalog.shipping.costCents} />
           ))}
         </div>
       </section>

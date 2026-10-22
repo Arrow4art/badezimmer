@@ -52,8 +52,8 @@ export function Footer({ business }: { business: BusinessInfo }) {
       </div>
       <div className="border-t border-white/10">
         <p className="mx-auto max-w-6xl px-5 py-4 text-xs leading-relaxed text-cream/55">
-          Preise inklusive 19 % MwSt., zuzüglich der vor dem Abschluss angezeigten Versandkosten. Kartendaten werden in
-          diesem Shop nicht gespeichert.
+          Preise inklusive 19 % MwSt. Kostenloser Versand innerhalb Deutschlands. Kartendaten werden in diesem Shop nicht
+          gespeichert.
         </p>
       </div>
     </footer>

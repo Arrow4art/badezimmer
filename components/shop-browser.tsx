@@ -8,7 +8,15 @@ import type { PublicProduct } from "@/lib/types";
 type PriceFilter = "all" | "under-1000" | "mid" | "over-1400";
 type SortKey = "name-asc" | "name-desc" | "price-asc" | "price-desc";
 
-export function ShopBrowser({ products, vatRate }: { products: PublicProduct[]; vatRate: number }) {
+export function ShopBrowser({
+  products,
+  vatRate,
+  shippingCents,
+}: {
+  products: PublicProduct[];
+  vatRate: number;
+  shippingCents: number;
+}) {
   const [price, setPrice] = useState<PriceFilter>("all");
   const [type, setType] = useState("all");
   const [sort, setSort] = useState<SortKey>("name-asc");
@@ -73,7 +81,7 @@ export function ShopBrowser({ products, vatRate }: { products: PublicProduct[]; 
       ) : (
         <div className="mt-6 grid gap-6 sm:grid-cols-2">
           {visible.map((product) => (
-            <ProductCard key={product.slug} product={product} vatRate={vatRate} />
+            <ProductCard key={product.slug} product={product} vatRate={vatRate} shippingCents={shippingCents} />
           ))}
         </div>
       )}

@@ -5,6 +5,10 @@ export function formatEUR(cents: number): string {
   }).format(cents / 100);
 }
 
+export function formatShipping(cents: number): string {
+  return cents === 0 ? "kostenlos" : formatEUR(cents);
+}
+
 export function vatFromGross(grossCents: number, vatRate = 0.19): number {
   const percent = Math.round(vatRate * 100);
   return Math.round((grossCents * percent) / (100 + percent));

@@ -9,7 +9,15 @@ import { typeCopy } from "@/lib/copy";
 import { formatEUR } from "@/lib/money";
 import type { PublicProduct } from "@/lib/types";
 
-export function ProductCard({ product, vatRate }: { product: PublicProduct; vatRate: number }) {
+export function ProductCard({
+  product,
+  vatRate,
+  shippingCents,
+}: {
+  product: PublicProduct;
+  vatRate: number;
+  shippingCents: number;
+}) {
   const { add } = useCart();
   const [note, setNote] = useState("");
   const percent = Math.round(vatRate * 100);
@@ -31,7 +39,9 @@ export function ProductCard({ product, vatRate }: { product: PublicProduct; vatR
           <Link href={`/produkt/${product.slug}`}>{product.name}</Link>
         </h2>
         <p className="mt-3 text-lg">{formatEUR(product.priceCents)}</p>
-        <p className="text-sm text-muted">inkl. {percent} % MwSt., zzgl. Versand</p>
+        <p className="text-sm text-muted">
+          inkl. {percent} % MwSt., {shippingCents === 0 ? "kostenloser Versand" : "zzgl. Versand"}
+        </p>
         <p className="mt-2 text-sm">{product.available > 0 ? "Auf Lager" : "Nicht verfügbar"}</p>
         <div className="mt-5 flex flex-col gap-2 sm:flex-row">
           <Link href={`/produkt/${product.slug}`} className={btnSecondary}>
