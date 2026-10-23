@@ -9,7 +9,7 @@ import { benefits, buildFaqs, steps } from "@/lib/copy";
 
 export default async function HomePage() {
   const catalog = await getCatalog();
-  const faqs = buildFaqs(catalog.products).slice(0, 5);
+  const faqs = buildFaqs(catalog.products, catalog.checkoutMode).slice(0, 5);
 
   return (
     <>

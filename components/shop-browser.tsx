@@ -21,7 +21,9 @@ export function ShopBrowser({
   const [type, setType] = useState("all");
   const [sort, setSort] = useState<SortKey>("name-asc");
 
-  const types = Array.from(new Set(products.map((product) => product.productType)));
+  const types = Array.from(
+    new Set(products.flatMap((product) => (product.productType ? [product.productType] : []))),
+  );
 
   const visible = useMemo(() => {
     const filtered = products.filter((product) => {
@@ -44,7 +46,10 @@ export function ShopBrowser({
 
   return (
     <div className="mx-auto max-w-6xl px-5 py-10">
-      <form className="grid gap-3 rounded-3xl bg-paper p-4 sm:grid-cols-3" aria-label="Produkte filtern">
+      <form
+        className={`grid gap-3 rounded-3xl bg-paper p-4 ${types.length > 1 ? "sm:grid-cols-3" : "sm:grid-cols-2"}`}
+        aria-label="Produkte filtern"
+      >
         <label className="text-sm">
           Preis
           <select className={fieldClass} value={price} onChange={(event) => setPrice(event.target.value as PriceFilter)}>
@@ -54,17 +59,19 @@ export function ShopBrowser({
             <option value="over-1400">Über 1.400 €</option>
           </select>
         </label>
-        <label className="text-sm">
-          Produktart
-          <select className={fieldClass} value={type} onChange={(event) => setType(event.target.value)}>
-            <option value="all">Alle Produktarten</option>
-            {types.map((entry) => (
-              <option key={entry} value={entry}>
-                {entry === "infrarot" ? "Infrarot-Mini-Sauna" : "Klassische Mini-Sauna"}
-              </option>
-            ))}
-          </select>
-        </label>
+        {types.length > 1 ? (
+          <label className="text-sm">
+            Heizart
+            <select className={fieldClass} value={type} onChange={(event) => setType(event.target.value)}>
+              <option value="all">Alle Heizarten</option>
+              {types.map((entry) => (
+                <option key={entry} value={entry}>
+                  {entry === "infrarot" ? "Infrarot-Mini-Sauna" : "Klassische Mini-Sauna"}
+                </option>
+              ))}
+            </select>
+          </label>
+        ) : null}
         <label className="text-sm">
           Sortierung
           <select className={fieldClass} value={sort} onChange={(event) => setSort(event.target.value as SortKey)}>
@@ -75,7 +82,7 @@ export function ShopBrowser({
           </select>
         </label>
       </form>
-      <p className="mt-6 text-sm text-muted">{visible.length} von 4 Modellen</p>
+      <p className="mt-6 text-sm text-muted">{visible.length} von {products.length} Modellen</p>
       {visible.length === 0 ? (
         <p className="mt-8 rounded-3xl bg-paper p-8 text-muted">Keine Mini-Sauna passt zu diesem Filter.</p>
       ) : (

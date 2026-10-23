@@ -4,8 +4,39 @@ import { dirname, resolve } from "node:path";
 const origin = "https://www.iwoody.de";
 const root = resolve(import.meta.dirname, "..");
 const catalog = JSON.parse(readFileSync(resolve(root, "data/store.json"), "utf8"));
-const explanation =
-  "Dieses Modell ist als Infrarot-Mini-Sauna eingeordnet. Es ist keine klassische finnische Sauna mit Saunaofen und Aufguss. Heiztechnik, Leistung und elektrischer Anschluss sind vom Lieferanten noch nicht bestätigt und deshalb nicht als geprüfte Technikdaten ausgewiesen.";
+const tech = JSON.parse(readFileSync(resolve(root, "data/specs.json"), "utf8"));
+
+// Same publishing rule as lib/tech-specs.ts.
+function publishable(entry) {
+  return Boolean(entry && entry.status === "verified" && entry.value && entry.source && entry.verifiedAt);
+}
+
+const heating = {
+  infrarot: {
+    label: "Infrarot-Mini-Sauna",
+    spec: "Infrarotkabine",
+    explanation: "Diese Kabine wird mit Infrarotstrahlern beheizt. Sie ist keine klassische finnische Sauna mit Saunaofen und Aufguss.",
+  },
+  traditionell: {
+    label: "Klassische Mini-Sauna",
+    spec: "Klassische Sauna mit Saunaofen",
+    explanation: "Diese Kabine ist eine klassische Sauna mit elektrischem Saunaofen und keine Infrarotkabine.",
+  },
+};
+
+function verified(sku) {
+  const record = tech.products.find((entry) => entry.sku === sku);
+  if (!record) return { type: null, specs: [] };
+  const typeEntry = record.specs.heatingSystem;
+  const type = publishable(typeEntry) ? heating[typeEntry.value] ?? null : null;
+  const specs = tech.fields.flatMap((field) => {
+    const entry = record.specs[field.key];
+    if (!field.labelDe || !publishable(entry)) return [];
+    const value = field.key === "heatingSystem" ? heating[entry.value]?.spec ?? entry.value : entry.value;
+    return [{ label: field.labelDe, value }];
+  });
+  return { type, specs };
+}
 
 function xml(value) {
   return String(value)
@@ -26,11 +57,13 @@ function tag(name, value) {
 
 const items = catalog.products
   .map((product) => {
+    const { type, specs } = verified(product.sku);
     const images = product.images.map((image) => `${origin}${image.src}`);
+    const description = [product.shortDescription, ...product.description, type?.explanation].filter(Boolean).join(" ");
     const lines = [
       tag("g:id", product.sku),
       tag("g:title", product.name),
-      tag("g:description", [...product.description, explanation].join(" ")),
+      tag("g:description", description),
       tag("g:link", `${origin}/produkt/${product.slug}`),
       tag("g:image_link", images[0]),
       ...images.slice(1).map((image) => tag("g:additional_image_link", image)),
@@ -41,8 +74,12 @@ const items = catalog.products
       tag("g:mpn", product.sku),
       tag("g:condition", "new"),
       tag("g:google_product_category", "3992"),
-      tag("g:product_type", "Infrarot-Mini-Sauna"),
+      tag("g:product_type", type?.label ?? "Mini-Sauna"),
       ...product.features.map((feature) => tag("g:product_highlight", feature)),
+      ...specs.map(
+        (spec) =>
+          `      <g:product_detail><g:section_name>Technische Daten</g:section_name><g:attribute_name>${xml(spec.label)}</g:attribute_name><g:attribute_value>${xml(spec.value)}</g:attribute_value></g:product_detail>`,
+      ),
       "      <g:shipping>",
       "        <g:country>DE</g:country>",
       `        <g:service>${xml(catalog.shipping.label)}</g:service>`,

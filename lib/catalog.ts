@@ -3,12 +3,14 @@ import { summarize } from "@/lib/money";
 import { withLock } from "@/lib/lock";
 import { readMessages, readOrders, writeMessages, writeNewsletter, readNewsletter, writeOrders } from "@/lib/records";
 import { readStore, writeStore } from "@/lib/store";
+import { verifiedProductType, verifiedSpecs } from "@/lib/tech-specs";
 import type {
   AdminUpdate,
   Catalog,
   Customer,
   Order,
   OrderItem,
+  Product,
   PublicProduct,
 } from "@/lib/types";
 
@@ -27,6 +29,15 @@ function reservedQty(orders: Order[], slug: string): number {
     .flatMap((order) => order.items)
     .filter((item) => item.slug === slug)
     .reduce((sum, item) => sum + item.qty, 0);
+}
+
+function toPublic(product: Product, orders: Order[]): PublicProduct {
+  return {
+    ...product,
+    available: Math.max(0, product.stock - reservedQty(orders, product.slug)),
+    productType: verifiedProductType(product.sku),
+    techSpecs: verifiedSpecs(product.sku),
+  };
 }
 
 async function expireStale(now = Date.now()): Promise<void> {
@@ -50,17 +61,16 @@ export async function getCatalog(): Promise<Catalog> {
     await expireStale();
     const store = await readStore();
     const orders = await readOrders();
-    const products: PublicProduct[] = store.products.map((product) => ({
-      ...product,
-      available: Math.max(0, product.stock - reservedQty(orders, product.slug)),
-    }));
+    const products = store.products.map((product) => toPublic(product, orders));
+    const checkoutMode: Catalog["checkoutMode"] = process.env.STRIPE_SECRET_KEY ? "stripe" : "cod";
     return {
       vatRate: store.vatRate,
       installationText: store.installationText,
       shipping: store.shipping,
       business: store.business,
       products,
-      paymentReady: Boolean(process.env.STRIPE_SECRET_KEY),
+      checkoutMode,
+      paymentReady: true,
       emailReady: Boolean(process.env.RESEND_API_KEY && process.env.ORDER_EMAIL_FROM),
     };
   });
@@ -121,10 +131,7 @@ export async function createInquiry(input: CheckoutInput): Promise<CheckoutResul
     await expireStale();
     const store = await readStore();
     const orders = await readOrders();
-    const products: PublicProduct[] = store.products.map((product) => ({
-      ...product,
-      available: Math.max(0, product.stock - reservedQty(orders, product.slug)),
-    }));
+    const products = store.products.map((product) => toPublic(product, orders));
     const built = buildItems(products, input.items);
     if ("error" in built) return { ok: false, error: built.error };
     const summary = summarize(built.items, store.shipping.costCents, store.vatRate);
@@ -150,15 +157,51 @@ export async function createInquiry(input: CheckoutInput): Promise<CheckoutResul
   });
 }
 
+export async function createCodOrder(input: CheckoutInput): Promise<CheckoutResult> {
+  return withLock(async () => {
+    await expireStale();
+    const store = await readStore();
+    const orders = await readOrders();
+    const products = store.products.map((product) => toPublic(product, orders));
+    const built = buildItems(products, input.items);
+    if ("error" in built) return { ok: false, error: built.error };
+    for (const item of built.items) {
+      const product = store.products.find((entry) => entry.slug === item.slug);
+      if (!product || product.stock < item.qty) {
+        return { ok: false, error: `Von „${item.name}“ sind nicht mehr genug Stück verfügbar.` };
+      }
+      product.stock -= item.qty;
+    }
+    const summary = summarize(built.items, store.shipping.costCents, store.vatRate);
+    const order: Order = {
+      id: newId(),
+      createdAt: new Date().toISOString(),
+      status: "nachnahme",
+      customer: input.customer,
+      items: built.items,
+      shippingGrossCents: store.shipping.costCents,
+      shippingLabel: store.shipping.label,
+      vatRate: store.vatRate,
+      goodsGrossCents: summary.goodsGrossCents,
+      totalGrossCents: summary.totalGrossCents,
+      paymentProvider: "cod",
+      emailSent: false,
+      emailNote: "",
+      note: `Bestellung mit Nachnahme. Sie zahlen den Gesamtbetrag von ${(summary.totalGrossCents / 100).toLocaleString("de-DE", { style: "currency", currency: "EUR" })} in bar bei der Zustellung an den Zusteller. Es kommt kein Nachnahmezuschlag dazu. Vorher wird nichts abgebucht. Der Bestand wurde um die bestellte Menge verringert.`,
+    };
+    orders.unshift(order);
+    await writeStore(store);
+    await writeOrders(orders);
+    return { ok: true, order };
+  });
+}
+
 export async function createPendingOrder(input: CheckoutInput): Promise<CheckoutResult> {
   return withLock(async () => {
     await expireStale();
     const store = await readStore();
     const orders = await readOrders();
-    const products: PublicProduct[] = store.products.map((product) => ({
-      ...product,
-      available: Math.max(0, product.stock - reservedQty(orders, product.slug)),
-    }));
+    const products = store.products.map((product) => toPublic(product, orders));
     const built = buildItems(products, input.items);
     if ("error" in built) return { ok: false, error: built.error };
     const summary = summarize(built.items, store.shipping.costCents, store.vatRate);
@@ -279,9 +322,6 @@ export function validateAdminUpdate(input: AdminUpdate): string | null {
     if (!Number.isInteger(product.priceCents) || product.priceCents < 80000 || product.priceCents > 160000) {
       return "Jeder Preis muss zwischen 800,00 € und 1.600,00 € liegen.";
     }
-    if (product.productType !== "infrarot" && product.productType !== "traditionell") {
-      return "Die Produktart ist ungültig.";
-    }
   }
   const shipping = input.shipping;
   if (!Number.isInteger(shipping.costCents) || shipping.costCents < 0 || shipping.costCents > 500000) {
@@ -307,15 +347,6 @@ export async function updateCatalog(input: AdminUpdate): Promise<void> {
       if (!product) continue;
       product.stock = update.stock;
       product.priceCents = update.priceCents;
-      product.productType = update.productType;
-      const typeSpec = product.specs.find((spec) => spec.label === "Produktart");
-      if (typeSpec) {
-        typeSpec.value =
-          update.productType === "traditionell"
-            ? "Klassische Mini-Sauna, keine Infrarotkabine"
-            : "Infrarot-Mini-Sauna, keine klassische Sauna mit Saunaofen";
-        typeSpec.status = "unconfirmed";
-      }
     }
     store.shipping = input.shipping;
     store.business = input.business;

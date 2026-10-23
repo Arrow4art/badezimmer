@@ -6,7 +6,7 @@ import { getCatalog } from "@/lib/catalog";
 export const metadata: Metadata = { title: "Allgemeine Geschäftsbedingungen" };
 
 export default async function TermsPage() {
-  const { business, paymentReady } = await getCatalog();
+  const { business, checkoutMode } = await getCatalog();
   return (
     <>
       <PageHeader
@@ -28,15 +28,16 @@ export default async function TermsPage() {
         <section>
           <h2 className="text-2xl font-medium">2. Angebot und Vertragsschluss</h2>
           <p className="mt-3">
-            Die Produktseiten sind eine Aufforderung zur Bestellung. Ein Kaufvertrag kommt erst zustande, wenn die Zahlung
-            über Stripe bestätigt ist.
-            {paymentReady
-              ? ""
-              : " Solange keine Online-Zahlung freigeschaltet ist, erzeugt das Formular nur eine unverbindliche Anfrage und keinen Kaufvertrag."}
+            Die Produktseiten sind eine Aufforderung zur Bestellung.{" "}
+            {checkoutMode === "cod"
+              ? "Mit dem Button „Zahlungspflichtig bestellen“ geben Sie ein verbindliches Angebot ab. Der Kaufvertrag kommt zustande, wenn die Bestellbestätigung mit einer Vorgangsnummer angezeigt wird."
+              : checkoutMode === "stripe"
+                ? "Ein Kaufvertrag kommt erst zustande, wenn die Zahlung über Stripe bestätigt ist."
+                : "Solange keine Online-Zahlung freigeschaltet ist, erzeugt das Formular nur eine unverbindliche Anfrage und keinen Kaufvertrag."}
           </p>
           <p className="mt-3">
-            Maße, Materialien, Heiztechnik und Lieferumfang sind nur verbindlich, soweit sie auf der Produktseite als bestätigt
-            gekennzeichnet sind. Abbildungen zeigen das Gestaltungskonzept.
+            Verbindlich sind die Angaben unter „Technische Daten“ auf der Produktseite. Die Abbildungen sind Visualisierungen
+            und können in Farbe und Details vom gelieferten Modell abweichen.
           </p>
         </section>
         <section>
@@ -50,8 +51,11 @@ export default async function TermsPage() {
         <section>
           <h2 className="text-2xl font-medium">4. Zahlung</h2>
           <p className="mt-3">
-            Die Zahlung erfolgt über die Zahlungsseite von Stripe. Dort sehen Sie die verfügbaren Zahlungsarten. Kartendaten
-            werden nicht bei uns gespeichert. Ohne bestätigte Zahlung liefern wir nicht.
+            {checkoutMode === "cod"
+              ? "Die Zahlungsart ist Nachnahme. Sie zahlen den an der Kasse angezeigten Gesamtbetrag in bar bei der Zustellung an den Zusteller. Ein Nachnahmezuschlag wird nicht erhoben. Vor der Lieferung wird nichts abgebucht. Lehnen Sie die Annahme ab, tragen Sie die Kosten der Rücksendung."
+              : checkoutMode === "stripe"
+                ? "Die Zahlung erfolgt über die Zahlungsseite von Stripe. Dort sehen Sie die verfügbaren Zahlungsarten. Kartendaten werden nicht bei uns gespeichert. Ohne bestätigte Zahlung liefern wir nicht."
+                : "Eine Online-Zahlung ist derzeit nicht freigeschaltet. Das Formular erzeugt nur eine unverbindliche Anfrage."}
           </p>
         </section>
         <section>

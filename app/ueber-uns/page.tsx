@@ -22,13 +22,11 @@ export default function AboutPage() {
           und viel Ruhe im Bild.
         </p>
         <p>
-          Wir trennen Infrarotkabinen und klassische Saunen. Jede Produktseite sagt, welche Art vorgesehen ist, und lässt
-          offene Technikangaben offen. Maße, Holzart, Heizleistung und Anschluss stehen erst fest, wenn der Lieferant sie
-          bestätigt hat. Bewertungen, Prüfzeichen und Garantieversprechen erfinden wir nicht.
+          Unter „Technische Daten“ stehen nur Angaben, die durch Unterlagen des Herstellers belegt sind. Bewertungen,
+          Prüfzeichen und Garantieversprechen veröffentlichen wir nur mit Nachweis.
         </p>
         <p>
-          Preise sind Bruttopreise in Euro. Der Versand ist eine eigene, sichtbare Position. Solange kein Zahlungsanbieter
-          eingerichtet ist, kann man eine Anfrage senden, aber nichts bezahlen.
+          Preise sind Bruttopreise in Euro inklusive Mehrwertsteuer. Die Lieferung innerhalb Deutschlands ist kostenlos.
         </p>
         <Link href="/shop" className={btnPrimary}>
           Saunen entdecken

@@ -1,0 +1,1257 @@
+{
+  "updatedAt": "2026-10-22",
+  "fields": [
+    {
+      "key": "internalReference",
+      "no": "1",
+      "label": "Internal model name and reference",
+      "labelDe": "Artikelnummer",
+      "question": "-",
+      "documents": "-"
+    },
+    {
+      "key": "supplierProductName",
+      "no": "2",
+      "label": "Exact supplier product name",
+      "labelDe": null,
+      "question": "What is the exact product name of this model in your catalogue?",
+      "documents": "Product datasheet or catalogue page"
+    },
+    {
+      "key": "supplierSku",
+      "no": "3",
+      "label": "Supplier official SKU / reference",
+      "labelDe": null,
+      "question": "What is your official SKU or article number for this model?",
+      "documents": "Product datasheet or invoice line"
+    },
+    {
+      "key": "heatingSystem",
+      "no": "4",
+      "label": "Product type (infrared cabin or traditional sauna with stove)",
+      "labelDe": "Heizart",
+      "question": "Is this model an infrared cabin or a traditional sauna with an electric stove? Answer 'infrared' or 'traditional'.",
+      "documents": "Datasheet and rating plate photo"
+    },
+    {
+      "key": "exteriorDimensions",
+      "no": "5",
+      "label": "Exterior width x depth x height (cm)",
+      "labelDe": "Außenmaße (B × T × H)",
+      "question": "Exact exterior dimensions width x depth x height in cm.",
+      "documents": "Datasheet or dimension drawing"
+    },
+    {
+      "key": "netWeight",
+      "no": "6a",
+      "label": "Net weight (kg)",
+      "labelDe": "Gewicht",
+      "question": "Net weight of the assembled cabin in kg.",
+      "documents": "Datasheet"
+    },
+    {
+      "key": "shippingWeight",
+      "no": "6b",
+      "label": "Packaged shipping weight (kg) and number of packages",
+      "labelDe": "Versandgewicht",
+      "question": "Gross shipping weight in kg, number of packages and size of each package.",
+      "documents": "Packing list"
+    },
+    {
+      "key": "maxUsers",
+      "no": "7",
+      "label": "Maximum number of users / seats",
+      "labelDe": "Personen",
+      "question": "Maximum number of persons the manufacturer allows.",
+      "documents": "Datasheet or manual"
+    },
+    {
+      "key": "materials",
+      "no": "8",
+      "label": "Exact wood species and materials",
+      "labelDe": "Holz und Materialien",
+      "question": "Exact wood species for walls, bench and interior (e.g. spruce, hemlock, red cedar, oak) and all other materials. Is any part actually oak?",
+      "documents": "Datasheet or material declaration"
+    },
+    {
+      "key": "glass",
+      "no": "9",
+      "label": "Glass type, safety glass and thickness (mm)",
+      "labelDe": "Glas",
+      "question": "Glass type of door and front. Is it tempered safety glass (ESG)? Thickness in mm?",
+      "documents": "Datasheet or glass specification"
+    },
+    {
+      "key": "heater",
+      "no": "10",
+      "label": "Heater type and manufacturer",
+      "labelDe": "Heizung",
+      "question": "Type of heater (e.g. carbon infrared panels, ceramic emitters, electric sauna stove), number of heaters and heater manufacturer.",
+      "documents": "Datasheet and heater rating plate photo"
+    },
+    {
+      "key": "heatingPower",
+      "no": "11",
+      "label": "Total rated heating power (W)",
+      "labelDe": "Heizleistung",
+      "question": "Total rated heating power in watts as printed on the rating plate.",
+      "documents": "Rating plate photo"
+    },
+    {
+      "key": "electrical",
+      "no": "12",
+      "label": "Electrical requirements",
+      "labelDe": "Elektrischer Anschluss",
+      "question": "Voltage, phases, rated current (A), required fuse, plug type (e.g. Schuko), cable length, and whether a fixed connection by an electrician is required.",
+      "documents": "Datasheet, manual and rating plate photo"
+    },
+    {
+      "key": "packageContents",
+      "no": "13",
+      "label": "Package contents",
+      "labelDe": "Lieferumfang",
+      "question": "Complete list of package contents: cabin panels, heater, controller, cables, lighting, bench, accessories, manual (language?).",
+      "documents": "Packing list"
+    },
+    {
+      "key": "assembly",
+      "no": "14",
+      "label": "Assembly method, tools and time",
+      "labelDe": "Montage",
+      "question": "Flat-pack or preassembled? Required tools, number of persons and estimated assembly time.",
+      "documents": "Assembly manual"
+    },
+    {
+      "key": "certifications",
+      "no": "15",
+      "label": "Certifications and supporting documents (CE)",
+      "labelDe": "Konformität",
+      "question": "Which certifications apply (CE marking and directives, e.g. LVD 2014/35/EU, EMC 2014/30/EU, RoHS 2011/65/EU)? Please send the EU Declaration of Conformity and test reports (e.g. EN 60335-1 and EN 60335-2-53).",
+      "documents": "EU Declaration of Conformity and test reports"
+    },
+    {
+      "key": "warrantyDuration",
+      "no": "16a",
+      "label": "Warranty duration",
+      "labelDe": null,
+      "question": "Do you grant a 10-year warranty for this exact model? If not, what duration?",
+      "documents": "Written warranty terms"
+    },
+    {
+      "key": "warrantyScope",
+      "no": "16b",
+      "label": "Warranty scope",
+      "labelDe": null,
+      "question": "Which parts are covered (wood, heater, glass, electronics) and for how long each?",
+      "documents": "Written warranty terms"
+    },
+    {
+      "key": "warrantyExclusions",
+      "no": "16c",
+      "label": "Warranty exclusions",
+      "labelDe": null,
+      "question": "What is excluded from the warranty?",
+      "documents": "Written warranty terms"
+    },
+    {
+      "key": "warrantyProvider",
+      "no": "16d",
+      "label": "Warranty provider and claim procedure",
+      "labelDe": null,
+      "question": "Who is the warranty provider (company name and address) and how does an end customer in Germany make a claim?",
+      "documents": "Written warranty terms"
+    },
+    {
+      "key": "supplierAvailability",
+      "no": "17",
+      "label": "Supplier-confirmed stock and availability",
+      "labelDe": null,
+      "question": "How many units can you supply now, and what is the restock lead time?",
+      "documents": "Written stock confirmation"
+    },
+    {
+      "key": "ownStock",
+      "no": "17b",
+      "label": "Units held by the shop",
+      "labelDe": null,
+      "question": "-",
+      "documents": "Stock count by the shop owner"
+    },
+    {
+      "key": "processingTime",
+      "no": "18a",
+      "label": "Processing time",
+      "labelDe": null,
+      "question": "-",
+      "documents": "Confirmed by the shop owner"
+    },
+    {
+      "key": "deliveryEstimate",
+      "no": "18b",
+      "label": "Delivery estimate within Germany",
+      "labelDe": null,
+      "question": "Which carrier delivers and in how many working days? Curbside or to the door?",
+      "documents": "Carrier or freight forwarder confirmation"
+    },
+    {
+      "key": "manufacturer",
+      "no": "20",
+      "label": "Manufacturer name, postal and electronic address (GPSR Art. 19)",
+      "labelDe": "Hersteller",
+      "question": "Manufacturer company name, postal address and email address as printed on the product or packaging.",
+      "documents": "Rating plate or packaging label photo"
+    },
+    {
+      "key": "euResponsiblePerson",
+      "no": "21",
+      "label": "EU responsible person if manufacturer is outside the EU (GPSR)",
+      "labelDe": "Verantwortliche Person in der EU",
+      "question": "If the manufacturer is outside the EU: name, postal and email address of the responsible economic operator in the EU.",
+      "documents": "Packaging label or written confirmation"
+    },
+    {
+      "key": "safetyInformation",
+      "no": "22",
+      "label": "Safety warnings and manual in German",
+      "labelDe": null,
+      "question": "Please send the user manual and safety warnings in German (PDF).",
+      "documents": "German manual (PDF)"
+    }
+  ],
+  "products": [
+    {
+      "sku": "BAD-KS-001",
+      "slug": "kompakt-sauna-one",
+      "name": "Kompakt Sauna One",
+      "conceptDesign": "Compact cabin, rounded light-wood appearance, glass door and interior lighting (concept image).",
+      "specs": {
+        "internalReference": {
+          "value": "BAD-KS-001",
+          "status": "verified",
+          "source": "Badezimmer product catalogue (data/store.json)",
+          "verifiedAt": "2026-10-22"
+        },
+        "supplierProductName": {
+          "value": null,
+          "status": "supplier_required",
+          "source": null,
+          "verifiedAt": null
+        },
+        "supplierSku": {
+          "value": null,
+          "status": "supplier_required",
+          "source": null,
+          "verifiedAt": null
+        },
+        "heatingSystem": {
+          "value": null,
+          "status": "supplier_required",
+          "source": null,
+          "verifiedAt": null
+        },
+        "exteriorDimensions": {
+          "value": "ca. 105 × 100 × 195 cm",
+          "status": "concept_estimate",
+          "source": "Estimated from the concept image, not a measurement",
+          "verifiedAt": null
+        },
+        "netWeight": {
+          "value": null,
+          "status": "supplier_required",
+          "source": null,
+          "verifiedAt": null
+        },
+        "shippingWeight": {
+          "value": null,
+          "status": "supplier_required",
+          "source": null,
+          "verifiedAt": null
+        },
+        "maxUsers": {
+          "value": null,
+          "status": "supplier_required",
+          "source": null,
+          "verifiedAt": null
+        },
+        "materials": {
+          "value": null,
+          "status": "supplier_required",
+          "source": null,
+          "verifiedAt": null
+        },
+        "glass": {
+          "value": null,
+          "status": "supplier_required",
+          "source": null,
+          "verifiedAt": null
+        },
+        "heater": {
+          "value": null,
+          "status": "supplier_required",
+          "source": null,
+          "verifiedAt": null
+        },
+        "heatingPower": {
+          "value": null,
+          "status": "supplier_required",
+          "source": null,
+          "verifiedAt": null
+        },
+        "electrical": {
+          "value": null,
+          "status": "supplier_required",
+          "source": null,
+          "verifiedAt": null
+        },
+        "packageContents": {
+          "value": null,
+          "status": "supplier_required",
+          "source": null,
+          "verifiedAt": null
+        },
+        "assembly": {
+          "value": null,
+          "status": "supplier_required",
+          "source": null,
+          "verifiedAt": null
+        },
+        "certifications": {
+          "value": null,
+          "status": "supplier_required",
+          "source": null,
+          "verifiedAt": null
+        },
+        "warrantyDuration": {
+          "value": "10 Jahre",
+          "status": "owner_stated",
+          "source": "Statement by the shop owner, no written terms from the supplier",
+          "verifiedAt": null,
+          "note": "Do not publish until the supplier confirms it in writing for this model and the terms are legally reviewed."
+        },
+        "warrantyScope": {
+          "value": null,
+          "status": "supplier_required",
+          "source": null,
+          "verifiedAt": null
+        },
+        "warrantyExclusions": {
+          "value": null,
+          "status": "supplier_required",
+          "source": null,
+          "verifiedAt": null
+        },
+        "warrantyProvider": {
+          "value": null,
+          "status": "supplier_required",
+          "source": null,
+          "verifiedAt": null
+        },
+        "supplierAvailability": {
+          "value": null,
+          "status": "supplier_required",
+          "source": null,
+          "verifiedAt": null
+        },
+        "ownStock": {
+          "value": "10",
+          "status": "owner_stated",
+          "source": "Statement by the shop owner, 2026-10-22",
+          "verifiedAt": "2026-10-22"
+        },
+        "processingTime": {
+          "value": "Bearbeitung am Bestelltag",
+          "status": "owner_stated",
+          "source": "Statement by the shop owner, 2026-10-22",
+          "verifiedAt": "2026-10-22"
+        },
+        "deliveryEstimate": {
+          "value": "0–1 Werktage innerhalb Deutschlands",
+          "status": "owner_stated",
+          "source": "Statement by the shop owner, 2026-10-22; matches the Merchant Center shipping setting",
+          "verifiedAt": "2026-10-22",
+          "note": "Carrier and delivery terms (curbside or to the door) are not documented."
+        },
+        "manufacturer": {
+          "value": null,
+          "status": "supplier_required",
+          "source": null,
+          "verifiedAt": null
+        },
+        "euResponsiblePerson": {
+          "value": null,
+          "status": "supplier_required",
+          "source": null,
+          "verifiedAt": null
+        },
+        "safetyInformation": {
+          "value": null,
+          "status": "supplier_required",
+          "source": null,
+          "verifiedAt": null
+        }
+      }
+    },
+    {
+      "sku": "BAD-NS-002",
+      "slug": "nordik-mini-sauna",
+      "name": "Nordik Mini Sauna",
+      "conceptDesign": "Narrow light-wood cabin, dark glass frame and wooden bench (concept image).",
+      "specs": {
+        "internalReference": {
+          "value": "BAD-NS-002",
+          "status": "verified",
+          "source": "Badezimmer product catalogue (data/store.json)",
+          "verifiedAt": "2026-10-22"
+        },
+        "supplierProductName": {
+          "value": null,
+          "status": "supplier_required",
+          "source": null,
+          "verifiedAt": null
+        },
+        "supplierSku": {
+          "value": null,
+          "status": "supplier_required",
+          "source": null,
+          "verifiedAt": null
+        },
+        "heatingSystem": {
+          "value": null,
+          "status": "supplier_required",
+          "source": null,
+          "verifiedAt": null
+        },
+        "exteriorDimensions": {
+          "value": "ca. 95 × 90 × 205 cm",
+          "status": "concept_estimate",
+          "source": "Estimated from the concept image, not a measurement",
+          "verifiedAt": null
+        },
+        "netWeight": {
+          "value": null,
+          "status": "supplier_required",
+          "source": null,
+          "verifiedAt": null
+        },
+        "shippingWeight": {
+          "value": null,
+          "status": "supplier_required",
+          "source": null,
+          "verifiedAt": null
+        },
+        "maxUsers": {
+          "value": null,
+          "status": "supplier_required",
+          "source": null,
+          "verifiedAt": null
+        },
+        "materials": {
+          "value": null,
+          "status": "supplier_required",
+          "source": null,
+          "verifiedAt": null
+        },
+        "glass": {
+          "value": null,
+          "status": "supplier_required",
+          "source": null,
+          "verifiedAt": null
+        },
+        "heater": {
+          "value": null,
+          "status": "supplier_required",
+          "source": null,
+          "verifiedAt": null
+        },
+        "heatingPower": {
+          "value": null,
+          "status": "supplier_required",
+          "source": null,
+          "verifiedAt": null
+        },
+        "electrical": {
+          "value": null,
+          "status": "supplier_required",
+          "source": null,
+          "verifiedAt": null
+        },
+        "packageContents": {
+          "value": null,
+          "status": "supplier_required",
+          "source": null,
+          "verifiedAt": null
+        },
+        "assembly": {
+          "value": null,
+          "status": "supplier_required",
+          "source": null,
+          "verifiedAt": null
+        },
+        "certifications": {
+          "value": null,
+          "status": "supplier_required",
+          "source": null,
+          "verifiedAt": null
+        },
+        "warrantyDuration": {
+          "value": "10 Jahre",
+          "status": "owner_stated",
+          "source": "Statement by the shop owner, no written terms from the supplier",
+          "verifiedAt": null,
+          "note": "Do not publish until the supplier confirms it in writing for this model and the terms are legally reviewed."
+        },
+        "warrantyScope": {
+          "value": null,
+          "status": "supplier_required",
+          "source": null,
+          "verifiedAt": null
+        },
+        "warrantyExclusions": {
+          "value": null,
+          "status": "supplier_required",
+          "source": null,
+          "verifiedAt": null
+        },
+        "warrantyProvider": {
+          "value": null,
+          "status": "supplier_required",
+          "source": null,
+          "verifiedAt": null
+        },
+        "supplierAvailability": {
+          "value": null,
+          "status": "supplier_required",
+          "source": null,
+          "verifiedAt": null
+        },
+        "ownStock": {
+          "value": "10",
+          "status": "owner_stated",
+          "source": "Statement by the shop owner, 2026-10-22",
+          "verifiedAt": "2026-10-22"
+        },
+        "processingTime": {
+          "value": "Bearbeitung am Bestelltag",
+          "status": "owner_stated",
+          "source": "Statement by the shop owner, 2026-10-22",
+          "verifiedAt": "2026-10-22"
+        },
+        "deliveryEstimate": {
+          "value": "0–1 Werktage innerhalb Deutschlands",
+          "status": "owner_stated",
+          "source": "Statement by the shop owner, 2026-10-22; matches the Merchant Center shipping setting",
+          "verifiedAt": "2026-10-22",
+          "note": "Carrier and delivery terms (curbside or to the door) are not documented."
+        },
+        "manufacturer": {
+          "value": null,
+          "status": "supplier_required",
+          "source": null,
+          "verifiedAt": null
+        },
+        "euResponsiblePerson": {
+          "value": null,
+          "status": "supplier_required",
+          "source": null,
+          "verifiedAt": null
+        },
+        "safetyInformation": {
+          "value": null,
+          "status": "supplier_required",
+          "source": null,
+          "verifiedAt": null
+        }
+      }
+    },
+    {
+      "sku": "BAD-PR-003",
+      "slug": "premium-relax-sauna",
+      "name": "Premium Relax Sauna",
+      "conceptDesign": "Larger cabin with wide glass front and two seating levels (concept image). Confirm whether the real product has both levels.",
+      "specs": {
+        "internalReference": {
+          "value": "BAD-PR-003",
+          "status": "verified",
+          "source": "Badezimmer product catalogue (data/store.json)",
+          "verifiedAt": "2026-10-22"
+        },
+        "supplierProductName": {
+          "value": null,
+          "status": "supplier_required",
+          "source": null,
+          "verifiedAt": null
+        },
+        "supplierSku": {
+          "value": null,
+          "status": "supplier_required",
+          "source": null,
+          "verifiedAt": null
+        },
+        "heatingSystem": {
+          "value": null,
+          "status": "supplier_required",
+          "source": null,
+          "verifiedAt": null
+        },
+        "exteriorDimensions": {
+          "value": "ca. 160 × 120 × 200 cm",
+          "status": "concept_estimate",
+          "source": "Estimated from the concept image, not a measurement",
+          "verifiedAt": null
+        },
+        "netWeight": {
+          "value": null,
+          "status": "supplier_required",
+          "source": null,
+          "verifiedAt": null
+        },
+        "shippingWeight": {
+          "value": null,
+          "status": "supplier_required",
+          "source": null,
+          "verifiedAt": null
+        },
+        "maxUsers": {
+          "value": null,
+          "status": "supplier_required",
+          "source": null,
+          "verifiedAt": null,
+          "note": "Concept image shows two seating levels. Not confirmed."
+        },
+        "materials": {
+          "value": null,
+          "status": "supplier_required",
+          "source": null,
+          "verifiedAt": null
+        },
+        "glass": {
+          "value": null,
+          "status": "supplier_required",
+          "source": null,
+          "verifiedAt": null
+        },
+        "heater": {
+          "value": null,
+          "status": "supplier_required",
+          "source": null,
+          "verifiedAt": null
+        },
+        "heatingPower": {
+          "value": null,
+          "status": "supplier_required",
+          "source": null,
+          "verifiedAt": null
+        },
+        "electrical": {
+          "value": null,
+          "status": "supplier_required",
+          "source": null,
+          "verifiedAt": null
+        },
+        "packageContents": {
+          "value": null,
+          "status": "supplier_required",
+          "source": null,
+          "verifiedAt": null
+        },
+        "assembly": {
+          "value": null,
+          "status": "supplier_required",
+          "source": null,
+          "verifiedAt": null
+        },
+        "certifications": {
+          "value": null,
+          "status": "supplier_required",
+          "source": null,
+          "verifiedAt": null
+        },
+        "warrantyDuration": {
+          "value": "10 Jahre",
+          "status": "owner_stated",
+          "source": "Statement by the shop owner, no written terms from the supplier",
+          "verifiedAt": null,
+          "note": "Do not publish until the supplier confirms it in writing for this model and the terms are legally reviewed."
+        },
+        "warrantyScope": {
+          "value": null,
+          "status": "supplier_required",
+          "source": null,
+          "verifiedAt": null
+        },
+        "warrantyExclusions": {
+          "value": null,
+          "status": "supplier_required",
+          "source": null,
+          "verifiedAt": null
+        },
+        "warrantyProvider": {
+          "value": null,
+          "status": "supplier_required",
+          "source": null,
+          "verifiedAt": null
+        },
+        "supplierAvailability": {
+          "value": null,
+          "status": "supplier_required",
+          "source": null,
+          "verifiedAt": null
+        },
+        "ownStock": {
+          "value": "10",
+          "status": "owner_stated",
+          "source": "Statement by the shop owner, 2026-10-22",
+          "verifiedAt": "2026-10-22"
+        },
+        "processingTime": {
+          "value": "Bearbeitung am Bestelltag",
+          "status": "owner_stated",
+          "source": "Statement by the shop owner, 2026-10-22",
+          "verifiedAt": "2026-10-22"
+        },
+        "deliveryEstimate": {
+          "value": "0–1 Werktage innerhalb Deutschlands",
+          "status": "owner_stated",
+          "source": "Statement by the shop owner, 2026-10-22; matches the Merchant Center shipping setting",
+          "verifiedAt": "2026-10-22",
+          "note": "Carrier and delivery terms (curbside or to the door) are not documented."
+        },
+        "manufacturer": {
+          "value": null,
+          "status": "supplier_required",
+          "source": null,
+          "verifiedAt": null
+        },
+        "euResponsiblePerson": {
+          "value": null,
+          "status": "supplier_required",
+          "source": null,
+          "verifiedAt": null
+        },
+        "safetyInformation": {
+          "value": null,
+          "status": "supplier_required",
+          "source": null,
+          "verifiedAt": null
+        }
+      }
+    },
+    {
+      "sku": "BAD-PM-004",
+      "slug": "panorama-mini-sauna",
+      "name": "Panorama Mini Sauna",
+      "conceptDesign": "Wide panoramic glass front and wooden interior (concept image).",
+      "specs": {
+        "internalReference": {
+          "value": "BAD-PM-004",
+          "status": "verified",
+          "source": "Badezimmer product catalogue (data/store.json)",
+          "verifiedAt": "2026-10-22"
+        },
+        "supplierProductName": {
+          "value": null,
+          "status": "supplier_required",
+          "source": null,
+          "verifiedAt": null
+        },
+        "supplierSku": {
+          "value": null,
+          "status": "supplier_required",
+          "source": null,
+          "verifiedAt": null
+        },
+        "heatingSystem": {
+          "value": null,
+          "status": "supplier_required",
+          "source": null,
+          "verifiedAt": null
+        },
+        "exteriorDimensions": {
+          "value": "ca. 210 × 110 × 190 cm",
+          "status": "concept_estimate",
+          "source": "Estimated from the concept image, not a measurement",
+          "verifiedAt": null
+        },
+        "netWeight": {
+          "value": null,
+          "status": "supplier_required",
+          "source": null,
+          "verifiedAt": null
+        },
+        "shippingWeight": {
+          "value": null,
+          "status": "supplier_required",
+          "source": null,
+          "verifiedAt": null
+        },
+        "maxUsers": {
+          "value": null,
+          "status": "supplier_required",
+          "source": null,
+          "verifiedAt": null
+        },
+        "materials": {
+          "value": null,
+          "status": "supplier_required",
+          "source": null,
+          "verifiedAt": null
+        },
+        "glass": {
+          "value": null,
+          "status": "supplier_required",
+          "source": null,
+          "verifiedAt": null
+        },
+        "heater": {
+          "value": null,
+          "status": "supplier_required",
+          "source": null,
+          "verifiedAt": null
+        },
+        "heatingPower": {
+          "value": null,
+          "status": "supplier_required",
+          "source": null,
+          "verifiedAt": null
+        },
+        "electrical": {
+          "value": null,
+          "status": "supplier_required",
+          "source": null,
+          "verifiedAt": null
+        },
+        "packageContents": {
+          "value": null,
+          "status": "supplier_required",
+          "source": null,
+          "verifiedAt": null
+        },
+        "assembly": {
+          "value": null,
+          "status": "supplier_required",
+          "source": null,
+          "verifiedAt": null
+        },
+        "certifications": {
+          "value": null,
+          "status": "supplier_required",
+          "source": null,
+          "verifiedAt": null
+        },
+        "warrantyDuration": {
+          "value": "10 Jahre",
+          "status": "owner_stated",
+          "source": "Statement by the shop owner, no written terms from the supplier",
+          "verifiedAt": null,
+          "note": "Do not publish until the supplier confirms it in writing for this model and the terms are legally reviewed."
+        },
+        "warrantyScope": {
+          "value": null,
+          "status": "supplier_required",
+          "source": null,
+          "verifiedAt": null
+        },
+        "warrantyExclusions": {
+          "value": null,
+          "status": "supplier_required",
+          "source": null,
+          "verifiedAt": null
+        },
+        "warrantyProvider": {
+          "value": null,
+          "status": "supplier_required",
+          "source": null,
+          "verifiedAt": null
+        },
+        "supplierAvailability": {
+          "value": null,
+          "status": "supplier_required",
+          "source": null,
+          "verifiedAt": null
+        },
+        "ownStock": {
+          "value": "10",
+          "status": "owner_stated",
+          "source": "Statement by the shop owner, 2026-10-22",
+          "verifiedAt": "2026-10-22"
+        },
+        "processingTime": {
+          "value": "Bearbeitung am Bestelltag",
+          "status": "owner_stated",
+          "source": "Statement by the shop owner, 2026-10-22",
+          "verifiedAt": "2026-10-22"
+        },
+        "deliveryEstimate": {
+          "value": "0–1 Werktage innerhalb Deutschlands",
+          "status": "owner_stated",
+          "source": "Statement by the shop owner, 2026-10-22; matches the Merchant Center shipping setting",
+          "verifiedAt": "2026-10-22",
+          "note": "Carrier and delivery terms (curbside or to the door) are not documented."
+        },
+        "manufacturer": {
+          "value": null,
+          "status": "supplier_required",
+          "source": null,
+          "verifiedAt": null
+        },
+        "euResponsiblePerson": {
+          "value": null,
+          "status": "supplier_required",
+          "source": null,
+          "verifiedAt": null
+        },
+        "safetyInformation": {
+          "value": null,
+          "status": "supplier_required",
+          "source": null,
+          "verifiedAt": null
+        }
+      }
+    },
+    {
+      "sku": "BAD-EM-005",
+      "slug": "eichenholz-mini-sauna",
+      "name": "Mini Sauna in Eichenoptik",
+      "conceptDesign": "Oak-like appearance and large glass door (concept image). Wood species unconfirmed; the former name 'Eichenholz' implied oak.",
+      "specs": {
+        "internalReference": {
+          "value": "BAD-EM-005",
+          "status": "verified",
+          "source": "Badezimmer product catalogue (data/store.json)",
+          "verifiedAt": "2026-10-22"
+        },
+        "supplierProductName": {
+          "value": null,
+          "status": "supplier_required",
+          "source": null,
+          "verifiedAt": null
+        },
+        "supplierSku": {
+          "value": null,
+          "status": "supplier_required",
+          "source": null,
+          "verifiedAt": null
+        },
+        "heatingSystem": {
+          "value": null,
+          "status": "supplier_required",
+          "source": null,
+          "verifiedAt": null
+        },
+        "exteriorDimensions": {
+          "value": null,
+          "status": "supplier_required",
+          "source": null,
+          "verifiedAt": null
+        },
+        "netWeight": {
+          "value": null,
+          "status": "supplier_required",
+          "source": null,
+          "verifiedAt": null
+        },
+        "shippingWeight": {
+          "value": null,
+          "status": "supplier_required",
+          "source": null,
+          "verifiedAt": null
+        },
+        "maxUsers": {
+          "value": null,
+          "status": "supplier_required",
+          "source": null,
+          "verifiedAt": null
+        },
+        "materials": {
+          "value": null,
+          "status": "supplier_required",
+          "source": null,
+          "verifiedAt": null,
+          "note": "Do not describe the material as oak without supplier evidence."
+        },
+        "glass": {
+          "value": null,
+          "status": "supplier_required",
+          "source": null,
+          "verifiedAt": null
+        },
+        "heater": {
+          "value": null,
+          "status": "supplier_required",
+          "source": null,
+          "verifiedAt": null
+        },
+        "heatingPower": {
+          "value": null,
+          "status": "supplier_required",
+          "source": null,
+          "verifiedAt": null
+        },
+        "electrical": {
+          "value": null,
+          "status": "supplier_required",
+          "source": null,
+          "verifiedAt": null
+        },
+        "packageContents": {
+          "value": null,
+          "status": "supplier_required",
+          "source": null,
+          "verifiedAt": null
+        },
+        "assembly": {
+          "value": null,
+          "status": "supplier_required",
+          "source": null,
+          "verifiedAt": null
+        },
+        "certifications": {
+          "value": null,
+          "status": "supplier_required",
+          "source": null,
+          "verifiedAt": null
+        },
+        "warrantyDuration": {
+          "value": "10 Jahre",
+          "status": "owner_stated",
+          "source": "Statement by the shop owner, no written terms from the supplier",
+          "verifiedAt": null,
+          "note": "Do not publish until the supplier confirms it in writing for this model and the terms are legally reviewed."
+        },
+        "warrantyScope": {
+          "value": null,
+          "status": "supplier_required",
+          "source": null,
+          "verifiedAt": null
+        },
+        "warrantyExclusions": {
+          "value": null,
+          "status": "supplier_required",
+          "source": null,
+          "verifiedAt": null
+        },
+        "warrantyProvider": {
+          "value": null,
+          "status": "supplier_required",
+          "source": null,
+          "verifiedAt": null
+        },
+        "supplierAvailability": {
+          "value": null,
+          "status": "supplier_required",
+          "source": null,
+          "verifiedAt": null
+        },
+        "ownStock": {
+          "value": "10",
+          "status": "owner_stated",
+          "source": "Statement by the shop owner, 2026-10-22",
+          "verifiedAt": "2026-10-22"
+        },
+        "processingTime": {
+          "value": "Bearbeitung am Bestelltag",
+          "status": "owner_stated",
+          "source": "Statement by the shop owner, 2026-10-22",
+          "verifiedAt": "2026-10-22"
+        },
+        "deliveryEstimate": {
+          "value": "0–1 Werktage innerhalb Deutschlands",
+          "status": "owner_stated",
+          "source": "Statement by the shop owner, 2026-10-22; matches the Merchant Center shipping setting",
+          "verifiedAt": "2026-10-22",
+          "note": "Carrier and delivery terms (curbside or to the door) are not documented."
+        },
+        "manufacturer": {
+          "value": null,
+          "status": "supplier_required",
+          "source": null,
+          "verifiedAt": null
+        },
+        "euResponsiblePerson": {
+          "value": null,
+          "status": "supplier_required",
+          "source": null,
+          "verifiedAt": null
+        },
+        "safetyInformation": {
+          "value": null,
+          "status": "supplier_required",
+          "source": null,
+          "verifiedAt": null
+        }
+      }
+    },
+    {
+      "sku": "BAD-AP-006",
+      "slug": "aurora-panorama-mini-sauna",
+      "name": "Aurora Panorama Mini Sauna",
+      "conceptDesign": "Curved cabin, panoramic glass front and wooden interior (concept image).",
+      "specs": {
+        "internalReference": {
+          "value": "BAD-AP-006",
+          "status": "verified",
+          "source": "Badezimmer product catalogue (data/store.json)",
+          "verifiedAt": "2026-10-22"
+        },
+        "supplierProductName": {
+          "value": null,
+          "status": "supplier_required",
+          "source": null,
+          "verifiedAt": null
+        },
+        "supplierSku": {
+          "value": null,
+          "status": "supplier_required",
+          "source": null,
+          "verifiedAt": null
+        },
+        "heatingSystem": {
+          "value": null,
+          "status": "supplier_required",
+          "source": null,
+          "verifiedAt": null
+        },
+        "exteriorDimensions": {
+          "value": null,
+          "status": "supplier_required",
+          "source": null,
+          "verifiedAt": null
+        },
+        "netWeight": {
+          "value": null,
+          "status": "supplier_required",
+          "source": null,
+          "verifiedAt": null
+        },
+        "shippingWeight": {
+          "value": null,
+          "status": "supplier_required",
+          "source": null,
+          "verifiedAt": null
+        },
+        "maxUsers": {
+          "value": null,
+          "status": "supplier_required",
+          "source": null,
+          "verifiedAt": null
+        },
+        "materials": {
+          "value": null,
+          "status": "supplier_required",
+          "source": null,
+          "verifiedAt": null
+        },
+        "glass": {
+          "value": null,
+          "status": "supplier_required",
+          "source": null,
+          "verifiedAt": null
+        },
+        "heater": {
+          "value": null,
+          "status": "supplier_required",
+          "source": null,
+          "verifiedAt": null
+        },
+        "heatingPower": {
+          "value": null,
+          "status": "supplier_required",
+          "source": null,
+          "verifiedAt": null
+        },
+        "electrical": {
+          "value": null,
+          "status": "supplier_required",
+          "source": null,
+          "verifiedAt": null
+        },
+        "packageContents": {
+          "value": null,
+          "status": "supplier_required",
+          "source": null,
+          "verifiedAt": null
+        },
+        "assembly": {
+          "value": null,
+          "status": "supplier_required",
+          "source": null,
+          "verifiedAt": null
+        },
+        "certifications": {
+          "value": null,
+          "status": "supplier_required",
+          "source": null,
+          "verifiedAt": null
+        },
+        "warrantyDuration": {
+          "value": "10 Jahre",
+          "status": "owner_stated",
+          "source": "Statement by the shop owner, no written terms from the supplier",
+          "verifiedAt": null,
+          "note": "Do not publish until the supplier confirms it in writing for this model and the terms are legally reviewed."
+        },
+        "warrantyScope": {
+          "value": null,
+          "status": "supplier_required",
+          "source": null,
+          "verifiedAt": null
+        },
+        "warrantyExclusions": {
+          "value": null,
+          "status": "supplier_required",
+          "source": null,
+          "verifiedAt": null
+        },
+        "warrantyProvider": {
+          "value": null,
+          "status": "supplier_required",
+          "source": null,
+          "verifiedAt": null
+        },
+        "supplierAvailability": {
+          "value": null,
+          "status": "supplier_required",
+          "source": null,
+          "verifiedAt": null
+        },
+        "ownStock": {
+          "value": "10",
+          "status": "owner_stated",
+          "source": "Statement by the shop owner, 2026-10-22",
+          "verifiedAt": "2026-10-22"
+        },
+        "processingTime": {
+          "value": "Bearbeitung am Bestelltag",
+          "status": "owner_stated",
+          "source": "Statement by the shop owner, 2026-10-22",
+          "verifiedAt": "2026-10-22"
+        },
+        "deliveryEstimate": {
+          "value": "0–1 Werktage innerhalb Deutschlands",
+          "status": "owner_stated",
+          "source": "Statement by the shop owner, 2026-10-22; matches the Merchant Center shipping setting",
+          "verifiedAt": "2026-10-22",
+          "note": "Carrier and delivery terms (curbside or to the door) are not documented."
+        },
+        "manufacturer": {
+          "value": null,
+          "status": "supplier_required",
+          "source": null,
+          "verifiedAt": null
+        },
+        "euResponsiblePerson": {
+          "value": null,
+          "status": "supplier_required",
+          "source": null,
+          "verifiedAt": null
+        },
+        "safetyInformation": {
+          "value": null,
+          "status": "supplier_required",
+          "source": null,
+          "verifiedAt": null
+        }
+      }
+    }
+  ]
+}

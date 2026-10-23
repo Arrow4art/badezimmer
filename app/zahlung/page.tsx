@@ -25,25 +25,27 @@ export default async function PaymentPage() {
         <section>
           <h2 className="text-2xl font-medium">Zahlungsarten</h2>
           <p className="mt-3">
-            {catalog.paymentReady
-              ? "Sie bezahlen sicher über Stripe. Nach der Kasse öffnet sich die Zahlungsseite von Stripe. Dort sehen Sie alle verfügbaren Zahlungsarten."
-              : "Eine Online-Zahlung ist derzeit nicht freigeschaltet. Bestellungen gehen als unverbindliche Anfrage ein. Wir buchen nichts ab und melden uns per E-Mail."}
+            {catalog.checkoutMode === "cod"
+              ? "Die Zahlungsart ist Nachnahme. Nach der Bestellung wird nichts abgebucht. Sie zahlen den angezeigten Gesamtbetrag in bar bei der Zustellung an den Zusteller. Ein Nachnahmezuschlag kommt nicht dazu."
+              : catalog.checkoutMode === "stripe"
+                ? "Sie bezahlen sicher über Stripe. Nach der Kasse öffnet sich die Zahlungsseite von Stripe. Dort sehen Sie alle verfügbaren Zahlungsarten."
+                : "Eine Online-Zahlung ist derzeit nicht freigeschaltet. Bestellungen gehen als unverbindliche Anfrage ein. Wir buchen nichts ab und melden uns per E-Mail."}
           </p>
         </section>
         <section>
           <h2 className="text-2xl font-medium">Keine Kartendaten bei uns</h2>
           <p className="mt-3">
-            Nummer, Prüfzahl und Ablaufdatum einer Karte werden nicht in diesem Shop eingegeben und nicht gespeichert. Die
-            Eingabe erfolgt auf der Seite des Zahlungsanbieters. Eine erfolgreiche Zahlung erkennen wir nur an der Rückmeldung
-            von Stripe, nicht an einer selbst gesetzten Erfolgsmeldung.
+            {catalog.checkoutMode === "cod"
+              ? "Nummer, Prüfzahl und Ablaufdatum einer Karte werden in diesem Shop nicht abgefragt. Die Bezahlung erfolgt in bar bei der Lieferung."
+              : "Nummer, Prüfzahl und Ablaufdatum einer Karte werden nicht in diesem Shop eingegeben und nicht gespeichert. Die Eingabe erfolgt auf der Seite des Zahlungsanbieters. Eine erfolgreiche Zahlung erkennen wir nur an der Rückmeldung von Stripe, nicht an einer selbst gesetzten Erfolgsmeldung."}
           </p>
         </section>
         <section>
           <h2 className="text-2xl font-medium">Offene Zahlungen</h2>
           <p className="mt-3">
             Eine begonnene Stripe-Zahlung reserviert die Menge für {catalog.shipping.reservationHours} Stunden. Wird sie nicht
-            abgeschlossen, fällt die Reservierung weg und der Bestand bleibt unverändert. Eine Anfrage ohne Zahlungsanbieter
-            verändert den Bestand nicht.
+            abgeschlossen, fällt die Reservierung weg. Eine Nachnahme-Bestellung verringert den Bestand sofort, weil die Ware
+            für den Versand vorgesehen ist.
           </p>
         </section>
       </div>

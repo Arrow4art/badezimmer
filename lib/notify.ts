@@ -5,7 +5,7 @@ import type { Order } from "@/lib/types";
 
 export async function notifyOrder(order: Order): Promise<Order> {
   if (order.emailSent || order.emailNote) return order;
-  if (order.status !== "bezahlt" && order.status !== "anfrage") return order;
+  if (order.status !== "bezahlt" && order.status !== "anfrage" && order.status !== "nachnahme") return order;
   const message = orderMessage(order);
   const result = await sendMail({
     to: order.customer.email,

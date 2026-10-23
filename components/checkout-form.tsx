@@ -108,8 +108,14 @@ export function CheckoutForm({ catalog }: { catalog: Catalog }) {
           <input className={fieldClass} type="email" required value={customer.email} onChange={(event) => update("email", event.target.value)} autoComplete="email" />
         </label>
         <label className="block text-sm">
-          Telefon, optional
-          <input className={fieldClass} value={customer.phone} onChange={(event) => update("phone", event.target.value)} autoComplete="tel" />
+          {catalog.checkoutMode === "cod" ? "Telefon für die Zustellung" : "Telefon, optional"}
+          <input
+            className={fieldClass}
+            required={catalog.checkoutMode === "cod"}
+            value={customer.phone}
+            onChange={(event) => update("phone", event.target.value)}
+            autoComplete="tel"
+          />
         </label>
         <label className="block text-sm">
           Straße und Hausnummer
@@ -172,13 +178,21 @@ export function CheckoutForm({ catalog }: { catalog: Catalog }) {
             : "Lieferzeit: noch nicht vom Lieferanten bestätigt."}
         </p>
         <p className="mt-3 text-sm leading-relaxed">
-          {catalog.paymentReady
-            ? "Weiter geht es zu Stripe. Die Zahlung gilt erst, wenn Stripe sie als bezahlt bestätigt. Kartendaten geben Sie nur dort ein, nicht in diesem Shop."
-            : "Es ist kein Zahlungsanbieter konfiguriert. Mit dem Absenden entsteht eine unverbindliche Anfrage. Es wird nichts abgebucht und nichts als bezahlt verbucht."}
+          {catalog.checkoutMode === "cod"
+            ? "Zahlungsart: Nachnahme. Sie zahlen den angezeigten Gesamtbetrag in bar bei der Zustellung an den Zusteller. Es kommt kein Nachnahmezuschlag dazu. Mit dem Button geben Sie eine verbindliche Bestellung ab."
+            : catalog.checkoutMode === "stripe"
+              ? "Weiter geht es zu Stripe. Die Zahlung gilt erst, wenn Stripe sie als bezahlt bestätigt. Kartendaten geben Sie nur dort ein, nicht in diesem Shop."
+              : "Es ist kein Zahlungsanbieter konfiguriert. Mit dem Absenden entsteht eine unverbindliche Anfrage. Es wird nichts abgebucht und nichts als bezahlt verbucht."}
         </p>
         {error ? <p className="mt-3 text-sm text-oak">{error}</p> : null}
         <button className={`${btnPrimary} mt-5 w-full`} type="submit" disabled={pending}>
-          {pending ? "Bitte warten …" : catalog.paymentReady ? "Weiter zur sicheren Zahlung" : "Unverbindliche Anfrage senden"}
+          {pending
+            ? "Bitte warten …"
+            : catalog.checkoutMode === "cod"
+              ? "Zahlungspflichtig bestellen"
+              : catalog.checkoutMode === "stripe"
+                ? "Weiter zur sicheren Zahlung"
+                : "Unverbindliche Anfrage senden"}
         </button>
       </aside>
     </form>

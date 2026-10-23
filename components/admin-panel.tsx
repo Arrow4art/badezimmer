@@ -36,7 +36,6 @@ export function AdminPanel() {
         slug: product.slug,
         stock: product.stock,
         priceCents: product.priceCents,
-        productType: product.productType,
       })),
       shipping: payload.catalog.shipping,
       business: payload.catalog.business,
@@ -131,7 +130,12 @@ export function AdminPanel() {
         <div>
           <h1 className="text-3xl font-medium tracking-tight">Shop-Verwaltung</h1>
           <p className="mt-2 text-sm text-muted">
-            Zahlung: {data.catalog.paymentReady ? "Stripe ist konfiguriert." : "Stripe ist nicht konfiguriert. Es wird keine Zahlung ausgeführt."}
+            Zahlung:{" "}
+            {data.catalog.checkoutMode === "cod"
+              ? "Nachnahme ist aktiv. Der Kunde zahlt bar bei der Lieferung."
+              : data.catalog.checkoutMode === "stripe"
+                ? "Stripe ist konfiguriert."
+                : "Stripe ist nicht konfiguriert. Es wird keine Zahlung ausgeführt."}
           </p>
           <p className="text-sm text-muted">
             E-Mail: {data.catalog.emailReady ? "Versand ist konfiguriert." : "Kein E-Mail-Anbieter. Es wird keine Nachricht verschickt."}
@@ -195,25 +199,9 @@ export function AdminPanel() {
                   }}
                 />
               </label>
-              <label className="text-sm sm:col-span-2">
-                Produktart
-                <select
-                  className={fieldClass}
-                  value={product.productType}
-                  onChange={(event) => {
-                    const productType = event.target.value as "infrarot" | "traditionell";
-                    setDraft((prev) => {
-                      if (!prev) return prev;
-                      const products = prev.products.slice();
-                      products[index] = { ...product, productType };
-                      return { ...prev, products };
-                    });
-                  }}
-                >
-                  <option value="infrarot">Infrarot-Mini-Sauna</option>
-                  <option value="traditionell">Klassische Mini-Sauna</option>
-                </select>
-              </label>
+              <p className="text-sm text-muted sm:col-span-2">
+                Heizart und technische Daten stehen in data/specs.json und erscheinen erst mit Herstellernachweis.
+              </p>
             </div>
           ))}
         </div>

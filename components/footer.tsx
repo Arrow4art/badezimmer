@@ -3,7 +3,13 @@ import { Logo } from "@/components/logo";
 import { legalNav, nav } from "@/lib/copy";
 import type { BusinessInfo } from "@/lib/types";
 
-export function Footer({ business }: { business: BusinessInfo }) {
+export function Footer({
+  business,
+  checkoutMode,
+}: {
+  business: BusinessInfo;
+  checkoutMode: "stripe" | "cod" | "inquiry";
+}) {
   const place = [business.street, [business.zip, business.city].filter(Boolean).join(" ")].filter(Boolean);
   return (
     <footer className="mt-20 bg-ink text-cream">
@@ -52,8 +58,10 @@ export function Footer({ business }: { business: BusinessInfo }) {
       </div>
       <div className="border-t border-white/10">
         <p className="mx-auto max-w-6xl px-5 py-4 text-xs leading-relaxed text-cream/55">
-          Preise inklusive 19 % MwSt. Kostenloser Versand innerhalb Deutschlands. Kartendaten werden in diesem Shop nicht
-          gespeichert.
+          Preise inklusive 19 % MwSt. Kostenloser Versand innerhalb Deutschlands.{" "}
+          {checkoutMode === "cod"
+            ? "Zahlung per Nachnahme bei der Lieferung."
+            : "Kartendaten werden in diesem Shop nicht gespeichert."}
         </p>
       </div>
     </footer>

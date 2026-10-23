@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import { attachStripeSession, createInquiry, createPendingOrder, failPendingOrder } from "@/lib/catalog";
+import { attachStripeSession, createCodOrder, createPendingOrder, failPendingOrder } from "@/lib/catalog";
 import { notifyOrder } from "@/lib/notify";
 import { siteUrl } from "@/lib/site";
 import { readStore } from "@/lib/store";
@@ -61,10 +61,24 @@ export async function POST(request: Request) {
 
   const stripe = getStripe();
   if (!stripe) {
-    const created = await createInquiry(parsed.data);
-    if (!created.ok) return NextResponse.json({ error: created.error }, { status: 400 });
-    const order = await notifyOrder(created.order);
-    return NextResponse.json({ mode: "inquiry", id: order.id });
+    const digits = parsed.data.customer.phone.replace(/\D/g, "");
+    if (digits.length < 6) {
+      return NextResponse.json(
+        { error: "Bitte geben Sie eine Telefonnummer für die Zustellung an." },
+        { status: 400 },
+      );
+    }
+    try {
+      const created = await createCodOrder(parsed.data);
+      if (!created.ok) return NextResponse.json({ error: created.error }, { status: 400 });
+      const order = await notifyOrder(created.order);
+      return NextResponse.json({ mode: "cod", id: order.id });
+    } catch {
+      return NextResponse.json(
+        { error: "Die Bestellung konnte nicht gespeichert werden. Es wurde nichts berechnet." },
+        { status: 503 },
+      );
+    }
   }
 
   const created = await createPendingOrder(parsed.data);

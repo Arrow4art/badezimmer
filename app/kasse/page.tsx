@@ -11,11 +11,19 @@ export default async function CheckoutPage() {
     <>
       <PageHeader
         eyebrow="Kasse"
-        title={catalog.paymentReady ? "Weiter zur Zahlung" : "Unverbindliche Anfrage"}
+        title={
+          catalog.checkoutMode === "cod"
+            ? "Zahlung per Nachnahme"
+            : catalog.checkoutMode === "stripe"
+              ? "Weiter zur Zahlung"
+              : "Unverbindliche Anfrage"
+        }
         lede={
-          catalog.paymentReady
-            ? "Der Gesamtbetrag steht hier fest. Kartendaten geben Sie erst bei Stripe ein."
-            : "Ohne Zahlungsanbieter buchen wir nichts ab und markieren nichts als bezahlt."
+          catalog.checkoutMode === "cod"
+            ? "Der Gesamtbetrag steht hier fest. Sie zahlen ihn in bar bei der Lieferung. Vorher wird nichts abgebucht."
+            : catalog.checkoutMode === "stripe"
+              ? "Der Gesamtbetrag steht hier fest. Kartendaten geben Sie erst bei Stripe ein."
+              : "Ohne Zahlungsanbieter buchen wir nichts ab und markieren nichts als bezahlt."
         }
       />
       <CheckoutForm catalog={catalog} />

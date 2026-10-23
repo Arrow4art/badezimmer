@@ -1,4 +1,4 @@
-import { typeCopy } from "@/lib/copy";
+import { productDescription, typeCopy } from "@/lib/copy";
 import type { Catalog } from "@/lib/types";
 
 const GOOGLE_PRODUCT_CATEGORY = "3992";
@@ -33,7 +33,7 @@ export function buildGoogleFeed(catalog: Catalog, origin: string): string {
   const items = catalog.products
     .map((product) => {
       const kind = typeCopy(product.productType);
-      const description = [...product.description, kind.explanation].join(" ");
+      const description = [productDescription(product), kind.explanation].filter(Boolean).join(" ");
       const images = product.images.map((image) => `${origin}${image.src}`);
       const lines = [
         tag("g:id", product.sku),

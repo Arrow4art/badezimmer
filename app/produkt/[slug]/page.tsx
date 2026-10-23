@@ -6,10 +6,9 @@ import { FaqList } from "@/components/faq-list";
 import { Gallery } from "@/components/gallery";
 import { ProductCard } from "@/components/product-card";
 import { getCatalog, relatedProducts } from "@/lib/catalog";
-import { specStatusLabel, typeCopy } from "@/lib/copy";
+import { productDescription, typeCopy } from "@/lib/copy";
 import { formatEUR, formatShipping } from "@/lib/money";
 import { siteUrl } from "@/lib/site";
-import type { SpecStatus } from "@/lib/types";
 
 type Props = { params: Promise<{ slug: string }> };
 
@@ -26,12 +25,6 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   };
 }
 
-function badge(status: SpecStatus): string {
-  if (status === "verified") return "bg-forest/10 text-forest";
-  if (status === "illustrative") return "bg-[#f3e6d4] text-ink";
-  return "bg-ink/5 text-muted";
-}
-
 export default async function ProductPage({ params }: Props) {
   const { slug } = await params;
   const catalog = await getCatalog();
@@ -41,7 +34,7 @@ export default async function ProductPage({ params }: Props) {
   const percent = Math.round(catalog.vatRate * 100);
   const related = relatedProducts(catalog, product.slug);
   const faqs = [
-    { q: "Welche Produktart ist das?", a: kind.explanation },
+    ...(kind.explanation ? [{ q: "Welche Heizart hat dieses Modell?", a: kind.explanation }] : []),
     {
       q: "Wie viele Stück sind verfügbar?",
       a: "Das Modell ist im Shop bestellbar. Die Menge im Warenkorb ist auf den verfügbaren Bestand begrenzt.",
@@ -64,16 +57,29 @@ export default async function ProductPage({ params }: Props) {
     "@type": "Product",
     name: product.name,
     sku: product.sku,
+    mpn: product.sku,
     image: product.images.map((image) => `${siteUrl()}${image.src}`),
-    description: product.shortDescription,
+    description: productDescription(product),
     brand: { "@type": "Brand", name: "Badezimmer" },
+    ...(product.techSpecs.length
+      ? {
+          additionalProperty: product.techSpecs.map((spec) => ({
+            "@type": "PropertyValue",
+            name: spec.label,
+            value: spec.value,
+          })),
+        }
+      : {}),
     offers: {
       "@type": "Offer",
+      itemCondition: "https://schema.org/NewCondition",
       priceCurrency: "EUR",
       price: (product.priceCents / 100).toFixed(2),
       availability: product.available > 0 ? "https://schema.org/InStock" : "https://schema.org/OutOfStock",
       inventoryLevel: { "@type": "QuantitativeValue", value: product.available },
       url: `${siteUrl()}/produkt/${product.slug}`,
+      acceptedPaymentMethod:
+        catalog.checkoutMode === "cod" ? "http://purl.org/goodrelations/v1#COD" : undefined,
       shippingDetails: {
         "@type": "OfferShippingDetails",
         shippingRate: {
@@ -96,7 +102,12 @@ export default async function ProductPage({ params }: Props) {
         / {product.name}
       </p>
       <div className="mt-6 grid items-start gap-10 lg:grid-cols-2">
-        <Gallery images={product.images} />
+        <div>
+          <Gallery images={product.images} />
+          <p className="mt-3 text-xs text-muted">
+            Die Abbildung ist eine Visualisierung. Das gelieferte Modell kann in Farbe und Details abweichen.
+          </p>
+        </div>
         <div>
           <p className="text-xs font-medium uppercase tracking-[0.18em] text-moss">{kind.label}</p>
           <h1 className="mt-2 text-4xl font-medium tracking-tight">{product.name}</h1>
@@ -106,12 +117,22 @@ export default async function ProductPage({ params }: Props) {
             inkl. {percent} % MwSt.,{" "}
             {catalog.shipping.costCents === 0 ? "kostenloser Versand" : `zzgl. Versand ${formatEUR(catalog.shipping.costCents)}`}
           </p>
+          {catalog.checkoutMode === "cod" ? (
+            <p className="mt-2 text-sm">
+              Zahlung per Nachnahme: Sie zahlen den Gesamtbetrag in bar bei der Lieferung.{" "}
+              <Link href="/zahlung" className="underline underline-offset-4">
+                Zahlungsarten
+              </Link>
+            </p>
+          ) : null}
           <p className="mt-4 leading-relaxed">{product.shortDescription}</p>
           <BuyBox slug={product.slug} available={product.available} />
-          <div className="mt-5 rounded-3xl border border-ink/10 p-4 text-sm leading-relaxed">
-            <p className="font-medium">{kind.label}</p>
-            <p className="mt-2 text-muted">{kind.explanation}</p>
-          </div>
+          {kind.explanation ? (
+            <div className="mt-5 rounded-3xl border border-ink/10 p-4 text-sm leading-relaxed">
+              <p className="font-medium">{kind.label}</p>
+              <p className="mt-2 text-muted">{kind.explanation}</p>
+            </div>
+          ) : null}
           <p className="mt-4 text-sm">
             <Link href="/widerruf" className="underline underline-offset-4">
               Rückgabe und Widerruf
@@ -137,21 +158,22 @@ export default async function ProductPage({ params }: Props) {
           </ul>
         </div>
         <div>
-          <h2 className="text-2xl font-medium">Angaben</h2>
-          <p className="mt-3 text-sm leading-relaxed text-muted">
-            Nur Zeilen mit dem Hinweis „Bestätigt“ sind feste Angaben. Alles andere ist offen oder eine unverbindliche Darstellung.
-          </p>
+          <h2 className="text-2xl font-medium">Technische Daten</h2>
           <dl className="mt-4 divide-y divide-ink/10">
-            {product.specs.map((spec) => (
-              <div key={spec.label} className="grid gap-2 py-3 sm:grid-cols-[1fr_auto]">
-                <div>
-                  <dt className="text-sm text-muted">{spec.label}</dt>
-                  <dd className="mt-1">{spec.value}</dd>
-                </div>
-                <dd className={`h-fit rounded-full px-3 py-1 text-xs ${badge(spec.status)}`}>{specStatusLabel(spec.status)}</dd>
+            {product.techSpecs.map((spec) => (
+              <div key={spec.label} className="py-3">
+                <dt className="text-sm text-muted">{spec.label}</dt>
+                <dd className="mt-1">{spec.value}</dd>
               </div>
             ))}
           </dl>
+          <p className="mt-4 text-sm leading-relaxed text-muted">
+            Fragen zu Maßen, Material oder Anschluss beantworten wir per E-Mail an{" "}
+            <a href={`mailto:${catalog.business.email}`} className="underline underline-offset-4">
+              {catalog.business.email}
+            </a>
+            .
+          </p>
         </div>
       </section>
 
@@ -190,9 +212,6 @@ export default async function ProductPage({ params }: Props) {
           <h2 className="text-xl font-medium">Montage und Anschluss</h2>
           <p className="mt-4 text-sm leading-relaxed">{catalog.installationText}</p>
           <p className="mt-3 text-sm leading-relaxed text-muted">
-            {catalog.shipping.assemblyIncluded
-              ? "Nach aktueller Einstellung ist die Montage enthalten."
-              : "Nach aktueller Einstellung ist die Montage nicht enthalten."}{" "}
             {catalog.shipping.assemblyText}
           </p>
         </div>

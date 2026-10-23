@@ -4,6 +4,7 @@ import type { Order, OrderStatus } from "@/lib/types";
 export const statusLabel: Record<OrderStatus, string> = {
   anfrage: "Anfrage, nicht bezahlt",
   zahlung_ausstehend: "Zahlung offen",
+  nachnahme: "Nachnahme, Zahlung bei Lieferung",
   bezahlt: "Bezahlt",
   abgelaufen: "Zahlungsfrist abgelaufen",
   storniert: "Abgebrochen",
@@ -32,6 +33,32 @@ export function orderMessage(order: Order): { subject: string; text: string } {
     `darin MwSt.: ${formatEUR(summary.shippingVatCents)}`,
     `Gesamtbetrag: ${formatEUR(summary.totalGrossCents)}`,
   ].join("\n");
+
+  if (order.status === "nachnahme") {
+    return {
+      subject: `Bestellbestätigung ${order.id}`,
+      text: [
+        `Guten Tag ${order.customer.firstName} ${order.customer.lastName},`,
+        "",
+        "Ihre Bestellung ist eingegangen. Sie zahlen per Nachnahme.",
+        `Bitte halten Sie ${formatEUR(summary.totalGrossCents)} in bar bei der Zustellung bereit.`,
+        "Vorher wird nichts abgebucht. Ein Nachnahmezuschlag kommt nicht dazu.",
+        "",
+        `Vorgang: ${order.id}`,
+        "",
+        lines,
+        "",
+        totals,
+        "",
+        "Lieferadresse:",
+        address,
+        `Telefon: ${order.customer.phone}`,
+        "",
+        "Die Lieferung innerhalb Deutschlands dauert 0–1 Werktage. Die Spedition stimmt den Termin vorher mit Ihnen ab.",
+        "Montage und elektrischer Anschluss richten sich nach den Hinweisen im Shop.",
+      ].join("\n"),
+    };
+  }
 
   if (order.status === "bezahlt") {
     return {

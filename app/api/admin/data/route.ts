@@ -2,7 +2,7 @@ import { NextResponse } from "next/server";
 import { isAdmin } from "@/lib/auth";
 import { getCatalog, listOrders, updateCatalog, validateAdminUpdate } from "@/lib/catalog";
 import { devPasswordHint } from "@/lib/auth";
-import type { AdminUpdate, BusinessInfo, ProductType, ShippingConfig } from "@/lib/types";
+import type { AdminUpdate, BusinessInfo, ShippingConfig } from "@/lib/types";
 
 export const dynamic = "force-dynamic";
 
@@ -53,12 +53,10 @@ function parseUpdate(body: unknown): AdminUpdate | null {
   };
   const products = record.products.slice(0, 6).map((entry) => {
     const product = entry as Record<string, unknown>;
-    const productType: ProductType = product.productType === "traditionell" ? "traditionell" : "infrarot";
     return {
       slug: text(product.slug, 80),
       stock: whole(product.stock),
       priceCents: whole(product.priceCents),
-      productType,
     };
   });
   return {

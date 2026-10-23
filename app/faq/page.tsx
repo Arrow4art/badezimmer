@@ -16,7 +16,7 @@ export default async function FaqPage() {
         lede="Kurze Antworten zu Produktart, Bestand, Versand und Zahlung. Gesundheitliche Wirkungen versprechen wir nicht."
       />
       <div className="mx-auto max-w-3xl px-5 py-12">
-        <FaqList items={buildFaqs(catalog.products)} />
+        <FaqList items={buildFaqs(catalog.products, catalog.checkoutMode)} />
       </div>
     </>
   );

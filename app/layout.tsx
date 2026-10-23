@@ -49,7 +49,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
         <CartProvider>
           <Header />
           <main id="inhalt">{children}</main>
-          <Footer business={catalog.business} />
+          <Footer business={catalog.business} checkoutMode={catalog.checkoutMode} />
           <ConsentBanner />
         </CartProvider>
       </body>

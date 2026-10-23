@@ -1,11 +1,41 @@
 export type ProductType = "infrarot" | "traditionell";
 
-export type SpecStatus = "verified" | "illustrative" | "unconfirmed";
+export type TechStatus = "verified" | "owner_stated" | "concept_estimate" | "supplier_required";
 
-export type Spec = {
+export type TechValue = {
+  value: string | null;
+  status: TechStatus;
+  source: string | null;
+  verifiedAt: string | null;
+  note?: string;
+};
+
+export type TechField = {
+  key: string;
+  no: string;
+  label: string;
+  labelDe: string | null;
+  question: string;
+  documents: string;
+};
+
+export type TechRecord = {
+  sku: string;
+  slug: string;
+  name: string;
+  conceptDesign: string;
+  specs: Record<string, TechValue>;
+};
+
+export type TechData = {
+  updatedAt: string;
+  fields: TechField[];
+  products: TechRecord[];
+};
+
+export type PublicSpec = {
   label: string;
   value: string;
-  status: SpecStatus;
 };
 
 export type ProductImage = {
@@ -21,11 +51,9 @@ export type Product = {
   stock: number;
   shortDescription: string;
   description: string[];
-  productType: ProductType;
   features: string[];
   targetUse: string;
   images: ProductImage[];
-  specs: Spec[];
 };
 
 export type ShippingConfig = {
@@ -71,6 +99,8 @@ export type StoreData = {
 
 export type PublicProduct = Product & {
   available: number;
+  productType: ProductType | null;
+  techSpecs: PublicSpec[];
 };
 
 export type Catalog = {
@@ -79,6 +109,7 @@ export type Catalog = {
   shipping: ShippingConfig;
   business: BusinessInfo;
   products: PublicProduct[];
+  checkoutMode: "stripe" | "cod" | "inquiry";
   paymentReady: boolean;
   emailReady: boolean;
 };
@@ -86,6 +117,7 @@ export type Catalog = {
 export type OrderStatus =
   | "anfrage"
   | "zahlung_ausstehend"
+  | "nachnahme"
   | "bezahlt"
   | "abgelaufen"
   | "storniert"
@@ -122,7 +154,7 @@ export type Order = {
   vatRate: number;
   goodsGrossCents: number;
   totalGrossCents: number;
-  paymentProvider: "none" | "stripe";
+  paymentProvider: "none" | "stripe" | "cod";
   stripeSessionId?: string;
   emailSent: boolean;
   emailNote: string;
@@ -138,7 +170,7 @@ export type NewsletterEntry = {
 };
 
 export type AdminUpdate = {
-  products: { slug: string; stock: number; priceCents: number; productType: ProductType }[];
+  products: { slug: string; stock: number; priceCents: number }[];
   shipping: ShippingConfig;
   business: BusinessInfo;
   installationText: string;

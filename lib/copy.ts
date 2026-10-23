@@ -20,35 +20,35 @@ export const legalNav = [
   { href: "/zahlung", label: "Zahlung" },
 ];
 
-export function typeCopy(type: ProductType): { label: string; explanation: string } {
+export function typeCopy(type: ProductType | null): { label: string; explanation: string } {
   if (type === "traditionell") {
     return {
       label: "Klassische Mini-Sauna",
-      explanation:
-        "Dieses Modell ist als klassische Mini-Sauna eingeordnet, nicht als Infrarotkabine. Ein Saunaofen, die Heizleistung und der elektrische Anschluss gelten erst dann als angegeben, wenn der Lieferant sie bestätigt hat. Bis dahin stehen diese Punkte auf der Seite als offen.",
+      explanation: "Diese Kabine ist eine klassische Sauna mit elektrischem Saunaofen und keine Infrarotkabine.",
     };
   }
-  return {
-    label: "Infrarot-Mini-Sauna",
-    explanation:
-      "Dieses Modell ist als Infrarot-Mini-Sauna eingeordnet. Es ist keine klassische finnische Sauna mit Saunaofen und Aufguss. Heiztechnik, Leistung und elektrischer Anschluss sind vom Lieferanten noch nicht bestätigt und deshalb nicht als geprüfte Technikdaten ausgewiesen.",
-  };
+  if (type === "infrarot") {
+    return {
+      label: "Infrarot-Mini-Sauna",
+      explanation:
+        "Diese Kabine wird mit Infrarotstrahlern beheizt. Sie ist keine klassische finnische Sauna mit Saunaofen und Aufguss.",
+    };
+  }
+  return { label: "Mini-Sauna", explanation: "" };
 }
 
-export function specStatusLabel(status: "verified" | "illustrative" | "unconfirmed"): string {
-  if (status === "verified") return "Bestätigt";
-  if (status === "illustrative") return "Unverbindliche Darstellung";
-  return "Noch nicht bestätigt";
+export function productDescription(product: Pick<PublicProduct, "shortDescription" | "description">): string {
+  return [product.shortDescription, ...product.description].join(" ");
 }
 
 export const benefits = [
   {
     title: "Kompaktes Format",
-    text: "Die Modelle sind für Wohnung, Bad oder eine ruhige Ecke im Haus gedacht. Ob der Platz wirklich reicht, hängt von den noch offenen Maßen ab.",
+    text: "Die Modelle sind für Wohnung, Bad oder eine ruhige Ecke im Haus gedacht.",
   },
   {
     title: "Zeitlose Gestaltung",
-    text: "Helles Holz, Glas und ruhige Proportionen. Die Bilder zeigen das Gestaltungskonzept, nicht eine bereits vermessene Serie.",
+    text: "Holzoptik, Glas und ruhige Proportionen.",
   },
   {
     title: "Wellness zu Hause",
@@ -59,35 +59,43 @@ export const benefits = [
 export const steps = [
   {
     title: "Modell wählen",
-    text: "Sechs Mini-Saunen mit festem Preis, sichtbarem Bestand und einer klaren Produktart.",
+    text: "Sechs Mini-Saunen mit festem Preis und sichtbarem Bestand.",
   },
   {
     title: "Lieferung prüfen",
-    text: "Kostenlose Lieferung innerhalb Deutschlands in 0–1 Werktagen. Lieferhinweise stehen vor dem Absenden.",
+    text: "Kostenlose Lieferung innerhalb Deutschlands in 0–1 Werktagen. Die Zahlung erfolgt per Nachnahme bei der Lieferung.",
   },
   {
     title: "Aufstellen und anschließen",
-    text: "Montage und Elektroanschluss richten sich nach der aktuellen Konfiguration und den noch offenen Herstellerangaben.",
+    text: "Aufstellung und Montage übernehmen Sie selbst. Den elektrischen Anschluss darf nur eine Elektrofachkraft vornehmen.",
   },
 ];
 
-export function buildFaqs(products: Pick<PublicProduct, "name" | "productType">[]) {
-  const typeLines = products
-    .map((product) => `${product.name}: ${typeCopy(product.productType).label}`)
-    .join(" ");
+export function buildFaqs(
+  products: Pick<PublicProduct, "name" | "productType">[],
+  checkoutMode: "stripe" | "cod" | "inquiry" = "inquiry",
+) {
+  const typed = products.filter((product) => product.productType);
+  const typeFaq = typed.length
+    ? [
+        {
+          q: "Ist das eine Infrarotkabine oder eine klassische Sauna?",
+          a: `Eine Infrarotkabine ist keine klassische Sauna mit Saunaofen. ${typed
+            .map((product) => `${product.name}: ${typeCopy(product.productType).label}.`)
+            .join(" ")}`,
+        },
+      ]
+    : [];
 
   return [
-    {
-      q: "Ist das eine Infrarotkabine oder eine klassische Sauna?",
-      a: `Die Produktart steht auf jeder Produktseite und wird nicht vermischt. Eine Infrarot-Mini-Sauna ist keine klassische Sauna mit Saunaofen. Eine klassische Mini-Sauna ist keine Infrarotkabine. Aktuell: ${typeLines} Die konkrete Heiztechnik bleibt offen, bis der Lieferant sie bestätigt.`,
-    },
+    ...typeFaq,
     {
       q: "Für welche Räume sind die Kabinen gedacht?",
-      a: "Kompakt Sauna One und Nordik Mini Sauna sind für kleinere Wohnungen und ruhige Ecken vorgesehen. Premium Relax Sauna und Panorama Mini Sauna sind für größere Bäder, Home-Gyms oder einen eigenen Wellnessraum gedacht. Ob eine Kabine passt, hängt von den noch nicht bestätigten Maßen, vom Boden und vom elektrischen Anschluss ab.",
+      a: "Kompakt Sauna One und Nordik Mini Sauna sind für kleinere Wohnungen und ruhige Ecken gedacht. Premium Relax Sauna, Panorama Mini Sauna und Aurora Panorama Mini Sauna eignen sich eher für größere Bäder, Home-Gyms oder einen eigenen Wellnessraum. Fragen zu Stellfläche und Anschluss beantworten wir gern per E-Mail an support@iwoody.de.",
     },
     {
-      q: "Sind Maße und Materialien verbindlich?",
-      a: "Nein. Maße, Holzart, Glas, Beleuchtung und Lieferumfang sind auf den Produktseiten als unverbindliche Darstellung oder als offene Angabe gekennzeichnet, bis der Lieferant sie bestätigt.",
+      q: "Wo finde ich die technischen Daten?",
+      a: "Auf jeder Produktseite unter „Technische Daten“. Dort stehen nur Angaben, die durch Unterlagen des Herstellers belegt sind. Fragen zu weiteren Details beantworten wir per E-Mail an support@iwoody.de.",
     },
     {
       q: "Wie hoch sind die Versandkosten?",
@@ -99,15 +107,20 @@ export function buildFaqs(products: Pick<PublicProduct, "name" | "productType">[
     },
     {
       q: "Ist die Montage enthalten?",
-      a: "Nur wenn der Shop das ausdrücklich so konfiguriert. Im Ausgangszustand ist die Montage nicht enthalten.",
+      a: "Nein. Aufstellung und Montage sind nicht im Preis enthalten.",
     },
     {
       q: "Wer schließt die Kabine elektrisch an?",
-      a: "Anschlusswerte liegen noch nicht vor. Die Kabine darf erst angeschlossen werden, wenn die Herstellerangaben da sind, und nur durch eine qualifizierte Elektrofachkraft.",
+      a: "Den elektrischen Anschluss darf nur eine qualifizierte Elektrofachkraft vornehmen.",
     },
     {
       q: "Welche Zahlungsmöglichkeiten gibt es?",
-      a: "Kartendaten werden in diesem Shop nicht eingegeben und nicht gespeichert. Ist Stripe konfiguriert, zahlen Sie auf der Seite von Stripe. Welche Methoden dort erscheinen, hängt vom Stripe-Konto ab, üblicherweise Karte, Klarna, PayPal und SEPA-Lastschrift. Ohne konfigurierten Anbieter wird keine Zahlung ausgeführt und nichts als bezahlt verbucht.",
+      a:
+        checkoutMode === "cod"
+          ? "Sie zahlen per Nachnahme. Der Gesamtbetrag ist bei der Zustellung in bar an den Zusteller zu zahlen. Vorher wird nichts abgebucht, und es kommt kein Nachnahmezuschlag dazu."
+          : checkoutMode === "stripe"
+            ? "Sie zahlen auf der Seite von Stripe. Kartendaten werden in diesem Shop nicht eingegeben. Welche Methoden dort erscheinen, hängt vom Stripe-Konto ab."
+            : "Eine Online-Zahlung ist derzeit nicht freigeschaltet. Das Formular erzeugt nur eine unverbindliche Anfrage.",
     },
     {
       q: "Kann ich widerrufen?",
@@ -115,7 +128,7 @@ export function buildFaqs(products: Pick<PublicProduct, "name" | "productType">[
     },
     {
       q: "Gibt es Bewertungen, Garantien oder Prüfzeichen?",
-      a: "Nein. Der Shop zeigt keine Kundenbewertungen, keine zusätzliche Garantie, keine Zertifikate und keine Energieeffizienzangaben, solange solche Nachweise nicht vorliegen.",
+      a: "Es gilt die gesetzliche Gewährleistung. Eine zusätzliche Garantie bieten wir derzeit nicht an. Kundenbewertungen und Prüfzeichen zeigen wir nur, wenn sie belegt sind.",
     },
     {
       q: "Was tue ich bei einem Transportschaden?",

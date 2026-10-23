@@ -37,20 +37,28 @@ export default async function OrderPage({
     }
   }
 
-  if ((order.status === "bezahlt" || order.status === "anfrage") && !order.emailSent) {
+  if ((order.status === "bezahlt" || order.status === "anfrage" || order.status === "nachnahme") && !order.emailSent) {
     order = await notifyOrder(order);
   }
 
   const summary = summarize(order.items, order.shippingGrossCents, order.vatRate);
   const message = orderMessage(order);
-  const finished = order.status === "bezahlt" || order.status === "anfrage";
+  const finished = order.status === "bezahlt" || order.status === "anfrage" || order.status === "nachnahme";
+  const title =
+    order.status === "bezahlt"
+      ? "Bestellung bestätigt"
+      : order.status === "nachnahme"
+        ? "Bestellung mit Nachnahme"
+        : order.status === "anfrage"
+          ? "Anfrage gespeichert"
+          : "Zahlung nicht abgeschlossen";
 
   return (
     <div className="mx-auto max-w-3xl px-5 py-14">
       {finished ? <ClearCart /> : null}
       <p className="text-xs font-medium uppercase tracking-[0.18em] text-moss">{statusLabel[order.status]}</p>
       <h1 className="mt-3 text-4xl font-medium tracking-tight">
-        {order.status === "bezahlt" ? "Bestellung bestätigt" : order.status === "anfrage" ? "Anfrage gespeichert" : "Zahlung nicht abgeschlossen"}
+        {title}
       </h1>
       <p className="mt-4 leading-relaxed text-muted">{order.note}</p>
       <p className="mt-2 text-sm">Vorgang {order.id}</p>
