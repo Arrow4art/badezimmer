@@ -32,6 +32,7 @@ export default async function ProductPage({ params }: Props) {
   if (!product) notFound();
   const kind = typeCopy(product.productType);
   const percent = Math.round(catalog.vatRate * 100);
+  const publishedSpecs = product.techSpecs.filter((spec) => spec.label !== "Artikelnummer");
   const related = relatedProducts(catalog, product.slug);
   const faqs = [
     ...(kind.explanation ? [{ q: "Welche Heizart hat dieses Modell?", a: kind.explanation }] : []),
@@ -61,9 +62,9 @@ export default async function ProductPage({ params }: Props) {
     image: product.images.map((image) => `${siteUrl()}${image.src}`),
     description: productDescription(product),
     brand: { "@type": "Brand", name: "Badezimmer" },
-    ...(product.techSpecs.length
+    ...(publishedSpecs.length
       ? {
-          additionalProperty: product.techSpecs.map((spec) => ({
+          additionalProperty: publishedSpecs.map((spec) => ({
             "@type": "PropertyValue",
             name: spec.label,
             value: spec.value,
@@ -158,21 +159,25 @@ export default async function ProductPage({ params }: Props) {
           </ul>
         </div>
         <div>
-          <h2 className="text-2xl font-medium">Technische Daten</h2>
-          <dl className="mt-4 divide-y divide-ink/10">
-            {product.techSpecs.map((spec) => (
-              <div key={spec.label} className="py-3">
-                <dt className="text-sm text-muted">{spec.label}</dt>
-                <dd className="mt-1">{spec.value}</dd>
-              </div>
-            ))}
-          </dl>
-          <p className="mt-4 text-sm leading-relaxed text-muted">
-            Fragen zu Maßen, Material oder Anschluss beantworten wir per E-Mail an{" "}
+          {publishedSpecs.length > 0 ? (
+            <>
+              <h2 className="text-2xl font-medium">Technische Daten</h2>
+              <dl className="mt-4 divide-y divide-ink/10">
+                {publishedSpecs.map((spec) => (
+                  <div key={spec.label} className="py-3">
+                    <dt className="text-sm text-muted">{spec.label}</dt>
+                    <dd className="mt-1">{spec.value}</dd>
+                  </div>
+                ))}
+              </dl>
+            </>
+          ) : null}
+          <p className={`text-sm leading-relaxed text-muted ${publishedSpecs.length > 0 ? "mt-4" : ""}`}>
+            Weitere technische Angaben teilen wir per E-Mail an{" "}
             <a href={`mailto:${catalog.business.email}`} className="underline underline-offset-4">
               {catalog.business.email}
-            </a>
-            .
+            </a>{" "}
+            mit.
           </p>
         </div>
       </section>

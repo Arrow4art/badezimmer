@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server";
 import { attachStripeSession, createCodOrder, createPendingOrder, failPendingOrder } from "@/lib/catalog";
+import { storageConfigured } from "@/lib/kv";
 import { notifyOrder } from "@/lib/notify";
 import { siteUrl } from "@/lib/site";
 import { readStore } from "@/lib/store";
@@ -71,9 +72,19 @@ export async function POST(request: Request) {
     try {
       const created = await createCodOrder(parsed.data);
       if (!created.ok) return NextResponse.json({ error: created.error }, { status: 400 });
-      const order = await notifyOrder(created.order);
+      let order = created.order;
+      try {
+        order = await notifyOrder(created.order);
+      } catch {
+        console.error("COD order is stored, but the confirmation email could not be recorded.");
+      }
       return NextResponse.json({ mode: "cod", id: order.id });
     } catch {
+      console.error(
+        storageConfigured()
+          ? "COD order storage failed."
+          : "COD order storage failed because Redis is not configured. Set KV_REST_API_URL and KV_REST_API_TOKEN, or UPSTASH_REDIS_REST_URL and UPSTASH_REDIS_REST_TOKEN.",
+      );
       return NextResponse.json(
         { error: "Die Bestellung konnte nicht gespeichert werden. Es wurde nichts berechnet." },
         { status: 503 },

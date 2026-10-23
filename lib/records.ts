@@ -23,7 +23,17 @@ async function writeJson(name: string, value: unknown): Promise<void> {
     await redis.set(`badezimmer:${name}`, value);
     return;
   }
-  await writeFile(filePath(name), `${JSON.stringify(value, null, 2)}\n`, "utf8");
+  try {
+    await writeFile(filePath(name), `${JSON.stringify(value, null, 2)}\n`, "utf8");
+  } catch (error) {
+    const code = (error as NodeJS.ErrnoException).code;
+    if (code === "EROFS" || code === "EPERM" || code === "EACCES" || code === "ENOENT") {
+      throw new Error(
+        "Order storage is not writable. Set KV_REST_API_URL and KV_REST_API_TOKEN, or UPSTASH_REDIS_REST_URL and UPSTASH_REDIS_REST_TOKEN.",
+      );
+    }
+    throw error;
+  }
 }
 
 function filePath(name: string): string {

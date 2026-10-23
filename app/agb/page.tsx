@@ -6,7 +6,7 @@ import { getCatalog } from "@/lib/catalog";
 export const metadata: Metadata = { title: "Allgemeine Geschäftsbedingungen" };
 
 export default async function TermsPage() {
-  const { business, checkoutMode } = await getCatalog();
+  const { business, checkoutMode, shipping } = await getCatalog();
   return (
     <>
       <PageHeader
@@ -36,8 +36,9 @@ export default async function TermsPage() {
                 : "Solange keine Online-Zahlung freigeschaltet ist, erzeugt das Formular nur eine unverbindliche Anfrage und keinen Kaufvertrag."}
           </p>
           <p className="mt-3">
-            Verbindlich sind die Angaben unter „Technische Daten“ auf der Produktseite. Die Abbildungen sind Visualisierungen
-            und können in Farbe und Details vom gelieferten Modell abweichen.
+            Verbindlich sind Preis, Lieferzeit und die auf der Produktseite veröffentlichten Eigenschaften. Maße, Material
+            und Leistung, die dort nicht stehen, sind nicht zugesichert. Die Abbildungen sind Visualisierungen und können in
+            Farbe und Details vom gelieferten Modell abweichen.
           </p>
         </section>
         <section>
@@ -61,9 +62,12 @@ export default async function TermsPage() {
         <section>
           <h2 className="text-2xl font-medium">5. Lieferung</h2>
           <p className="mt-3">
-            Geliefert wird innerhalb Deutschlands als Sperrgut. Eine Lieferfrist nennen wir nur, wenn sie als bestätigt
-            gekennzeichnet ist. Montage und elektrischer Anschluss sind nur geschuldet, wenn das ausdrücklich so konfiguriert
-            ist. Der Anschluss darf erst nach vorliegenden Herstellerangaben durch eine Elektrofachkraft erfolgen.
+            Geliefert wird innerhalb Deutschlands als Sperrgut.{" "}
+            {shipping.deliveryEstimateConfirmed
+              ? `Die Lieferzeit beträgt ${shipping.deliveryEstimateText}. Den Termin stimmt die Spedition vorher mit Ihnen ab.`
+              : "Eine Lieferfrist nennen wir nur, wenn sie bestätigt ist."}{" "}
+            Montage und elektrischer Anschluss sind nur geschuldet, wenn das ausdrücklich so angegeben ist. Der Anschluss darf
+            erst nach vorliegenden Herstellerangaben durch eine Elektrofachkraft erfolgen.
           </p>
         </section>
         <section>

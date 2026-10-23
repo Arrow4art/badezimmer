@@ -18,7 +18,7 @@ export const metadata: Metadata = {
     template: "%s · Badezimmer",
   },
   description:
-    "Kompakte Mini-Saunen für zu Hause. Sechs Modelle, Preise in Euro inklusive Mehrwertsteuer, Versand innerhalb Deutschlands.",
+    "Kompakte Mini-Saunen für zu Hause. Sechs Modelle, Preise inklusive 19 % MwSt., kostenloser Versand innerhalb Deutschlands in 0–1 Werktagen, Zahlung per Nachnahme.",
   robots:
     process.env.ALLOW_INDEXING === "true"
       ? { index: true, follow: true }
@@ -49,7 +49,12 @@ export default async function RootLayout({ children }: { children: React.ReactNo
         <CartProvider>
           <Header />
           <main id="inhalt">{children}</main>
-          <Footer business={catalog.business} checkoutMode={catalog.checkoutMode} />
+          <Footer
+            business={catalog.business}
+            checkoutMode={catalog.checkoutMode}
+            shipping={catalog.shipping}
+            vatRate={catalog.vatRate}
+          />
           <ConsentBanner />
         </CartProvider>
       </body>

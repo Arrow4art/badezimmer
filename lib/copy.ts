@@ -95,7 +95,7 @@ export function buildFaqs(
     },
     {
       q: "Wo finde ich die technischen Daten?",
-      a: "Auf jeder Produktseite unter „Technische Daten“. Dort stehen nur Angaben, die durch Unterlagen des Herstellers belegt sind. Fragen zu weiteren Details beantworten wir per E-Mail an support@iwoody.de.",
+      a: "Maße, Holz, Leistung und Prüfzeichen stehen auf der Produktseite erst, wenn sie durch Unterlagen des Herstellers belegt sind. Solange sie fehlen, beantworten wir Fragen dazu per E-Mail an support@iwoody.de.",
     },
     {
       q: "Wie hoch sind die Versandkosten?",

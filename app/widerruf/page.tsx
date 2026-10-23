@@ -5,7 +5,7 @@ import { getCatalog } from "@/lib/catalog";
 export const metadata: Metadata = { title: "Rückgabe und Widerruf" };
 
 export default async function WithdrawalPage() {
-  const { business } = await getCatalog();
+  const { business, shipping } = await getCatalog();
   return (
     <>
       <PageHeader
@@ -18,6 +18,12 @@ export default async function WithdrawalPage() {
           <h2 className="text-2xl font-medium">Rückgabe auf einen Blick</h2>
           <ul className="mt-3 list-disc space-y-2 pl-5">
             <li>Rückgabefrist: 14 Tage ab Erhalt der Ware.</li>
+            {shipping.deliveryEstimateConfirmed ? (
+              <li>
+                Lieferzeit: {shipping.deliveryEstimateText}. Die Widerrufsfrist beginnt mit dem Erhalt der Ware, nicht mit
+                der Bestellung.
+              </li>
+            ) : null}
             <li>Zurückgegeben werden können mangelfreie und mangelhafte Artikel.</li>
             <li>Ein Umtausch gegen ein anderes Modell wird nicht angeboten. Sie erhalten den Kaufpreis zurück.</li>
             <li>

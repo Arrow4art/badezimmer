@@ -1,14 +1,18 @@
 import Link from "next/link";
 import { Logo } from "@/components/logo";
 import { legalNav, nav } from "@/lib/copy";
-import type { BusinessInfo } from "@/lib/types";
+import type { BusinessInfo, ShippingConfig } from "@/lib/types";
 
 export function Footer({
   business,
   checkoutMode,
+  shipping,
+  vatRate,
 }: {
   business: BusinessInfo;
   checkoutMode: "stripe" | "cod" | "inquiry";
+  shipping: ShippingConfig;
+  vatRate: number;
 }) {
   const place = [business.street, [business.zip, business.city].filter(Boolean).join(" ")].filter(Boolean);
   return (
@@ -58,7 +62,9 @@ export function Footer({
       </div>
       <div className="border-t border-white/10">
         <p className="mx-auto max-w-6xl px-5 py-4 text-xs leading-relaxed text-cream/55">
-          Preise inklusive 19 % MwSt. Kostenloser Versand innerhalb Deutschlands.{" "}
+          Preise inklusive {Math.round(vatRate * 100)} % MwSt.{" "}
+          {shipping.costCents === 0 ? "Kostenloser Versand" : "Versand"} innerhalb Deutschlands
+          {shipping.deliveryEstimateConfirmed ? `. Lieferzeit: ${shipping.deliveryEstimateText}` : ""}.{" "}
           {checkoutMode === "cod"
             ? "Zahlung per Nachnahme bei der Lieferung."
             : "Kartendaten werden in diesem Shop nicht gespeichert."}

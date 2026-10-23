@@ -12,7 +12,11 @@ export default async function PaymentPage() {
       <PageHeader
         eyebrow="Zahlung"
         title="Zahlungsinformationen"
-        lede="Alle Preise sind Bruttopreise. Der Versand steht vor dem Abschluss in der Summe. Versteckte Gebühren gibt es nicht."
+        lede={
+          catalog.shipping.costCents === 0
+            ? `Alle Preise sind Bruttopreise inklusive ${percent} % Mehrwertsteuer. Der Versand innerhalb Deutschlands ist kostenlos. Versteckte Gebühren gibt es nicht.`
+            : "Alle Preise sind Bruttopreise. Der Versand steht vor dem Abschluss in der Summe. Versteckte Gebühren gibt es nicht."
+        }
       />
       <div className="mx-auto max-w-3xl space-y-8 px-5 py-12 leading-relaxed">
         <section>
@@ -43,9 +47,9 @@ export default async function PaymentPage() {
         <section>
           <h2 className="text-2xl font-medium">Offene Zahlungen</h2>
           <p className="mt-3">
-            Eine begonnene Stripe-Zahlung reserviert die Menge für {catalog.shipping.reservationHours} Stunden. Wird sie nicht
-            abgeschlossen, fällt die Reservierung weg. Eine Nachnahme-Bestellung verringert den Bestand sofort, weil die Ware
-            für den Versand vorgesehen ist.
+            {catalog.checkoutMode === "cod"
+              ? "Bei Nachnahme wird nichts online abgebucht. Mit der Bestellung verringert sich der Bestand um die bestellte Menge, weil die Ware für den Versand vorgesehen ist."
+              : `Eine begonnene Stripe-Zahlung reserviert die Menge für ${catalog.shipping.reservationHours} Stunden. Wird sie nicht abgeschlossen, fällt die Reservierung weg.`}
           </p>
         </section>
       </div>

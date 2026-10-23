@@ -165,6 +165,7 @@ export async function createCodOrder(input: CheckoutInput): Promise<CheckoutResu
     const products = store.products.map((product) => toPublic(product, orders));
     const built = buildItems(products, input.items);
     if ("error" in built) return { ok: false, error: built.error };
+    const stockBefore = new Map(store.products.map((product) => [product.slug, product.stock]));
     for (const item of built.items) {
       const product = store.products.find((entry) => entry.slug === item.slug);
       if (!product || product.stock < item.qty) {
@@ -190,8 +191,21 @@ export async function createCodOrder(input: CheckoutInput): Promise<CheckoutResu
       note: `Bestellung mit Nachnahme. Sie zahlen den Gesamtbetrag von ${(summary.totalGrossCents / 100).toLocaleString("de-DE", { style: "currency", currency: "EUR" })} in bar bei der Zustellung an den Zusteller. Es kommt kein Nachnahmezuschlag dazu. Vorher wird nichts abgebucht. Der Bestand wurde um die bestellte Menge verringert.`,
     };
     orders.unshift(order);
-    await writeStore(store);
-    await writeOrders(orders);
+    try {
+      await writeStore(store);
+      await writeOrders(orders);
+    } catch (error) {
+      for (const product of store.products) {
+        const stock = stockBefore.get(product.slug);
+        if (stock !== undefined) product.stock = stock;
+      }
+      try {
+        await writeStore(store);
+      } catch {
+        // Report the original storage failure. A second write can fail for the same reason.
+      }
+      throw error;
+    }
     return { ok: true, order };
   });
 }

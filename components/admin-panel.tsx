@@ -70,7 +70,8 @@ export function AdminPanel() {
       >
         <h1 className="text-3xl font-medium tracking-tight">Shop-Verwaltung</h1>
         <p className="mt-3 text-sm leading-relaxed text-muted">
-          Hier ändern Sie Bestand, Preise, Versand und die Angaben für das Impressum. Der Bestand ist kein Live-Lager.
+          Hier ändern Sie Bestand, Preise, Versand und die Angaben für das Impressum. Der Bestand ist die Menge, die Kunden
+          bestellen können.
         </p>
         {process.env.NODE_ENV !== "production" ? (
           <p className="mt-3 text-sm leading-relaxed text-muted">

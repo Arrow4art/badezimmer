@@ -12,7 +12,16 @@ export default async function ShopPage() {
       <PageHeader
         eyebrow="Shop"
         title="Sechs Mini-Saunen, klar bepreist."
-        lede="Jeder Preis enthält 19 % MwSt. Der Versand kommt dazu und steht vor dem Abschluss. Der Bestand ist der hinterlegte Shop-Bestand."
+        lede={[
+          `Jeder Preis enthält ${Math.round(catalog.vatRate * 100)} % MwSt.`,
+          catalog.shipping.costCents === 0
+            ? "Der Versand innerhalb Deutschlands ist kostenlos."
+            : "Die Versandkosten stehen vor dem Abschluss.",
+          catalog.shipping.deliveryEstimateConfirmed ? `Lieferzeit: ${catalog.shipping.deliveryEstimateText}.` : "",
+          "Die angezeigte Stückzahl ist der bestellbare Bestand.",
+        ]
+          .filter(Boolean)
+          .join(" ")}
       />
       <ShopBrowser products={catalog.products} vatRate={catalog.vatRate} shippingCents={catalog.shipping.costCents} />
     </>
