@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { ContactForm } from "@/components/contact-form";
 import { PageHeader } from "@/components/ui";
 import { getCatalog } from "@/lib/catalog";
+import { phoneHref } from "@/lib/site";
 
 export const metadata: Metadata = { title: "Kontakt" };
 
@@ -32,7 +33,14 @@ export default async function ContactPage() {
               </a>
             </p>
           ) : null}
-          {business.phone ? <p>Telefon: {business.phone}</p> : null}
+          {business.phone ? (
+            <p>
+              Telefon:{" "}
+              <a href={phoneHref(business.phone)} className="text-ink underline underline-offset-4">
+                {business.phone}
+              </a>
+            </p>
+          ) : null}
           <p className="mt-4">Am schnellsten erreichen Sie uns per E-Mail.</p>
         </aside>
       </div>

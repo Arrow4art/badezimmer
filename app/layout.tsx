@@ -18,7 +18,7 @@ export const metadata: Metadata = {
     template: "%s · Badezimmer",
   },
   description:
-    "Kompakte Mini-Saunen für zu Hause. Sechs Modelle, Preise inklusive 19 % MwSt., kostenloser Versand innerhalb Deutschlands in 0–1 Werktagen, Zahlung per Nachnahme.",
+    "Kompakte Mini-Saunen für zu Hause. Sechs Modelle, Preise inklusive 19 % MwSt., kostenloser Versand innerhalb Deutschlands in 0–3 Werktagen, Zahlung per Nachnahme.",
   robots:
     process.env.ALLOW_INDEXING === "false"
       ? { index: false, follow: false }
@@ -57,6 +57,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
                 name: "Badezimmer",
                 url: siteUrl(),
                 email: catalog.business.email,
+                ...(catalog.business.phone ? { telephone: catalog.business.phone } : {}),
                 address: {
                   "@type": "PostalAddress",
                   streetAddress: catalog.business.street,

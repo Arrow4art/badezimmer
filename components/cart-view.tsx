@@ -46,14 +46,14 @@ export function CartView({ catalog }: { catalog: Catalog }) {
         {lines.map(({ qty, product }) => (
           <li key={product.slug} className="grid grid-cols-[7rem_1fr] gap-4 rounded-3xl bg-paper p-4 sm:grid-cols-[9rem_1fr]">
             <div className="relative aspect-[4/3] overflow-hidden rounded-2xl">
-              <Image src={product.images[0].src} alt="" fill sizes="140px" className="object-cover" />
+              <Image src={product.images[0].src} alt={product.images[0].alt} fill sizes="140px" className="object-cover" />
             </div>
             <div>
               <h2 className="font-medium">
                 <Link href={`/produkt/${product.slug}`}>{product.name}</Link>
               </h2>
               <p className="mt-1 text-sm text-muted">{formatEUR(product.priceCents)} inkl. MwSt.</p>
-              <p className="text-sm text-muted">{product.available > 0 ? "Auf Lager" : "Nicht verfügbar"}</p>
+              <p className="text-sm text-muted">{product.available > 0 ? `${product.available} Stück auf Lager` : "Nicht verfügbar"}</p>
               <div className="mt-3 flex flex-wrap items-center gap-3">
                 <label className="text-sm" htmlFor={`qty-${product.slug}`}>
                   Menge

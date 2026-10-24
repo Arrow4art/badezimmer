@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { PageHeader, Placeholder } from "@/components/ui";
 import { getCatalog } from "@/lib/catalog";
+import { phoneHref } from "@/lib/site";
 
 export const metadata: Metadata = { title: "Impressum" };
 
@@ -27,9 +28,16 @@ export default async function ImpressumPage() {
           {business.phone ? (
             <>
               <br />
-              Telefon: {business.phone}
+              Telefon:{" "}
+              <a href={phoneHref(business.phone)} className="underline underline-offset-4">
+                {business.phone}
+              </a>
             </>
           ) : null}
+        </p>
+        <p>
+          Rechtsform: Einzelunternehmen. Ein Handelsregistereintrag liegt nicht vor. Alle Verbraucherpreise sind Bruttopreise
+          und enthalten 19 % Umsatzsteuer. Eine Umsatzsteuer-Identifikationsnummer und eine Steuernummer sind nicht hinterlegt.
         </p>
         {business.register || business.vatId ? (
           <p>

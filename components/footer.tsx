@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { Logo } from "@/components/logo";
 import { legalNav, nav } from "@/lib/copy";
+import { phoneHref } from "@/lib/site";
 import type { BusinessInfo, ShippingConfig } from "@/lib/types";
 
 export function Footer({
@@ -57,7 +58,11 @@ export function Footer({
               {business.email}
             </a>
           ) : null}
-          {business.phone ? <p>{business.phone}</p> : null}
+          {business.phone ? (
+            <a href={phoneHref(business.phone)} className="mt-1 block text-cream/80 hover:text-cream">
+              {business.phone}
+            </a>
+          ) : null}
         </div>
       </div>
       <div className="border-t border-white/10">

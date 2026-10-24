@@ -9,6 +9,7 @@ import { getCatalog, relatedProducts } from "@/lib/catalog";
 import { productDescription, typeCopy } from "@/lib/copy";
 import { formatEUR, formatShipping } from "@/lib/money";
 import { siteUrl } from "@/lib/site";
+import { customerSpecRows } from "@/lib/tech-specs";
 
 type Props = { params: Promise<{ slug: string }> };
 
@@ -38,7 +39,10 @@ export default async function ProductPage({ params }: Props) {
     ...(kind.explanation ? [{ q: "Welche Heizart hat dieses Modell?", a: kind.explanation }] : []),
     {
       q: "Wie viele Stück sind verfügbar?",
-      a: "Das Modell ist im Shop bestellbar. Die Menge im Warenkorb ist auf den verfügbaren Bestand begrenzt.",
+      a:
+        product.available > 0
+          ? `Aktuell sind ${product.available} Stück verfügbar. Die Menge im Warenkorb ist auf diesen Bestand begrenzt.`
+          : "Dieses Modell ist derzeit nicht verfügbar.",
     },
     {
       q: "Was kostet der Versand?",
@@ -58,7 +62,6 @@ export default async function ProductPage({ params }: Props) {
     "@type": "Product",
     name: product.name,
     sku: product.sku,
-    mpn: product.sku,
     image: product.images.map((image) => `${siteUrl()}${image.src}`),
     description: productDescription(product),
     brand: { "@type": "Brand", name: "Badezimmer" },
@@ -103,7 +106,7 @@ export default async function ProductPage({ params }: Props) {
               deliveryTime: {
                 "@type": "ShippingDeliveryTime",
                 handlingTime: { "@type": "QuantitativeValue", minValue: 0, maxValue: 0, unitCode: "DAY" },
-                transitTime: { "@type": "QuantitativeValue", minValue: 0, maxValue: 1, unitCode: "DAY" },
+                transitTime: { "@type": "QuantitativeValue", minValue: 0, maxValue: 3, unitCode: "DAY" },
               },
             }
           : {}),
@@ -174,20 +177,16 @@ export default async function ProductPage({ params }: Props) {
           </ul>
         </div>
         <div>
-          {publishedSpecs.length > 0 ? (
-            <>
-              <h2 className="text-2xl font-medium">Technische Daten</h2>
-              <dl className="mt-4 divide-y divide-ink/10">
-                {publishedSpecs.map((spec) => (
-                  <div key={spec.label} className="py-3">
-                    <dt className="text-sm text-muted">{spec.label}</dt>
-                    <dd className="mt-1">{spec.value}</dd>
-                  </div>
-                ))}
-              </dl>
-            </>
-          ) : null}
-          <p className={`text-sm leading-relaxed text-muted ${publishedSpecs.length > 0 ? "mt-4" : ""}`}>
+          <h2 className="text-2xl font-medium">Technische Daten</h2>
+          <dl className="mt-4 divide-y divide-ink/10">
+            {customerSpecRows(product.sku).map((spec) => (
+              <div key={spec.label} className="py-3">
+                <dt className="text-sm text-muted">{spec.label}</dt>
+                <dd className={`mt-1 ${spec.pending ? "text-sm text-muted" : ""}`}>{spec.value}</dd>
+              </div>
+            ))}
+          </dl>
+          <p className="mt-4 text-sm leading-relaxed text-muted">
             Weitere technische Angaben teilen wir per E-Mail an{" "}
             <a href={`mailto:${catalog.business.email}`} className="underline underline-offset-4">
               {catalog.business.email}

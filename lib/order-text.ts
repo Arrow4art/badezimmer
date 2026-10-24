@@ -54,7 +54,7 @@ export function orderMessage(order: Order): { subject: string; text: string } {
         address,
         `Telefon: ${order.customer.phone}`,
         "",
-        "Die Lieferung innerhalb Deutschlands dauert 0–1 Werktage. Die Spedition stimmt den Termin vorher mit Ihnen ab.",
+        "Die Lieferung innerhalb Deutschlands dauert 0–3 Werktage. Die Spedition stimmt den Termin vorher mit Ihnen ab.",
         "Montage und elektrischer Anschluss richten sich nach den Hinweisen im Shop.",
       ].join("\n"),
     };
@@ -78,7 +78,7 @@ export function orderMessage(order: Order): { subject: string; text: string } {
         "Lieferadresse:",
         address,
         "",
-        "Die Lieferung innerhalb Deutschlands dauert 0–1 Werktage. Die Spedition stimmt den Termin vorher mit Ihnen ab.",
+        "Die Lieferung innerhalb Deutschlands dauert 0–3 Werktage. Die Spedition stimmt den Termin vorher mit Ihnen ab.",
         "Montage und elektrischer Anschluss richten sich nach den Hinweisen im Shop.",
       ].join("\n"),
     };

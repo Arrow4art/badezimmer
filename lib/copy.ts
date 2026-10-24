@@ -63,7 +63,7 @@ export const steps = [
   },
   {
     title: "Lieferung prüfen",
-    text: "Kostenlose Lieferung innerhalb Deutschlands in 0–1 Werktagen. Die Zahlung erfolgt per Nachnahme bei der Lieferung.",
+    text: "Kostenlose Lieferung innerhalb Deutschlands in 0–3 Werktagen. Die Zahlung erfolgt per Nachnahme bei der Lieferung.",
   },
   {
     title: "Aufstellen und anschließen",
@@ -103,7 +103,7 @@ export function buildFaqs(
     },
     {
       q: "Wie lange dauert die Lieferung?",
-      a: "Die Lieferung innerhalb Deutschlands dauert 0–1 Werktage. Den genauen Liefertermin stimmt die Spedition vorher mit Ihnen ab.",
+      a: "Die Lieferung innerhalb Deutschlands dauert 0–3 Werktage. Den genauen Liefertermin stimmt die Spedition vorher mit Ihnen ab.",
     },
     {
       q: "Ist die Montage enthalten?",

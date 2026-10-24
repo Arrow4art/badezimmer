@@ -11,3 +11,6 @@ data/newsletter.json
 data/messages.json
 tsconfig.tsbuildinfo
 next-env.d.ts
+
+.vercel
+.env*

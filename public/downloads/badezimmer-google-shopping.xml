@@ -14,7 +14,6 @@
       <g:quantity>10</g:quantity>
       <g:price>899.00 EUR</g:price>
       <g:brand>Badezimmer</g:brand>
-      <g:mpn>BAD-KS-001</g:mpn>
       <g:identifier_exists>false</g:identifier_exists>
       <g:condition>new</g:condition>
       <g:google_product_category>3992</g:google_product_category>
@@ -23,7 +22,6 @@
       <g:product_highlight>Helle Holzoptik</g:product_highlight>
       <g:product_highlight>Gerundete Kanten</g:product_highlight>
       <g:product_highlight>Glastür</g:product_highlight>
-      <g:product_detail><g:section_name>Technische Daten</g:section_name><g:attribute_name>Artikelnummer</g:attribute_name><g:attribute_value>BAD-KS-001</g:attribute_value></g:product_detail>
       <g:shipping>
         <g:country>DE</g:country>
         <g:service>Spedition innerhalb Deutschlands</g:service>
@@ -31,7 +29,7 @@
         <g:min_handling_time>0</g:min_handling_time>
         <g:max_handling_time>0</g:max_handling_time>
         <g:min_transit_time>0</g:min_transit_time>
-        <g:max_transit_time>1</g:max_transit_time>
+        <g:max_transit_time>3</g:max_transit_time>
       </g:shipping>
     </item>
     <item>
@@ -44,7 +42,6 @@
       <g:quantity>10</g:quantity>
       <g:price>1149.00 EUR</g:price>
       <g:brand>Badezimmer</g:brand>
-      <g:mpn>BAD-NS-002</g:mpn>
       <g:identifier_exists>false</g:identifier_exists>
       <g:condition>new</g:condition>
       <g:google_product_category>3992</g:google_product_category>
@@ -52,7 +49,6 @@
       <g:product_highlight>Schmale Bauform</g:product_highlight>
       <g:product_highlight>Helle Holzoptik</g:product_highlight>
       <g:product_highlight>Glasfront mit dunklem Rahmen</g:product_highlight>
-      <g:product_detail><g:section_name>Technische Daten</g:section_name><g:attribute_name>Artikelnummer</g:attribute_name><g:attribute_value>BAD-NS-002</g:attribute_value></g:product_detail>
       <g:shipping>
         <g:country>DE</g:country>
         <g:service>Spedition innerhalb Deutschlands</g:service>
@@ -60,7 +56,7 @@
         <g:min_handling_time>0</g:min_handling_time>
         <g:max_handling_time>0</g:max_handling_time>
         <g:min_transit_time>0</g:min_transit_time>
-        <g:max_transit_time>1</g:max_transit_time>
+        <g:max_transit_time>3</g:max_transit_time>
       </g:shipping>
     </item>
     <item>
@@ -73,7 +69,6 @@
       <g:quantity>10</g:quantity>
       <g:price>1399.00 EUR</g:price>
       <g:brand>Badezimmer</g:brand>
-      <g:mpn>BAD-PR-003</g:mpn>
       <g:identifier_exists>false</g:identifier_exists>
       <g:condition>new</g:condition>
       <g:google_product_category>3992</g:google_product_category>
@@ -81,7 +76,6 @@
       <g:product_highlight>Großzügige Kabine</g:product_highlight>
       <g:product_highlight>Große Glasfront</g:product_highlight>
       <g:product_highlight>Warme Holzoptik</g:product_highlight>
-      <g:product_detail><g:section_name>Technische Daten</g:section_name><g:attribute_name>Artikelnummer</g:attribute_name><g:attribute_value>BAD-PR-003</g:attribute_value></g:product_detail>
       <g:shipping>
         <g:country>DE</g:country>
         <g:service>Spedition innerhalb Deutschlands</g:service>
@@ -89,7 +83,7 @@
         <g:min_handling_time>0</g:min_handling_time>
         <g:max_handling_time>0</g:max_handling_time>
         <g:min_transit_time>0</g:min_transit_time>
-        <g:max_transit_time>1</g:max_transit_time>
+        <g:max_transit_time>3</g:max_transit_time>
       </g:shipping>
     </item>
     <item>
@@ -102,7 +96,6 @@
       <g:quantity>10</g:quantity>
       <g:price>1599.00 EUR</g:price>
       <g:brand>Badezimmer</g:brand>
-      <g:mpn>BAD-PM-004</g:mpn>
       <g:identifier_exists>false</g:identifier_exists>
       <g:condition>new</g:condition>
       <g:google_product_category>3992</g:google_product_category>
@@ -110,7 +103,6 @@
       <g:product_highlight>Breite Bauform</g:product_highlight>
       <g:product_highlight>Panorama-Glasfront</g:product_highlight>
       <g:product_highlight>Innenraum in Holzoptik</g:product_highlight>
-      <g:product_detail><g:section_name>Technische Daten</g:section_name><g:attribute_name>Artikelnummer</g:attribute_name><g:attribute_value>BAD-PM-004</g:attribute_value></g:product_detail>
       <g:shipping>
         <g:country>DE</g:country>
         <g:service>Spedition innerhalb Deutschlands</g:service>
@@ -118,7 +110,7 @@
         <g:min_handling_time>0</g:min_handling_time>
         <g:max_handling_time>0</g:max_handling_time>
         <g:min_transit_time>0</g:min_transit_time>
-        <g:max_transit_time>1</g:max_transit_time>
+        <g:max_transit_time>3</g:max_transit_time>
       </g:shipping>
     </item>
     <item>
@@ -131,7 +123,6 @@
       <g:quantity>10</g:quantity>
       <g:price>1249.00 EUR</g:price>
       <g:brand>Badezimmer</g:brand>
-      <g:mpn>BAD-EM-005</g:mpn>
       <g:identifier_exists>false</g:identifier_exists>
       <g:condition>new</g:condition>
       <g:google_product_category>3992</g:google_product_category>
@@ -139,7 +130,6 @@
       <g:product_highlight>Kompakte Bauform</g:product_highlight>
       <g:product_highlight>Warme Eichenoptik</g:product_highlight>
       <g:product_highlight>Große Glastür</g:product_highlight>
-      <g:product_detail><g:section_name>Technische Daten</g:section_name><g:attribute_name>Artikelnummer</g:attribute_name><g:attribute_value>BAD-EM-005</g:attribute_value></g:product_detail>
       <g:shipping>
         <g:country>DE</g:country>
         <g:service>Spedition innerhalb Deutschlands</g:service>
@@ -147,7 +137,7 @@
         <g:min_handling_time>0</g:min_handling_time>
         <g:max_handling_time>0</g:max_handling_time>
         <g:min_transit_time>0</g:min_transit_time>
-        <g:max_transit_time>1</g:max_transit_time>
+        <g:max_transit_time>3</g:max_transit_time>
       </g:shipping>
     </item>
     <item>
@@ -160,7 +150,6 @@
       <g:quantity>10</g:quantity>
       <g:price>1549.00 EUR</g:price>
       <g:brand>Badezimmer</g:brand>
-      <g:mpn>BAD-AP-006</g:mpn>
       <g:identifier_exists>false</g:identifier_exists>
       <g:condition>new</g:condition>
       <g:google_product_category>3992</g:google_product_category>
@@ -168,7 +157,6 @@
       <g:product_highlight>Geschwungene Außenform</g:product_highlight>
       <g:product_highlight>Breite Glasfront</g:product_highlight>
       <g:product_highlight>Innenraum in Holzoptik</g:product_highlight>
-      <g:product_detail><g:section_name>Technische Daten</g:section_name><g:attribute_name>Artikelnummer</g:attribute_name><g:attribute_value>BAD-AP-006</g:attribute_value></g:product_detail>
       <g:shipping>
         <g:country>DE</g:country>
         <g:service>Spedition innerhalb Deutschlands</g:service>
@@ -176,7 +164,7 @@
         <g:min_handling_time>0</g:min_handling_time>
         <g:max_handling_time>0</g:max_handling_time>
         <g:min_transit_time>0</g:min_transit_time>
-        <g:max_transit_time>1</g:max_transit_time>
+        <g:max_transit_time>3</g:max_transit_time>
       </g:shipping>
     </item>
   </channel>

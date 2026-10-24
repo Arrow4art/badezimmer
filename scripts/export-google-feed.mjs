@@ -31,7 +31,7 @@ function verified(sku) {
   const type = publishable(typeEntry) ? heating[typeEntry.value] ?? null : null;
   const specs = tech.fields.flatMap((field) => {
     const entry = record.specs[field.key];
-    if (!field.labelDe || !publishable(entry)) return [];
+    if (field.key === "internalReference" || !field.labelDe || !publishable(entry)) return [];
     const value = field.key === "heatingSystem" ? heating[entry.value]?.spec ?? entry.value : entry.value;
     return [{ label: field.labelDe, value }];
   });
@@ -71,7 +71,6 @@ const items = catalog.products
       tag("g:quantity", String(product.stock)),
       tag("g:price", price(product.priceCents)),
       tag("g:brand", "Badezimmer"),
-      tag("g:mpn", product.sku),
       tag("g:identifier_exists", "false"),
       tag("g:condition", "new"),
       tag("g:google_product_category", "3992"),
@@ -90,7 +89,7 @@ const items = catalog.products
             "        <g:min_handling_time>0</g:min_handling_time>",
             "        <g:max_handling_time>0</g:max_handling_time>",
             "        <g:min_transit_time>0</g:min_transit_time>",
-            "        <g:max_transit_time>1</g:max_transit_time>",
+            "        <g:max_transit_time>3</g:max_transit_time>",
           ]
         : []),
       "      </g:shipping>",
