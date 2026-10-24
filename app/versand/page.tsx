@@ -48,7 +48,6 @@ export default async function ShippingPage() {
         <section>
           <h2 className="text-2xl font-medium">Sendungsverfolgung</h2>
           <p className="mt-3">
-            {shipping.trackingAvailable ? "Tracking ist nach aktueller Einstellung vorgesehen. " : "Tracking ist derzeit nicht angebunden. "}
             {shipping.trackingText}
           </p>
         </section>

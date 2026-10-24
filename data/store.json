@@ -9,8 +9,8 @@
     "deliveryEstimateText": "0–1 Werktage innerhalb Deutschlands",
     "deliveryEstimateConfirmed": true,
     "trackingAvailable": false,
-    "trackingText": "Eine Sendungsverfolgung wird bereitgestellt, sobald der Versanddienstleister sie unterstützt und ein Sendungslink vorliegt. Aktuell ist kein Tracking-System angebunden.",
-    "bulkyGoodsText": "Die Kabinen sind Sperrgut und werden per Spedition geliefert. Ob die Leistung bis zur Bordsteinkante, bis zur ersten Tür oder weiter reicht, ist noch nicht bestätigt. Ein Transport in höhere Etagen ohne Aufzug ist nicht automatisch enthalten.",
+    "trackingText": "Den Liefertermin stimmen wir vor der Zustellung mit Ihnen ab. Eine Sendungsreferenz schicken wir per E-Mail, sobald der Versanddienstleister sie vergibt.",
+    "bulkyGoodsText": "Die Kabinen sind Sperrgut und werden per Spedition frei Bordsteinkante an die Lieferadresse in Deutschland geliefert. Ein Transport in höhere Etagen oder durch enge Treppenhäuser ist nicht enthalten.",
     "appointmentRequired": true,
     "appointmentText": "Bei einer Speditionslieferung ist in der Regel ein Liefertermin abzustimmen. Der Termin wird vor der Zustellung mit Ihnen bestätigt.",
     "assemblyIncluded": false,
@@ -41,7 +41,7 @@
       "stock": 10,
       "shortDescription": "Eine kompakte Mini-Sauna für Wohnung und Bad.",
       "description": [
-        "Die Kompakt Sauna One ist für kleine Wohnungen und Bäder gedacht. Die Visualisierung zeigt eine helle Kabine in Holzoptik mit gerundeten Kanten und Glastür."
+        "Die Kompakt Sauna One ist für kleine Wohnungen und Bäder gedacht. Sie ist eine helle Kabine in Holzoptik mit gerundeten Kanten und Glastür."
       ],
       "features": [
         "Kompakte Bauform",
@@ -65,7 +65,7 @@
       "stock": 10,
       "shortDescription": "Eine schmale Mini-Sauna im skandinavischen Stil.",
       "description": [
-        "Die Nordik Mini Sauna braucht wenig Grundfläche. Die Visualisierung zeigt eine schmale Kabine in heller Holzoptik mit dunkel gerahmter Glasfront."
+        "Die Nordik Mini Sauna braucht wenig Grundfläche. Sie ist eine schmale Kabine in heller Holzoptik mit dunkel gerahmter Glasfront."
       ],
       "features": [
         "Schmale Bauform",
@@ -88,7 +88,7 @@
       "stock": 10,
       "shortDescription": "Eine großzügige Mini-Sauna mit breiter Glasfront.",
       "description": [
-        "Die Premium Relax Sauna ist das größere Modell im Sortiment. Die Visualisierung zeigt eine Kabine in warmer Holzoptik mit großer, zweiflügeliger Glasfront."
+        "Die Premium Relax Sauna ist das größere Modell im Sortiment. Sie ist eine Kabine in warmer Holzoptik mit großer, zweiflügeliger Glasfront."
       ],
       "features": [
         "Großzügige Kabine",
@@ -111,7 +111,7 @@
       "stock": 10,
       "shortDescription": "Eine breite Mini-Sauna mit Panorama-Glasfront.",
       "description": [
-        "Die Panorama Mini Sauna ist für größere Bäder, Home-Gyms und eigene Wellnessräume gedacht. Die Visualisierung zeigt eine breite Kabine mit Panorama-Glasfront und einem Innenraum in Holzoptik."
+        "Die Panorama Mini Sauna ist für größere Bäder, Home-Gyms und eigene Wellnessräume gedacht. Sie ist eine breite Kabine mit Panorama-Glasfront und einem Innenraum in Holzoptik."
       ],
       "features": [
         "Breite Bauform",
@@ -134,7 +134,7 @@
       "stock": 10,
       "shortDescription": "Eine kompakte Mini-Sauna in warmer Eichenoptik mit großer Glastür.",
       "description": [
-        "Die Mini Sauna in Eichenoptik ist für ein Bad oder einen kleinen Wellnessraum gedacht. Die Visualisierung zeigt eine kompakte Kabine mit warmer, eichenähnlicher Oberfläche und großer Glastür mit schlichtem Rahmen."
+        "Die Mini Sauna in Eichenoptik ist für ein Bad oder einen kleinen Wellnessraum gedacht. Sie ist eine kompakte Kabine mit warmer, eichenähnlicher Oberfläche und großer Glastür mit schlichtem Rahmen."
       ],
       "features": [
         "Kompakte Bauform",
@@ -157,7 +157,7 @@
       "stock": 10,
       "shortDescription": "Eine Mini-Sauna mit geschwungener Form und breiter Glasfront.",
       "description": [
-        "Die Aurora Panorama Mini Sauna ist für einen eigenen Wellnessraum gedacht. Die Visualisierung zeigt eine geschwungene Kabine mit breiter Glasfront und einem Innenraum in Holzoptik."
+        "Die Aurora Panorama Mini Sauna ist für einen eigenen Wellnessraum gedacht. Sie ist eine geschwungene Kabine mit breiter Glasfront und einem Innenraum in Holzoptik."
       ],
       "features": [
         "Geschwungene Außenform",

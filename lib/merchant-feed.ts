@@ -47,6 +47,7 @@ export function buildGoogleFeed(catalog: Catalog, origin: string): string {
         tag("g:price", price(product.priceCents)),
         tag("g:brand", "Badezimmer"),
         tag("g:mpn", product.sku),
+        tag("g:identifier_exists", "false"),
         tag("g:condition", "new"),
         tag("g:google_product_category", GOOGLE_PRODUCT_CATEGORY),
         tag("g:product_type", kind.label),
@@ -55,6 +56,14 @@ export function buildGoogleFeed(catalog: Catalog, origin: string): string {
         `        <g:country>DE</g:country>`,
         `        <g:service>${xml(catalog.shipping.label)}</g:service>`,
         `        <g:price>${price(catalog.shipping.costCents)}</g:price>`,
+        ...(catalog.shipping.deliveryEstimateConfirmed
+          ? [
+              "        <g:min_handling_time>0</g:min_handling_time>",
+              "        <g:max_handling_time>0</g:max_handling_time>",
+              "        <g:min_transit_time>0</g:min_transit_time>",
+              "        <g:max_transit_time>1</g:max_transit_time>",
+            ]
+          : []),
         "      </g:shipping>",
       ];
       return `    <item>\n${lines.join("\n")}\n    </item>`;

@@ -7,7 +7,7 @@
     <item>
       <g:id>BAD-KS-001</g:id>
       <g:title>Kompakt Sauna One</g:title>
-      <g:description>Eine kompakte Mini-Sauna für Wohnung und Bad. Die Kompakt Sauna One ist für kleine Wohnungen und Bäder gedacht. Die Visualisierung zeigt eine helle Kabine in Holzoptik mit gerundeten Kanten und Glastür.</g:description>
+      <g:description>Eine kompakte Mini-Sauna für Wohnung und Bad. Die Kompakt Sauna One ist für kleine Wohnungen und Bäder gedacht. Sie ist eine helle Kabine in Holzoptik mit gerundeten Kanten und Glastür.</g:description>
       <g:link>https://www.iwoody.de/produkt/kompakt-sauna-one</g:link>
       <g:image_link>https://www.iwoody.de/images/kompakt-sauna-one-main.webp</g:image_link>
       <g:availability>in_stock</g:availability>
@@ -15,6 +15,7 @@
       <g:price>899.00 EUR</g:price>
       <g:brand>Badezimmer</g:brand>
       <g:mpn>BAD-KS-001</g:mpn>
+      <g:identifier_exists>false</g:identifier_exists>
       <g:condition>new</g:condition>
       <g:google_product_category>3992</g:google_product_category>
       <g:product_type>Mini-Sauna</g:product_type>
@@ -27,12 +28,16 @@
         <g:country>DE</g:country>
         <g:service>Spedition innerhalb Deutschlands</g:service>
         <g:price>0.00 EUR</g:price>
+        <g:min_handling_time>0</g:min_handling_time>
+        <g:max_handling_time>0</g:max_handling_time>
+        <g:min_transit_time>0</g:min_transit_time>
+        <g:max_transit_time>1</g:max_transit_time>
       </g:shipping>
     </item>
     <item>
       <g:id>BAD-NS-002</g:id>
       <g:title>Nordik Mini Sauna</g:title>
-      <g:description>Eine schmale Mini-Sauna im skandinavischen Stil. Die Nordik Mini Sauna braucht wenig Grundfläche. Die Visualisierung zeigt eine schmale Kabine in heller Holzoptik mit dunkel gerahmter Glasfront.</g:description>
+      <g:description>Eine schmale Mini-Sauna im skandinavischen Stil. Die Nordik Mini Sauna braucht wenig Grundfläche. Sie ist eine schmale Kabine in heller Holzoptik mit dunkel gerahmter Glasfront.</g:description>
       <g:link>https://www.iwoody.de/produkt/nordik-mini-sauna</g:link>
       <g:image_link>https://www.iwoody.de/images/nordik-mini-sauna-main.webp</g:image_link>
       <g:availability>in_stock</g:availability>
@@ -40,6 +45,7 @@
       <g:price>1149.00 EUR</g:price>
       <g:brand>Badezimmer</g:brand>
       <g:mpn>BAD-NS-002</g:mpn>
+      <g:identifier_exists>false</g:identifier_exists>
       <g:condition>new</g:condition>
       <g:google_product_category>3992</g:google_product_category>
       <g:product_type>Mini-Sauna</g:product_type>
@@ -51,12 +57,16 @@
         <g:country>DE</g:country>
         <g:service>Spedition innerhalb Deutschlands</g:service>
         <g:price>0.00 EUR</g:price>
+        <g:min_handling_time>0</g:min_handling_time>
+        <g:max_handling_time>0</g:max_handling_time>
+        <g:min_transit_time>0</g:min_transit_time>
+        <g:max_transit_time>1</g:max_transit_time>
       </g:shipping>
     </item>
     <item>
       <g:id>BAD-PR-003</g:id>
       <g:title>Premium Relax Sauna</g:title>
-      <g:description>Eine großzügige Mini-Sauna mit breiter Glasfront. Die Premium Relax Sauna ist das größere Modell im Sortiment. Die Visualisierung zeigt eine Kabine in warmer Holzoptik mit großer, zweiflügeliger Glasfront.</g:description>
+      <g:description>Eine großzügige Mini-Sauna mit breiter Glasfront. Die Premium Relax Sauna ist das größere Modell im Sortiment. Sie ist eine Kabine in warmer Holzoptik mit großer, zweiflügeliger Glasfront.</g:description>
       <g:link>https://www.iwoody.de/produkt/premium-relax-sauna</g:link>
       <g:image_link>https://www.iwoody.de/images/premium-relax-sauna-main.webp</g:image_link>
       <g:availability>in_stock</g:availability>
@@ -64,6 +74,7 @@
       <g:price>1399.00 EUR</g:price>
       <g:brand>Badezimmer</g:brand>
       <g:mpn>BAD-PR-003</g:mpn>
+      <g:identifier_exists>false</g:identifier_exists>
       <g:condition>new</g:condition>
       <g:google_product_category>3992</g:google_product_category>
       <g:product_type>Mini-Sauna</g:product_type>
@@ -75,12 +86,16 @@
         <g:country>DE</g:country>
         <g:service>Spedition innerhalb Deutschlands</g:service>
         <g:price>0.00 EUR</g:price>
+        <g:min_handling_time>0</g:min_handling_time>
+        <g:max_handling_time>0</g:max_handling_time>
+        <g:min_transit_time>0</g:min_transit_time>
+        <g:max_transit_time>1</g:max_transit_time>
       </g:shipping>
     </item>
     <item>
       <g:id>BAD-PM-004</g:id>
       <g:title>Panorama Mini Sauna</g:title>
-      <g:description>Eine breite Mini-Sauna mit Panorama-Glasfront. Die Panorama Mini Sauna ist für größere Bäder, Home-Gyms und eigene Wellnessräume gedacht. Die Visualisierung zeigt eine breite Kabine mit Panorama-Glasfront und einem Innenraum in Holzoptik.</g:description>
+      <g:description>Eine breite Mini-Sauna mit Panorama-Glasfront. Die Panorama Mini Sauna ist für größere Bäder, Home-Gyms und eigene Wellnessräume gedacht. Sie ist eine breite Kabine mit Panorama-Glasfront und einem Innenraum in Holzoptik.</g:description>
       <g:link>https://www.iwoody.de/produkt/panorama-mini-sauna</g:link>
       <g:image_link>https://www.iwoody.de/images/panorama-mini-sauna-main.webp</g:image_link>
       <g:availability>in_stock</g:availability>
@@ -88,6 +103,7 @@
       <g:price>1599.00 EUR</g:price>
       <g:brand>Badezimmer</g:brand>
       <g:mpn>BAD-PM-004</g:mpn>
+      <g:identifier_exists>false</g:identifier_exists>
       <g:condition>new</g:condition>
       <g:google_product_category>3992</g:google_product_category>
       <g:product_type>Mini-Sauna</g:product_type>
@@ -99,12 +115,16 @@
         <g:country>DE</g:country>
         <g:service>Spedition innerhalb Deutschlands</g:service>
         <g:price>0.00 EUR</g:price>
+        <g:min_handling_time>0</g:min_handling_time>
+        <g:max_handling_time>0</g:max_handling_time>
+        <g:min_transit_time>0</g:min_transit_time>
+        <g:max_transit_time>1</g:max_transit_time>
       </g:shipping>
     </item>
     <item>
       <g:id>BAD-EM-005</g:id>
       <g:title>Mini Sauna in Eichenoptik</g:title>
-      <g:description>Eine kompakte Mini-Sauna in warmer Eichenoptik mit großer Glastür. Die Mini Sauna in Eichenoptik ist für ein Bad oder einen kleinen Wellnessraum gedacht. Die Visualisierung zeigt eine kompakte Kabine mit warmer, eichenähnlicher Oberfläche und großer Glastür mit schlichtem Rahmen.</g:description>
+      <g:description>Eine kompakte Mini-Sauna in warmer Eichenoptik mit großer Glastür. Die Mini Sauna in Eichenoptik ist für ein Bad oder einen kleinen Wellnessraum gedacht. Sie ist eine kompakte Kabine mit warmer, eichenähnlicher Oberfläche und großer Glastür mit schlichtem Rahmen.</g:description>
       <g:link>https://www.iwoody.de/produkt/eichenholz-mini-sauna</g:link>
       <g:image_link>https://www.iwoody.de/images/eichenholz-mini-sauna-main.webp</g:image_link>
       <g:availability>in_stock</g:availability>
@@ -112,6 +132,7 @@
       <g:price>1249.00 EUR</g:price>
       <g:brand>Badezimmer</g:brand>
       <g:mpn>BAD-EM-005</g:mpn>
+      <g:identifier_exists>false</g:identifier_exists>
       <g:condition>new</g:condition>
       <g:google_product_category>3992</g:google_product_category>
       <g:product_type>Mini-Sauna</g:product_type>
@@ -123,12 +144,16 @@
         <g:country>DE</g:country>
         <g:service>Spedition innerhalb Deutschlands</g:service>
         <g:price>0.00 EUR</g:price>
+        <g:min_handling_time>0</g:min_handling_time>
+        <g:max_handling_time>0</g:max_handling_time>
+        <g:min_transit_time>0</g:min_transit_time>
+        <g:max_transit_time>1</g:max_transit_time>
       </g:shipping>
     </item>
     <item>
       <g:id>BAD-AP-006</g:id>
       <g:title>Aurora Panorama Mini Sauna</g:title>
-      <g:description>Eine Mini-Sauna mit geschwungener Form und breiter Glasfront. Die Aurora Panorama Mini Sauna ist für einen eigenen Wellnessraum gedacht. Die Visualisierung zeigt eine geschwungene Kabine mit breiter Glasfront und einem Innenraum in Holzoptik.</g:description>
+      <g:description>Eine Mini-Sauna mit geschwungener Form und breiter Glasfront. Die Aurora Panorama Mini Sauna ist für einen eigenen Wellnessraum gedacht. Sie ist eine geschwungene Kabine mit breiter Glasfront und einem Innenraum in Holzoptik.</g:description>
       <g:link>https://www.iwoody.de/produkt/aurora-panorama-mini-sauna</g:link>
       <g:image_link>https://www.iwoody.de/images/aurora-panorama-mini-sauna-photo.webp</g:image_link>
       <g:availability>in_stock</g:availability>
@@ -136,6 +161,7 @@
       <g:price>1549.00 EUR</g:price>
       <g:brand>Badezimmer</g:brand>
       <g:mpn>BAD-AP-006</g:mpn>
+      <g:identifier_exists>false</g:identifier_exists>
       <g:condition>new</g:condition>
       <g:google_product_category>3992</g:google_product_category>
       <g:product_type>Mini-Sauna</g:product_type>
@@ -147,6 +173,10 @@
         <g:country>DE</g:country>
         <g:service>Spedition innerhalb Deutschlands</g:service>
         <g:price>0.00 EUR</g:price>
+        <g:min_handling_time>0</g:min_handling_time>
+        <g:max_handling_time>0</g:max_handling_time>
+        <g:min_transit_time>0</g:min_transit_time>
+        <g:max_transit_time>1</g:max_transit_time>
       </g:shipping>
     </item>
   </channel>

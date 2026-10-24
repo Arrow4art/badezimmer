@@ -37,8 +37,7 @@ export default async function TermsPage() {
           </p>
           <p className="mt-3">
             Verbindlich sind Preis, Lieferzeit und die auf der Produktseite veröffentlichten Eigenschaften. Maße, Material
-            und Leistung, die dort nicht stehen, sind nicht zugesichert. Die Abbildungen sind Visualisierungen und können in
-            Farbe und Details vom gelieferten Modell abweichen.
+            und Leistung, die dort nicht stehen, sind nicht zugesichert. Die Abbildung zeigt das bestellte Modell.
           </p>
         </section>
         <section>

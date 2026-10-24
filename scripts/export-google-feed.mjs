@@ -72,6 +72,7 @@ const items = catalog.products
       tag("g:price", price(product.priceCents)),
       tag("g:brand", "Badezimmer"),
       tag("g:mpn", product.sku),
+      tag("g:identifier_exists", "false"),
       tag("g:condition", "new"),
       tag("g:google_product_category", "3992"),
       tag("g:product_type", type?.label ?? "Mini-Sauna"),
@@ -84,6 +85,14 @@ const items = catalog.products
       "        <g:country>DE</g:country>",
       `        <g:service>${xml(catalog.shipping.label)}</g:service>`,
       `        <g:price>${price(catalog.shipping.costCents)}</g:price>`,
+      ...(catalog.shipping.deliveryEstimateConfirmed
+        ? [
+            "        <g:min_handling_time>0</g:min_handling_time>",
+            "        <g:max_handling_time>0</g:max_handling_time>",
+            "        <g:min_transit_time>0</g:min_transit_time>",
+            "        <g:max_transit_time>1</g:max_transit_time>",
+          ]
+        : []),
       "      </g:shipping>",
     ];
     return `    <item>\n${lines.join("\n")}\n    </item>`;

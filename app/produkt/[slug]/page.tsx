@@ -81,6 +81,15 @@ export default async function ProductPage({ params }: Props) {
       url: `${siteUrl()}/produkt/${product.slug}`,
       acceptedPaymentMethod:
         catalog.checkoutMode === "cod" ? "http://purl.org/goodrelations/v1#COD" : undefined,
+      hasMerchantReturnPolicy: {
+        "@type": "MerchantReturnPolicy",
+        applicableCountry: "DE",
+        returnPolicyCategory: "https://schema.org/MerchantReturnFiniteReturnWindow",
+        merchantReturnDays: 14,
+        returnMethod: "https://schema.org/ReturnByMail",
+        returnFees: "https://schema.org/ReturnFeesCustomerResponsibility",
+        refundType: "https://schema.org/FullRefund",
+      },
       shippingDetails: {
         "@type": "OfferShippingDetails",
         shippingRate: {
@@ -89,6 +98,15 @@ export default async function ProductPage({ params }: Props) {
           currency: "EUR",
         },
         shippingDestination: { "@type": "DefinedRegion", addressCountry: "DE" },
+        ...(catalog.shipping.deliveryEstimateConfirmed
+          ? {
+              deliveryTime: {
+                "@type": "ShippingDeliveryTime",
+                handlingTime: { "@type": "QuantitativeValue", minValue: 0, maxValue: 0, unitCode: "DAY" },
+                transitTime: { "@type": "QuantitativeValue", minValue: 0, maxValue: 1, unitCode: "DAY" },
+              },
+            }
+          : {}),
       },
     },
   };
@@ -105,9 +123,6 @@ export default async function ProductPage({ params }: Props) {
       <div className="mt-6 grid items-start gap-10 lg:grid-cols-2">
         <div>
           <Gallery images={product.images} />
-          <p className="mt-3 text-xs text-muted">
-            Die Abbildung ist eine Visualisierung. Das gelieferte Modell kann in Farbe und Details abweichen.
-          </p>
         </div>
         <div>
           <p className="text-xs font-medium uppercase tracking-[0.18em] text-moss">{kind.label}</p>
