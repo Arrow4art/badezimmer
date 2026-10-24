@@ -1,7 +1,7 @@
 import type { MetadataRoute } from "next";
 
 export default function robots(): MetadataRoute.Robots {
-  const allow = process.env.ALLOW_INDEXING === "true";
+  const allow = process.env.ALLOW_INDEXING !== "false";
   if (!allow) {
     return {
       rules: {

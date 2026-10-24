@@ -216,6 +216,10 @@ export default async function ProductPage({ params }: Props) {
               <dd>{catalog.shipping.dispatchText}</dd>
             </div>
             <div>
+              <dt className="text-muted">Lieferung</dt>
+              <dd>{catalog.shipping.bulkyGoodsText}</dd>
+            </div>
+            <div>
               <dt className="text-muted">Lieferzeit</dt>
               <dd>
                 {catalog.shipping.deliveryEstimateConfirmed
