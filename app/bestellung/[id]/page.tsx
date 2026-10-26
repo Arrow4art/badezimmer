@@ -3,6 +3,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { ClearCart } from "@/components/clear-cart";
 import { PriceBreakdown } from "@/components/price-summary";
+import { PurchaseConversion } from "@/components/purchase-conversion";
 import { getOrder, markPaid } from "@/lib/catalog";
 import { summarize } from "@/lib/money";
 import { notifyOrder } from "@/lib/notify";
@@ -56,6 +57,7 @@ export default async function OrderPage({
   return (
     <div className="mx-auto max-w-3xl px-5 py-14">
       {finished ? <ClearCart /> : null}
+      {order.status === "bezahlt" ? <PurchaseConversion orderId={order.id} valueCents={summary.totalGrossCents} /> : null}
       <p className="text-xs font-medium uppercase tracking-[0.18em] text-moss">{statusLabel[order.status]}</p>
       <h1 className="mt-3 text-4xl font-medium tracking-tight">
         {title}
