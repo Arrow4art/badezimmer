@@ -184,8 +184,8 @@ export function AdminPanel() {
                 <input
                   className={fieldClass}
                   type="number"
-                  min={800}
-                  max={1600}
+                  min={0.5}
+                  max={5000}
                   step={0.01}
                   value={(product.priceCents / 100).toFixed(2)}
                   onChange={(event) => {
