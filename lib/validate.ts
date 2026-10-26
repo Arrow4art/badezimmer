@@ -45,7 +45,7 @@ export function parseCheckout(body: unknown): { ok: true; data: CheckoutInput } 
   if (customer.city.length < 2) return { ok: false, error: "Bitte geben Sie den Ort an." };
   if (record.acceptTerms !== true) return { ok: false, error: "Bitte bestätigen Sie AGB und Widerrufsbelehrung." };
   if (record.acceptInstallation !== true) {
-    return { ok: false, error: "Bitte bestätigen Sie den Hinweis zu Montage und Anschluss." };
+    return { ok: false, error: "Bitte bestätigen Sie den Lieferhinweis." };
   }
   if (items.length === 0) return { ok: false, error: "Der Warenkorb ist leer." };
 

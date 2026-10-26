@@ -46,7 +46,9 @@ export function CartView({ catalog }: { catalog: Catalog }) {
         {lines.map(({ qty, product }) => (
           <li key={product.slug} className="grid grid-cols-[7rem_1fr] gap-4 rounded-3xl bg-paper p-4 sm:grid-cols-[9rem_1fr]">
             <div className="relative aspect-[4/3] overflow-hidden rounded-2xl">
-              <Image src={product.images[0].src} alt={product.images[0].alt} fill sizes="140px" className="object-cover" />
+              {product.images[0] ? (
+                <Image src={product.images[0].src} alt={product.images[0].alt} fill sizes="140px" className="object-cover" />
+              ) : null}
             </div>
             <div>
               <h2 className="font-medium">
@@ -65,7 +67,7 @@ export function CartView({ catalog }: { catalog: Catalog }) {
                   max={product.available}
                   value={qty}
                   onChange={(event) => setQty(product.slug, Number(event.target.value), product.available)}
-                  className="w-20 rounded-2xl border border-ink/15 bg-white px-3 py-2"
+                  className="w-20 rounded-2xl border border-ink/15 bg-panel px-3 py-2"
                 />
                 <button type="button" className="text-sm underline underline-offset-4" onClick={() => remove(product.slug)}>
                   Entfernen

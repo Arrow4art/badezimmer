@@ -108,10 +108,9 @@ export function CheckoutForm({ catalog }: { catalog: Catalog }) {
           <input className={fieldClass} type="email" required value={customer.email} onChange={(event) => update("email", event.target.value)} autoComplete="email" />
         </label>
         <label className="block text-sm">
-          {catalog.checkoutMode === "cod" ? "Telefon für die Zustellung" : "Telefon, optional"}
+          Telefon, optional
           <input
             className={fieldClass}
-            required={catalog.checkoutMode === "cod"}
             value={customer.phone}
             onChange={(event) => update("phone", event.target.value)}
             autoComplete="tel"
@@ -137,7 +136,7 @@ export function CheckoutForm({ catalog }: { catalog: Catalog }) {
         </label>
         <label className="block text-sm">
           Hinweise zur Anlieferung
-          <textarea className={fieldClass} rows={3} value={customer.deliveryNote} onChange={(event) => update("deliveryNote", event.target.value)} placeholder="Etage, Aufzug, Zufahrt" />
+          <textarea className={fieldClass} rows={3} value={customer.deliveryNote} onChange={(event) => update("deliveryNote", event.target.value)} placeholder="Klingel, Paketstation, Hinweis" />
         </label>
         <label className="flex items-start gap-3 text-sm leading-relaxed">
           <input type="checkbox" checked={acceptTerms} onChange={(event) => setAcceptTerms(event.target.checked)} className="mt-1" required />
@@ -178,21 +177,13 @@ export function CheckoutForm({ catalog }: { catalog: Catalog }) {
             : "Lieferzeit: noch nicht vom Lieferanten bestätigt."}
         </p>
         <p className="mt-3 text-sm leading-relaxed">
-          {catalog.checkoutMode === "cod"
-            ? "Zahlungsart: Nachnahme. Sie zahlen den angezeigten Gesamtbetrag in bar bei der Zustellung an den Zusteller. Es kommt kein Nachnahmezuschlag dazu. Mit dem Button geben Sie eine verbindliche Bestellung ab."
-            : catalog.checkoutMode === "stripe"
-              ? "Weiter geht es zu Stripe. Die Zahlung gilt erst, wenn Stripe sie als bezahlt bestätigt. Kartendaten geben Sie nur dort ein, nicht in diesem Shop."
-              : "Es ist kein Zahlungsanbieter konfiguriert. Mit dem Absenden entsteht eine unverbindliche Anfrage. Es wird nichts abgebucht und nichts als bezahlt verbucht."}
+          {catalog.checkoutMode === "stripe"
+            ? "Weiter geht es zu Stripe. Die Zahlung gilt erst, wenn Stripe sie als bezahlt bestätigt. Kartendaten geben Sie nur dort ein, nicht in diesem Shop. Nachnahme gibt es nicht."
+            : "Kartenzahlung über Stripe ist noch nicht freigeschaltet. Nachnahme gibt es nicht. Es wird nichts abgebucht."}
         </p>
         {error ? <p className="mt-3 text-sm text-oak">{error}</p> : null}
-        <button className={`${btnPrimary} mt-5 w-full`} type="submit" disabled={pending}>
-          {pending
-            ? "Bitte warten …"
-            : catalog.checkoutMode === "cod"
-              ? "Zahlungspflichtig bestellen"
-              : catalog.checkoutMode === "stripe"
-                ? "Weiter zur sicheren Zahlung"
-                : "Unverbindliche Anfrage senden"}
+        <button className={`${btnPrimary} mt-5 w-full`} type="submit" disabled={pending || catalog.checkoutMode !== "stripe"}>
+          {pending ? "Bitte warten …" : "Weiter zur sicheren Zahlung"}
         </button>
       </aside>
     </form>

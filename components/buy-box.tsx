@@ -32,7 +32,7 @@ export function BuyBox({ slug, available }: { slug: string; available: number })
             if (!Number.isInteger(next)) return;
             setQty(Math.min(max, Math.max(1, next)));
           }}
-          className="w-20 rounded-2xl border border-ink/15 bg-white px-3 py-2"
+          className="w-20 rounded-2xl border border-ink/15 bg-panel px-3 py-2"
         />
       </div>
       <div className="mt-4 flex flex-col gap-2 sm:flex-row">

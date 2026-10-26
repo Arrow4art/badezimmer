@@ -12,9 +12,9 @@ export default async function ImpressumPage() {
       <PageHeader eyebrow="Rechtliches" title="Impressum" lede="Angaben gemäß § 5 DDG." />
       <div className="mx-auto max-w-3xl space-y-6 px-5 py-12 leading-relaxed">
         <p>
-          Badezimmer
+          Iwoody
           <br />
-          Inhaber: <Placeholder value={business.legalName} label="Name oder Firma" /> (Einzelunternehmen)
+          Einzelunternehmen
           <br />
           <Placeholder value={business.street} label="Straße und Hausnummer" />
           <br />
@@ -36,16 +36,10 @@ export default async function ImpressumPage() {
           ) : null}
         </p>
         <p>
-          Rechtsform: Einzelunternehmen. Ein Handelsregistereintrag liegt nicht vor. Alle Verbraucherpreise sind Bruttopreise
+          Rechtsform: Einzelunternehmen. Alle Verbraucherpreise sind Bruttopreise
           und enthalten 19 % Umsatzsteuer. Eine Umsatzsteuer-Identifikationsnummer und eine Steuernummer sind nicht hinterlegt.
         </p>
-        {business.register || business.vatId ? (
-          <p>
-            {business.register ? <>Register: {business.register}</> : null}
-            {business.register && business.vatId ? <br /> : null}
-            {business.vatId ? <>USt-IdNr.: {business.vatId}</> : null}
-          </p>
-        ) : null}
+        {business.vatId ? <p>USt-IdNr.: {business.vatId}</p> : null}
         {business.responsiblePerson ? <p>Inhaltlich verantwortlich: {business.responsiblePerson}</p> : null}
         <p>
           Wir sind nicht bereit und nicht verpflichtet, an Streitbeilegungsverfahren vor einer Verbraucherschlichtungsstelle

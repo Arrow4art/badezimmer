@@ -7,6 +7,9 @@ import type { ProductImage } from "@/lib/types";
 export function Gallery({ images }: { images: ProductImage[] }) {
   const [active, setActive] = useState(0);
   const image = images[active] ?? images[0];
+  if (!image) {
+    return <div className="aspect-[4/3] rounded-3xl bg-paper" />;
+  }
 
   return (
     <div>

@@ -10,8 +10,6 @@ function isPublishable(entry: TechValue | undefined): entry is TechValue & { val
 }
 
 function heatingLabel(value: string): string {
-  if (value === "infrarot") return "Infrarotkabine";
-  if (value === "traditionell") return "Klassische Sauna mit Saunaofen";
   return value;
 }
 
@@ -33,7 +31,7 @@ const SHEET: { key: string; label: string }[] = [
   { key: "exteriorDimensions", label: "Abmessungen (B × T × H)" },
   { key: "netWeight", label: "Gewicht" },
   { key: "maxUsers", label: "Kapazität" },
-  { key: "materials", label: "Holzart" },
+  { key: "materials", label: "Material" },
   { key: "glass", label: "Glas" },
   { key: "heater", label: "Heizgerät" },
   { key: "heatingPower", label: "Leistung" },
@@ -41,17 +39,14 @@ const SHEET: { key: string; label: string }[] = [
 
 export type SpecRow = { label: string; value: string; pending: boolean };
 
-function statedMaterial(sku: string): string | null {
-  if (sku === "BAD-KS-001" || sku === "BAD-NS-002") return "Helle Holzoptik";
-  if (sku === "BAD-PR-003") return "Warme Holzoptik";
-  if (sku === "BAD-EM-005") return "Eichenoptik";
-  if (sku === "BAD-PM-004" || sku === "BAD-AP-006") return "Holzoptik";
+function statedMaterial(_sku: string): string | null {
   return null;
 }
 
 export function customerSpecRows(sku: string): SpecRow[] {
   const record = techData.products.find((entry) => entry.sku === sku);
-  const rows: SpecRow[] = [{ label: "Modell", value: `${sku} (interne Artikelnummer)`, pending: false }];
+  const rows: SpecRow[] = [{ label: "Artikelnummer", value: sku, pending: false }];
+  if (!record) return rows;
   for (const field of SHEET) {
     const entry = record?.specs[field.key];
     if (isPublishable(entry)) {

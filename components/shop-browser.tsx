@@ -2,6 +2,7 @@
 
 import { useMemo, useState } from "react";
 import { ProductCard } from "@/components/product-card";
+import { SearchField } from "@/components/search-field";
 import { fieldClass } from "@/components/ui";
 import type { PublicProduct } from "@/lib/types";
 
@@ -12,11 +13,14 @@ export function ShopBrowser({
   products,
   vatRate,
   shippingCents,
+  initialQuery = "",
 }: {
   products: PublicProduct[];
   vatRate: number;
   shippingCents: number;
+  initialQuery?: string;
 }) {
+  const [query, setQuery] = useState(initialQuery);
   const [price, setPrice] = useState<PriceFilter>("all");
   const [type, setType] = useState("all");
   const [sort, setSort] = useState<SortKey>("name-asc");
@@ -26,7 +30,12 @@ export function ShopBrowser({
   );
 
   const visible = useMemo(() => {
+    const needle = query.trim().toLocaleLowerCase("de");
     const filtered = products.filter((product) => {
+      const haystack = [product.name, product.sku, product.targetUse, product.shortDescription, ...product.features]
+        .join(" ")
+        .toLocaleLowerCase("de");
+      const queryOk = !needle || haystack.includes(needle);
       const euros = product.priceCents / 100;
       const priceOk =
         price === "all" ||
@@ -34,7 +43,7 @@ export function ShopBrowser({
         (price === "mid" && euros > 1000 && euros <= 1400) ||
         (price === "over-1400" && euros > 1400);
       const typeOk = type === "all" || product.productType === type;
-      return priceOk && typeOk;
+      return queryOk && priceOk && typeOk;
     });
     return filtered.sort((a, b) => {
       if (sort === "name-asc") return a.name.localeCompare(b.name, "de");
@@ -42,14 +51,32 @@ export function ShopBrowser({
       if (sort === "price-asc") return a.priceCents - b.priceCents;
       return b.priceCents - a.priceCents;
     });
-  }, [products, price, sort, type]);
+  }, [products, price, query, sort, type]);
 
   return (
     <div className="mx-auto max-w-6xl px-5 py-10">
       <form
         className={`grid gap-3 rounded-3xl bg-paper p-4 ${types.length > 1 ? "sm:grid-cols-3" : "sm:grid-cols-2"}`}
         aria-label="Produkte filtern"
+        onSubmit={(event) => event.preventDefault()}
       >
+        <div className="text-sm sm:col-span-2">
+          <label htmlFor="shop-search">Suche</label>
+          <SearchField
+            items={products.map((product) => ({
+              slug: product.slug,
+              name: product.name,
+              sku: product.sku,
+              kind: product.targetUse,
+              priceCents: product.priceCents,
+            }))}
+            id="shop-search"
+            value={query}
+            onChange={setQuery}
+            placeholder="Name, Spiel oder Artikelnummer"
+            inputClassName={fieldClass}
+          />
+        </div>
         <label className="text-sm">
           Preis
           <select className={fieldClass} value={price} onChange={(event) => setPrice(event.target.value as PriceFilter)}>
@@ -66,7 +93,7 @@ export function ShopBrowser({
               <option value="all">Alle Heizarten</option>
               {types.map((entry) => (
                 <option key={entry} value={entry}>
-                  {entry === "infrarot" ? "Infrarot-Mini-Sauna" : "Klassische Mini-Sauna"}
+                  {entry}
                 </option>
               ))}
             </select>
@@ -82,9 +109,9 @@ export function ShopBrowser({
           </select>
         </label>
       </form>
-      <p className="mt-6 text-sm text-muted">{visible.length} von {products.length} Modellen</p>
+      <p className="mt-6 text-sm text-muted">{visible.length} von {products.length} Produkten</p>
       {visible.length === 0 ? (
-        <p className="mt-8 rounded-3xl bg-paper p-8 text-muted">Keine Mini-Sauna passt zu diesem Filter.</p>
+        <p className="mt-8 rounded-3xl bg-paper p-8 text-muted">Kein Produkt passt zu diesem Filter.</p>
       ) : (
         <div className="mt-6 grid gap-6 sm:grid-cols-2">
           {visible.map((product) => (

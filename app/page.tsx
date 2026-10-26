@@ -13,31 +13,44 @@ export default async function HomePage() {
 
   return (
     <>
-      <section className="relative min-h-[88vh] text-cream">
+      <section className="relative min-h-[88vh] overflow-hidden text-cream">
         <Image
-          src="/images/hero-wellness-oase.webp"
-          alt="Helle Holz-Mini-Sauna mit warmem Innenlicht in einem ruhigen Wohnraum"
+          src="/images/hero-sortiment.jpg"
+          alt="Versiegelte Sammelkarten-Displays auf einem dunklen Tisch"
           fill
           priority
           sizes="100vw"
-          className="object-cover"
+          className="object-cover opacity-60"
         />
-        <div className="absolute inset-0 bg-gradient-to-r from-ink/80 via-ink/45 to-ink/10" />
+        <div className="absolute inset-0 bg-gradient-to-r from-night via-night/70 to-forest/30" />
+        <div className="absolute inset-0 bg-gradient-to-t from-night via-transparent to-night/40" />
+        <div aria-hidden="true">
+          <div className="hero-floor" />
+          <div className="hero-horizon" />
+          <div className="hidden lg:block">
+            <div className="hero-card right-[22%] top-[18%] -rotate-12" />
+            <div className="hero-card hero-card--b right-[8%] top-[26%] rotate-6" />
+            <div className="hero-card hero-card--c right-[15%] top-[44%] rotate-[-4deg] scale-90" />
+          </div>
+        </div>
         <div className="relative mx-auto flex min-h-[88vh] max-w-6xl items-end px-5 pb-16 pt-28">
           <div className="max-w-2xl">
-            <p className="text-xs font-medium uppercase tracking-[0.22em] text-cream/80">Mini-Saunen für zu Hause</p>
-            <h1 className="mt-4 text-4xl font-medium leading-[1.05] tracking-tight sm:text-6xl">
-              Deine persönliche Wellness-Oase für zu Hause.
+            <p className="inline-flex items-center gap-2 rounded-full border border-moss/40 bg-night/60 px-3 py-1 text-xs font-medium uppercase tracking-[0.22em] text-moss">
+              <span className="h-1.5 w-1.5 rounded-full bg-moss shadow-[0_0_8px_#22d3ee]" aria-hidden="true" />
+              Sammelkartenspiele
+            </p>
+            <h1 className="mt-4 text-4xl font-semibold leading-[1.05] tracking-tight sm:text-6xl">
+              Displays, Boxen und Decks, <span className="text-holo">versiegelt.</span>
             </h1>
             <p className="mt-5 max-w-xl text-lg leading-relaxed text-cream/90">
-              Entdecke kompakte Mini-Saunen, die Design, Komfort und Entspannung verbinden.
+              Pokémon, Magic: The Gathering, One Piece, Yu-Gi-Oh! und Lorcana. Preise inklusive Mehrwertsteuer.
             </p>
             <div className="mt-8 flex flex-wrap gap-3">
               <Link href="/shop" className={btnPrimary}>
-                Saunen entdecken
+                Sortiment ansehen
               </Link>
               <Link href="/ueber-uns" className={btnLight}>
-                Mehr über Badezimmer
+                Mehr über Iwoody
               </Link>
             </div>
           </div>
@@ -48,23 +61,23 @@ export default async function HomePage() {
         <div className="flex items-end justify-between gap-4">
           <div>
             <p className="text-xs font-medium uppercase tracking-[0.22em] text-moss">Sortiment</p>
-            <h2 className="mt-2 text-3xl font-medium tracking-tight">Sechs Mini-Saunen</h2>
+            <h2 className="mt-2 text-3xl font-medium tracking-tight">Das Sortiment</h2>
           </div>
           <Link href="/shop" className="text-sm underline underline-offset-4">
-            Alle Modelle
+            Alle Produkte
           </Link>
         </div>
         <div className="mt-8 grid gap-6 sm:grid-cols-2">
-          {catalog.products.map((product) => (
+          {catalog.products.slice(0, 8).map((product) => (
             <ProductCard key={product.slug} product={product} vatRate={catalog.vatRate} shippingCents={catalog.shipping.costCents} />
           ))}
         </div>
       </section>
 
-      <section className="bg-paper">
+      <section className="border-y border-ink/10 bg-paper/70">
         <div className="mx-auto grid max-w-6xl gap-8 px-5 py-16 md:grid-cols-3">
           {benefits.map((benefit) => (
-            <article key={benefit.title}>
+            <article key={benefit.title} className="border-l-2 border-moss/60 pl-5">
               <h2 className="text-xl font-medium">{benefit.title}</h2>
               <p className="mt-3 leading-relaxed text-muted">{benefit.text}</p>
             </article>
@@ -74,11 +87,11 @@ export default async function HomePage() {
 
       <section className="mx-auto max-w-6xl px-5 py-16">
         <p className="text-xs font-medium uppercase tracking-[0.22em] text-moss">So geht es weiter</p>
-        <h2 className="mt-2 text-3xl font-medium tracking-tight">Vom Modell bis zur Aufstellung</h2>
+        <h2 className="mt-2 text-3xl font-medium tracking-tight">Vom Produkt bis zur Lieferung</h2>
         <ol className="mt-8 grid gap-6 md:grid-cols-3">
           {steps.map((step, index) => (
-            <li key={step.title} className="rounded-3xl bg-paper p-6">
-              <p className="text-sm text-moss">0{index + 1}</p>
+            <li key={step.title} className="holo-card rounded-3xl bg-paper/90 p-6">
+              <p className="text-holo text-3xl font-bold">0{index + 1}</p>
               <h3 className="mt-3 text-xl font-medium">{step.title}</h3>
               <p className="mt-3 leading-relaxed text-muted">{step.text}</p>
             </li>
@@ -96,9 +109,9 @@ export default async function HomePage() {
         </Link>
       </section>
 
-      <section className="bg-forest text-cream">
+      <section className="bg-gradient-to-r from-forest via-[#4C1D95] to-neon/80 bg-[length:200%_100%] text-cream motion-safe:animate-gradient-pan">
         <div className="mx-auto max-w-6xl px-5 py-16">
-          <h2 className="text-3xl font-medium tracking-tight">Neuigkeiten zu den Mini-Saunen</h2>
+          <h2 className="text-3xl font-medium tracking-tight">Neuigkeiten zum Sortiment</h2>
           <p className="mt-3 max-w-xl text-cream/80">
             Der Newsletter ist freiwillig. Ohne gesetztes Häkchen passiert nichts, und ohne E-Mail-Anbieter verschicken wir keine Bestätigung.
           </p>

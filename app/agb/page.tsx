@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { PageHeader, Placeholder } from "@/components/ui";
+import { PageHeader } from "@/components/ui";
 import { getCatalog } from "@/lib/catalog";
 
 export const metadata: Metadata = { title: "Allgemeine Geschäftsbedingungen" };
@@ -18,9 +18,8 @@ export default async function TermsPage() {
         <section>
           <h2 className="text-2xl font-medium">1. Geltung</h2>
           <p className="mt-3">
-            Diese Bedingungen gelten für Bestellungen im Shop Badezimmer durch Verbraucher mit Lieferadresse in Deutschland.
-            Vertragspartner ist <Placeholder value={business.legalName} label="Name oder Firma" />, handelnd unter
-            „Badezimmer“,{" "}
+            Diese Bedingungen gelten für Bestellungen im Shop Iwoody durch Verbraucher mit Lieferadresse in Deutschland.
+            Vertragspartner ist Iwoody, Einzelunternehmen,{" "}
             {[business.street, [business.zip, business.city].filter(Boolean).join(" ")].filter(Boolean).join(", ")}, E-Mail{" "}
             {business.email}.
           </p>
@@ -29,11 +28,9 @@ export default async function TermsPage() {
           <h2 className="text-2xl font-medium">2. Angebot und Vertragsschluss</h2>
           <p className="mt-3">
             Die Produktseiten sind eine Aufforderung zur Bestellung.{" "}
-            {checkoutMode === "cod"
-              ? "Mit dem Button „Zahlungspflichtig bestellen“ geben Sie ein verbindliches Angebot ab. Der Kaufvertrag kommt zustande, wenn die Bestellbestätigung mit einer Vorgangsnummer angezeigt wird."
-              : checkoutMode === "stripe"
-                ? "Ein Kaufvertrag kommt erst zustande, wenn die Zahlung über Stripe bestätigt ist."
-                : "Solange keine Online-Zahlung freigeschaltet ist, erzeugt das Formular nur eine unverbindliche Anfrage und keinen Kaufvertrag."}
+            {checkoutMode === "stripe"
+              ? "Ein Kaufvertrag kommt erst zustande, wenn die Zahlung über Stripe bestätigt ist."
+              : "Solange Stripe nicht verbunden ist, kann kein Kaufvertrag abgeschlossen werden."}
           </p>
           <p className="mt-3">
             Verbindlich sind Preis, Lieferzeit und die auf der Produktseite veröffentlichten Eigenschaften. Maße, Material
@@ -51,22 +48,19 @@ export default async function TermsPage() {
         <section>
           <h2 className="text-2xl font-medium">4. Zahlung</h2>
           <p className="mt-3">
-            {checkoutMode === "cod"
-              ? "Die Zahlungsart ist Nachnahme. Sie zahlen den an der Kasse angezeigten Gesamtbetrag in bar bei der Zustellung an den Zusteller. Ein Nachnahmezuschlag wird nicht erhoben. Vor der Lieferung wird nichts abgebucht. Lehnen Sie die Annahme ab, tragen Sie die Kosten der Rücksendung."
-              : checkoutMode === "stripe"
-                ? "Die Zahlung erfolgt über die Zahlungsseite von Stripe. Dort sehen Sie die verfügbaren Zahlungsarten. Kartendaten werden nicht bei uns gespeichert. Ohne bestätigte Zahlung liefern wir nicht."
-                : "Eine Online-Zahlung ist derzeit nicht freigeschaltet. Das Formular erzeugt nur eine unverbindliche Anfrage."}
+            Die Zahlung erfolgt per Karte über Stripe. Kartendaten werden nicht bei uns gespeichert. Nachnahme bieten wir nicht
+            an. Ohne bestätigte Zahlung liefern wir nicht.
+            {checkoutMode === "stripe" ? "" : " Das Stripe-Konto ist derzeit noch nicht verbunden."}
           </p>
         </section>
         <section>
           <h2 className="text-2xl font-medium">5. Lieferung</h2>
           <p className="mt-3">
-            Geliefert wird innerhalb Deutschlands als Sperrgut.{" "}
+            Geliefert wird innerhalb Deutschlands als Paket.{" "}
             {shipping.deliveryEstimateConfirmed
-              ? `Die Lieferzeit beträgt ${shipping.deliveryEstimateText}. Den Termin stimmt die Spedition vorher mit Ihnen ab.`
+              ? `Die Lieferzeit beträgt ${shipping.deliveryEstimateText}.`
               : "Eine Lieferfrist nennen wir nur, wenn sie bestätigt ist."}{" "}
-            Montage und elektrischer Anschluss sind nur geschuldet, wenn das ausdrücklich so angegeben ist. Der Anschluss darf
-            erst nach vorliegenden Herstellerangaben durch eine Elektrofachkraft erfolgen.
+            Die Ware kommt originalverpackt. Eine Montage ist nicht geschuldet.
           </p>
         </section>
         <section>
