@@ -57,6 +57,7 @@ function parseUpdate(body: unknown): AdminUpdate | null {
       slug: text(product.slug, 80),
       stock: whole(product.stock),
       priceCents: whole(product.priceCents),
+      gtin: text(product.gtin, 20),
     };
   });
   return {

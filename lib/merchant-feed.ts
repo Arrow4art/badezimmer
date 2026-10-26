@@ -1,4 +1,5 @@
 import { productDescription, typeCopy } from "@/lib/copy";
+import { normalizeGtin, productBrand } from "@/lib/product-ids";
 import type { Catalog } from "@/lib/types";
 
 const GOOGLE_PRODUCT_CATEGORY = "Toys & Games > Games > Card Games";
@@ -42,6 +43,8 @@ export function buildGoogleFeed(catalog: Catalog, origin: string): string {
         .map((image) => (image.src.startsWith("http") ? image.src : `${origin}${image.src}`))
         .filter((src) => src.startsWith("http"));
       if (!title || !description || !product.sku || product.priceCents <= 0 || images.length === 0) return "";
+      const brand = productBrand(product);
+      const gtin = normalizeGtin(product.gtin);
       const lines = [
         tag("g:id", product.sku),
         tag("g:title", title),
@@ -51,8 +54,10 @@ export function buildGoogleFeed(catalog: Catalog, origin: string): string {
         ...images.slice(1, 10).map((image) => tag("g:additional_image_link", image)),
         tag("g:availability", product.available > 0 ? "in_stock" : "out_of_stock"),
         tag("g:price", price(product.priceCents)),
-        tag("g:brand", "Iwoody"),
-        tag("g:identifier_exists", "false"),
+        // Branded products have a manufacturer barcode, so never claim identifier_exists=false.
+        // Without a known GTIN Google only reports it as missing.
+        ...(brand ? [tag("g:brand", brand)] : []),
+        ...(gtin ? [tag("g:gtin", gtin)] : []),
         tag("g:condition", "new"),
         tag("g:google_product_category", GOOGLE_PRODUCT_CATEGORY),
         tag("g:product_type", product.targetUse || typeCopy(product.productType).label),

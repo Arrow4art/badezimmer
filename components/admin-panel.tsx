@@ -36,6 +36,7 @@ export function AdminPanel() {
         slug: product.slug,
         stock: product.stock,
         priceCents: product.priceCents,
+        gtin: product.gtin ?? "",
       })),
       shipping: payload.catalog.shipping,
       business: payload.catalog.business,
@@ -198,9 +199,25 @@ export function AdminPanel() {
                   }}
                 />
               </label>
-              <p className="text-sm text-muted sm:col-span-2">
-                Heizart und technische Daten stehen in data/specs.json und erscheinen erst mit Herstellernachweis.
-              </p>
+              <label className="text-sm sm:col-span-2">
+                EAN / GTIN (Barcode auf der Verpackung)
+                <input
+                  className={fieldClass}
+                  inputMode="numeric"
+                  autoComplete="off"
+                  placeholder="8, 12, 13 oder 14 Ziffern"
+                  value={product.gtin}
+                  onChange={(event) => {
+                    const gtin = event.target.value;
+                    setDraft((prev) => {
+                      if (!prev) return prev;
+                      const products = prev.products.slice();
+                      products[index] = { ...product, gtin };
+                      return { ...prev, products };
+                    });
+                  }}
+                />
+              </label>
             </div>
           ))}
         </div>
