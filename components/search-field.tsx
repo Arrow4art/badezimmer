@@ -97,7 +97,7 @@ export function SearchField({
         <ul
           id={listId}
           role="listbox"
-          className="absolute left-0 right-0 top-[calc(100%+0.4rem)] z-50 overflow-hidden rounded-2xl border border-ink/10 bg-white shadow-card"
+          className="absolute left-0 right-0 top-[calc(100%+0.4rem)] z-50 overflow-hidden rounded-2xl border border-ink/10 bg-panel shadow-card"
         >
           {matches.length === 0 ? (
             <li className="px-4 py-3 text-sm text-muted">Keine passenden Produkte.</li>

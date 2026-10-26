@@ -67,7 +67,7 @@ export function CartView({ catalog }: { catalog: Catalog }) {
                   max={product.available}
                   value={qty}
                   onChange={(event) => setQty(product.slug, Number(event.target.value), product.available)}
-                  className="w-20 rounded-2xl border border-ink/15 bg-white px-3 py-2"
+                  className="w-20 rounded-2xl border border-ink/15 bg-panel px-3 py-2"
                 />
                 <button type="button" className="text-sm underline underline-offset-4" onClick={() => remove(product.slug)}>
                   Entfernen

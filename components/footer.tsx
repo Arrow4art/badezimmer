@@ -17,7 +17,8 @@ export function Footer({
 }) {
   const place = [business.street, [business.zip, business.city].filter(Boolean).join(" ")].filter(Boolean);
   return (
-    <footer className="mt-20 bg-ink text-cream">
+    <footer className="relative mt-20 border-t border-forest/40 bg-night/90 text-cream">
+      <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-neon to-transparent" aria-hidden="true" />
       <div className="mx-auto grid max-w-6xl gap-10 px-5 py-14 sm:grid-cols-2 lg:grid-cols-4">
         <div>
           <Logo tone="light" />

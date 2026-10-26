@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 import Link from "next/link";
-import { btnPrimary, btnSecondary } from "@/components/ui";
+import { btnSecondary } from "@/components/ui";
 
 const KEY = "badezimmer-consent";
 
@@ -62,7 +62,7 @@ export function ConsentBanner() {
           <button type="button" className={btnSecondary} onClick={() => choose("denied")}>
             Ablehnen
           </button>
-          <button type="button" className={btnPrimary} onClick={() => choose("granted")}>
+          <button type="button" className={btnSecondary} onClick={() => choose("granted")}>
             Zustimmen
           </button>
         </div>

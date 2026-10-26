@@ -1,5 +1,6 @@
 import type { Metadata, Viewport } from "next";
 import { Outfit } from "next/font/google";
+import { Backdrop } from "@/components/backdrop";
 import { CartProvider } from "@/components/cart-context";
 import { ConsentBanner } from "@/components/consent-banner";
 import { Footer } from "@/components/footer";
@@ -32,13 +33,14 @@ export const metadata: Metadata = {
   },
 };
 
-export const viewport: Viewport = { themeColor: "#EEF1F6" };
+export const viewport: Viewport = { themeColor: "#0A0716" };
 
 export default async function RootLayout({ children }: { children: React.ReactNode }) {
   const catalog = await getCatalog();
   return (
     <html lang="de">
-      <body className={`${outfit.className} bg-cream text-ink antialiased`}>
+      <body className={`${outfit.className} bg-night text-ink antialiased`}>
+        <Backdrop />
         <GoogleAdsTag />
         <a
           href="#inhalt"
