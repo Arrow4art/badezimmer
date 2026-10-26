@@ -5,7 +5,7 @@ export const ADMIN_COOKIE = "bz_admin";
 
 export function adminPassword(): string | null {
   if (process.env.ADMIN_PASSWORD) return process.env.ADMIN_PASSWORD;
-  if (process.env.NODE_ENV !== "production") return "demo-badezimmer";
+  if (process.env.NODE_ENV !== "production") return "demo-iwoody";
   return null;
 }
 
@@ -14,7 +14,7 @@ export function devPasswordHint(): boolean {
 }
 
 function secret(): string {
-  return process.env.ADMIN_SECRET || adminPassword() || "badezimmer-dev-secret";
+  return process.env.ADMIN_SECRET || adminPassword() || "iwoody-dev-secret";
 }
 
 function digest(value: string): Buffer {

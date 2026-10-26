@@ -33,7 +33,7 @@ export default async function PrivacyPage() {
         <section>
           <h2 className="text-2xl font-medium">Anfragen und Bestellungen</h2>
           <p className="mt-3">
-            Für eine Bestellung verarbeiten wir Name, E-Mail, Telefonnummer, Lieferadresse, die gewählten Modelle und den
+            Für eine Bestellung verarbeiten wir Name, E-Mail, Telefonnummer, Lieferadresse, die gewählten Artikel und den
             Vorgangsstatus. Rechtsgrundlage ist Art. 6 Abs. 1 lit. b DSGVO, bei gesetzlichen Aufbewahrungspflichten lit. c.
             Kartendaten, Prüfziffern und Ablaufdaten erheben wir nicht.
             {" "}
@@ -46,7 +46,7 @@ export default async function PrivacyPage() {
           <h2 className="text-2xl font-medium">Stripe</h2>
           <p className="mt-3">
             Für die Zahlung übermittelt der Shop die nötigen Vorgangsdaten an Stripe Payments Europe, Limited, 1 Grand Canal
-            Street Lower, Dublin, Irland. Dazu gehören Bestellnummer, E-Mail-Adresse, Modelle und Beträge. Stripe verarbeitet
+            Street Lower, Dublin, Irland. Dazu gehören Bestellnummer, E-Mail-Adresse, Artikel und Beträge. Stripe verarbeitet
             die Zahlungsdaten als eigener Verantwortlicher. Rechtsgrundlage ist Art. 6 Abs. 1 lit. b DSGVO. Weitere
             Informationen finden Sie in der Datenschutzerklärung von Stripe unter stripe.com/de/privacy.
           </p>

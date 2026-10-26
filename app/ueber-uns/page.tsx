@@ -33,7 +33,7 @@ export default async function AboutPage() {
           Sie bestellen direkt in diesem Shop. Der Preis im Warenkorb ist der Endpreis. Die
           Lieferung innerhalb Deutschlands ist {shipping.costCents === 0 ? "kostenlos" : "auf der Seite Versand ausgewiesen"}
           {shipping.deliveryEstimateConfirmed ? ` und dauert ${shipping.deliveryEstimateText}` : ""}. Die Ware kommt
-          originalverpackt. Eine Montage ist nicht erforderlich.
+          originalverpackt und versiegelt.
           {checkoutMode === "stripe"
             ? " Sie zahlen per Karte über Stripe, nicht bei der Lieferung."
             : " Die Kartenzahlung über Stripe ist noch nicht freigeschaltet. Nachnahme gibt es nicht."}

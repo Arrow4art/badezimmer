@@ -1,4 +1,4 @@
-import type { ProductType, PublicProduct } from "@/lib/types";
+import type { PublicProduct } from "@/lib/types";
 
 export const NEWSLETTER_CONSENT =
   "Ich willige ein, dass Iwoody mich per E-Mail über das Sortiment und Angebote informiert. Die Einwilligung kann ich jederzeit mit Wirkung für die Zukunft widerrufen. Details stehen in der Datenschutzerklärung.";
@@ -19,11 +19,6 @@ export const legalNav = [
   { href: "/versand", label: "Versand" },
   { href: "/zahlung", label: "Zahlung" },
 ];
-
-export function typeCopy(type: ProductType | null): { label: string; explanation: string } {
-  if (!type) return { label: "Sammelkarten", explanation: "" };
-  return { label: type, explanation: "" };
-}
 
 export function productDescription(product: Pick<PublicProduct, "shortDescription" | "description">): string {
   return [product.shortDescription, ...product.description].join(" ");
@@ -55,26 +50,15 @@ export const steps = [
   },
   {
     title: "Versiegelt erhalten",
-    text: "Die Ware kommt originalverpackt. Eine Montage ist nicht erforderlich.",
+    text: "Die Ware kommt originalverpackt und versiegelt.",
   },
 ];
 
 export function buildFaqs(
-  products: Pick<PublicProduct, "name" | "productType">[],
+  products: Pick<PublicProduct, "name">[],
   checkoutMode: "stripe" | "inquiry" = "inquiry",
 ) {
-  const typed = products.filter((product) => product.productType);
-  const typeFaq = typed.length
-    ? [
-        {
-          q: "Welche Ausgabe ist das?",
-          a: typed.map((product) => `${product.name}: ${typeCopy(product.productType).label}.`).join(" "),
-        },
-      ]
-    : [];
-
   return [
-    ...typeFaq,
     {
       q: "Welche Spiele sind im Sortiment?",
       a: "Pokémon, Magic: The Gathering, One Piece, Yu-Gi-Oh! und Disney Lorcana. Sprache und Inhalt stehen auf der jeweiligen Produktseite.",

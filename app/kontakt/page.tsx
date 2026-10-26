@@ -14,7 +14,7 @@ export default async function ContactPage() {
       <PageHeader
         eyebrow="Kontakt"
         title="Schreiben Sie uns."
-        lede="Fragen zu einem Modell, zur Lieferung oder zu einem Transportschaden erreichen uns über dieses Formular."
+        lede="Fragen zu einem Produkt, zur Lieferung oder zu einem Transportschaden erreichen uns über dieses Formular."
       />
       <div className="mx-auto grid max-w-6xl gap-10 px-5 py-12 lg:grid-cols-2">
         <ContactForm />

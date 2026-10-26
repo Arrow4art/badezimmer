@@ -76,7 +76,7 @@ export function AdminPanel() {
         </p>
         {process.env.NODE_ENV !== "production" ? (
           <p className="mt-3 text-sm leading-relaxed text-muted">
-            In der lokalen Entwicklung ohne gesetztes Passwort gilt: demo-badezimmer. Vor einem echten Betrieb ändern.
+            In der lokalen Entwicklung ohne gesetztes Passwort gilt: demo-iwoody. Vor einem echten Betrieb ändern.
           </p>
         ) : null}
         <label className="mt-6 block text-sm">
@@ -155,7 +155,7 @@ export function AdminPanel() {
       </div>
 
       <section className="rounded-3xl bg-paper p-5">
-        <h2 className="text-xl font-medium">Modelle</h2>
+        <h2 className="text-xl font-medium">Produkte</h2>
         <div className="mt-4 space-y-4">
           {draft.products.map((product, index) => (
             <div key={product.slug} className="grid gap-3 border-t border-ink/10 py-4 sm:grid-cols-4">

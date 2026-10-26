@@ -6,11 +6,10 @@ import { FaqList } from "@/components/faq-list";
 import { Gallery } from "@/components/gallery";
 import { ProductCard } from "@/components/product-card";
 import { getCatalog, relatedProducts } from "@/lib/catalog";
-import { productDescription, typeCopy } from "@/lib/copy";
+import { productDescription } from "@/lib/copy";
 import { formatEUR, formatShipping } from "@/lib/money";
 import { normalizeGtin, productBrand } from "@/lib/product-ids";
 import { siteUrl } from "@/lib/site";
-import { customerSpecRows } from "@/lib/tech-specs";
 
 type Props = { params: Promise<{ slug: string }> };
 
@@ -18,7 +17,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { slug } = await params;
   const catalog = await getCatalog();
   const product = catalog.products.find((entry) => entry.slug === slug);
-  if (!product) return { title: "Modell" };
+  if (!product) return { title: "Produkt" };
   return {
     title: product.name,
     description: product.shortDescription,
@@ -32,20 +31,15 @@ export default async function ProductPage({ params }: Props) {
   const catalog = await getCatalog();
   const product = catalog.products.find((entry) => entry.slug === slug);
   if (!product) notFound();
-  const kind = product.productType
-    ? typeCopy(product.productType)
-    : { label: product.targetUse, explanation: "" };
   const percent = Math.round(catalog.vatRate * 100);
-  const publishedSpecs = product.techSpecs.filter((spec) => spec.label !== "Artikelnummer");
   const related = relatedProducts(catalog, product.slug);
   const faqs = [
-    ...(kind.explanation ? [{ q: "Welche Heizart hat dieses Modell?", a: kind.explanation }] : []),
     {
       q: "Wie viele Stück sind verfügbar?",
       a:
         product.available > 0
           ? `Aktuell sind ${product.available} Stück verfügbar. Die Menge im Warenkorb ist auf diesen Bestand begrenzt.`
-          : "Dieses Modell ist derzeit nicht verfügbar.",
+          : "Dieses Produkt ist derzeit nicht verfügbar.",
     },
     {
       q: "Was kostet der Versand?",
@@ -73,15 +67,6 @@ export default async function ProductPage({ params }: Props) {
     description: productDescription(product),
     ...(brand ? { brand: { "@type": "Brand", name: brand } } : {}),
     ...(gtin ? { gtin } : {}),
-    ...(publishedSpecs.length
-      ? {
-          additionalProperty: publishedSpecs.map((spec) => ({
-            "@type": "PropertyValue",
-            name: spec.label,
-            value: spec.value,
-          })),
-        }
-      : {}),
     offers: {
       "@type": "Offer",
       itemCondition: "https://schema.org/NewCondition",
@@ -135,9 +120,9 @@ export default async function ProductPage({ params }: Props) {
           <Gallery images={product.images} />
         </div>
         <div>
-          <p className="text-xs font-medium uppercase tracking-[0.18em] text-moss">{kind.label}</p>
+          <p className="text-xs font-medium uppercase tracking-[0.18em] text-moss">{product.targetUse}</p>
           <h1 className="mt-2 text-4xl font-medium tracking-tight">{product.name}</h1>
-          <p className="mt-2 text-sm text-muted">Modell {product.sku}</p>
+          <p className="mt-2 text-sm text-muted">Artikelnummer {product.sku}</p>
           <p className="mt-5 text-3xl">{formatEUR(product.priceCents)}</p>
           <p className="text-sm text-muted">
             inkl. {percent} % MwSt.,{" "}
@@ -151,12 +136,6 @@ export default async function ProductPage({ params }: Props) {
           </p>
           <p className="mt-4 leading-relaxed">{product.shortDescription}</p>
           <BuyBox slug={product.slug} available={product.available} />
-          {kind.explanation ? (
-            <div className="mt-5 rounded-3xl border border-ink/10 p-4 text-sm leading-relaxed">
-              <p className="font-medium">{kind.label}</p>
-              <p className="mt-2 text-muted">{kind.explanation}</p>
-            </div>
-          ) : null}
           <p className="mt-4 text-sm">
             <Link href="/widerruf" className="underline underline-offset-4">
               Rückgabe und Widerruf
@@ -184,12 +163,10 @@ export default async function ProductPage({ params }: Props) {
         <div>
           <h2 className="text-2xl font-medium">Artikeldaten</h2>
           <dl className="mt-4 divide-y divide-ink/10">
-            {customerSpecRows(product.sku).map((spec) => (
-              <div key={spec.label} className="py-3">
-                <dt className="text-sm text-muted">{spec.label}</dt>
-                <dd className={`mt-1 ${spec.pending ? "text-sm text-muted" : ""}`}>{spec.value}</dd>
-              </div>
-            ))}
+            <div className="py-3">
+              <dt className="text-sm text-muted">Artikelnummer</dt>
+              <dd className="mt-1">{product.sku}</dd>
+            </div>
           </dl>
         </div>
       </section>
@@ -232,9 +209,9 @@ export default async function ProductPage({ params }: Props) {
         <div className="rounded-3xl bg-paper p-6">
           <h2 className="text-xl font-medium">Hinweis</h2>
           <p className="mt-4 text-sm leading-relaxed">{catalog.installationText}</p>
-          <p className="mt-3 text-sm leading-relaxed text-muted">
-            {catalog.shipping.assemblyText}
-          </p>
+          {catalog.shipping.assemblyText ? (
+            <p className="mt-3 text-sm leading-relaxed text-muted">{catalog.shipping.assemblyText}</p>
+          ) : null}
         </div>
       </section>
 
@@ -246,7 +223,7 @@ export default async function ProductPage({ params }: Props) {
       </section>
 
       <section className="mt-14">
-        <h2 className="text-2xl font-medium">Weitere Modelle</h2>
+        <h2 className="text-2xl font-medium">Weitere Produkte</h2>
         <div className="mt-6 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
           {related.map((item) => (
             <ProductCard key={item.slug} product={item} vatRate={catalog.vatRate} shippingCents={catalog.shipping.costCents} />
