@@ -469,7 +469,7 @@ summary::-webkit-details-marker {
   background: linear-gradient(125deg, transparent 25%, rgba(255, 43, 214, 0.45) 38%, rgba(34, 211, 238, 0.45) 48%, rgba(255, 224, 138, 0.4) 58%, transparent 72%);
   background-size: 300% 300%;
   mix-blend-mode: color-dodge;
-  opacity: 0.75;
+  opacity: 0.5;
   transition: opacity 0.3s ease;
   animation: holo-pan 5s ease-in-out infinite;
   animation-delay: var(--d);

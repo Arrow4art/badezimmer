@@ -8,19 +8,12 @@ import Link from "next/link";
 import { useEffect, useRef } from "react";
 
 const cards = [
-  { id: "magic", label: "Magic", query: "Magic: The Gathering", from: "#A78BFA", to: "#FF2BD6", glow: "rgba(167,139,250,0.65)", rotate: -24, x: -2, delay: 0 },
-  { id: "yugioh", label: "Yu-Gi-Oh!", query: "Yu-Gi-Oh", from: "#60A5FA", to: "#A78BFA", glow: "rgba(96,165,250,0.6)", rotate: -12, x: -1, delay: -1.2 },
-  { id: "pokemon", label: "Pokémon", query: "Pokémon", from: "#FFE08A", to: "#FF6B3D", glow: "rgba(255,201,74,0.65)", rotate: 0, x: 0, delay: -2.4 },
-  { id: "onepiece", label: "One Piece", query: "One Piece", from: "#FF7A7A", to: "#FF2BD6", glow: "rgba(255,90,120,0.6)", rotate: 12, x: 1, delay: -3.6 },
-  { id: "lorcana", label: "Lorcana", query: "Lorcana", from: "#38BDF8", to: "#FFD36B", glow: "rgba(56,189,248,0.6)", rotate: 24, x: 2, delay: -4.8 },
+  { id: "magic", logo: "/images/brands/magic.webp", label: "Magic", query: "Magic: The Gathering", from: "#A78BFA", to: "#FF2BD6", glow: "rgba(167,139,250,0.65)", rotate: -24, x: -2, delay: 0 },
+  { id: "yugioh", logo: "/images/brands/yugioh.webp", label: "Yu-Gi-Oh!", query: "Yu-Gi-Oh", from: "#60A5FA", to: "#A78BFA", glow: "rgba(96,165,250,0.6)", rotate: -12, x: -1, delay: -1.2 },
+  { id: "pokemon", logo: "/images/brands/pokemon.webp", label: "Pokémon", query: "Pokémon", from: "#FFE08A", to: "#FF6B3D", glow: "rgba(255,201,74,0.65)", rotate: 0, x: 0, delay: -2.4 },
+  { id: "onepiece", logo: "/images/brands/onepiece.webp", label: "One Piece", query: "One Piece", from: "#FF7A7A", to: "#FF2BD6", glow: "rgba(255,90,120,0.6)", rotate: 12, x: 1, delay: -3.6 },
+  { id: "lorcana", logo: "/images/brands/lorcana.webp", label: "Lorcana", query: "Lorcana", from: "#38BDF8", to: "#FFD36B", glow: "rgba(56,189,248,0.6)", rotate: 24, x: 2, delay: -4.8 },
 ];
-
-// Eight-pointed star for the card-back emblem, centred on (125, 160).
-const starPoints = Array.from({ length: 16 }, (_, index) => {
-  const radius = index % 2 === 0 ? 46 : 17;
-  const angle = (index * Math.PI) / 8 - Math.PI / 2;
-  return `${(125 + radius * Math.cos(angle)).toFixed(1)},${(160 + radius * Math.sin(angle)).toFixed(1)}`;
-}).join(" ");
 
 const corners: Array<[number, number]> = [
   [34, 34],
@@ -29,7 +22,7 @@ const corners: Array<[number, number]> = [
   [216, 316],
 ];
 
-function CardBack({ id, label, from, to }: { id: string; label: string; from: string; to: string }) {
+function CardBack({ id, label, logo, from, to }: { id: string; label: string; logo: string; from: string; to: string }) {
   const g = `card-${id}`;
   return (
     <svg viewBox="0 0 250 350" className="block h-full w-full" aria-hidden="true">
@@ -54,11 +47,11 @@ function CardBack({ id, label, from, to }: { id: string; label: string; from: st
       <rect width="250" height="350" rx="16" fill={`url(#${g}-pt)`} />
       <rect x="8" y="8" width="234" height="334" rx="11" fill="none" stroke={`url(#${g}-ac)`} strokeWidth="3.5" />
       <rect x="19" y="19" width="212" height="312" rx="7" fill="none" stroke={`url(#${g}-ac)`} strokeWidth="1.2" opacity="0.6" />
-      <circle cx="125" cy="160" r="96" fill={`url(#${g}-core)`} opacity="0.55" />
-      <circle cx="125" cy="160" r="70" fill="none" stroke={`url(#${g}-ac)`} strokeWidth="2.5" />
-      <circle cx="125" cy="160" r="56" fill="none" stroke={`url(#${g}-ac)`} strokeWidth="1.2" strokeDasharray="3 6" opacity="0.7" />
-      <polygon points={starPoints} fill={`url(#${g}-ac)`} />
-      <circle cx="125" cy="160" r="11" fill="#0A0718" stroke="#fff" strokeOpacity="0.8" strokeWidth="2" />
+      <circle cx="125" cy="165" r="96" fill={`url(#${g}-core)`} opacity="0.55" />
+      <circle cx="125" cy="165" r="84" fill="none" stroke={`url(#${g}-ac)`} strokeWidth="1.5" strokeDasharray="3 6" opacity="0.6" />
+      {/* Soft light behind the logo so dark lettering still reads on the dark card. */}
+      <ellipse cx="125" cy="165" rx="108" ry="60" fill="#fff" opacity="0.1" />
+      <image href={logo} x="20" y="112" width="210" height="106" preserveAspectRatio="xMidYMid meet" />
       {corners.map(([x, y]) => (
         <path key={`${x}-${y}`} d={`M${x} ${y - 9}L${x + 9} ${y}L${x} ${y + 9}L${x - 9} ${y}Z`} fill={`url(#${g}-ac)`} />
       ))}
@@ -153,7 +146,7 @@ export function CardFan() {
           }
         >
           <span className="tcg-card">
-            <CardBack id={card.id} label={card.label} from={card.from} to={card.to} />
+            <CardBack id={card.id} label={card.label} logo={card.logo} from={card.from} to={card.to} />
             <span className="tcg-holo" />
             <span className="tcg-glare" />
             <span className="tcg-cta" aria-hidden="true">
