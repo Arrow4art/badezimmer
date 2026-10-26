@@ -15,8 +15,8 @@ export default async function HomePage() {
     <>
       <section className="relative min-h-[88vh] text-cream">
         <Image
-          src="/images/hero-wellness-oase.webp"
-          alt="Helle Holz-Mini-Sauna mit warmem Innenlicht in einem ruhigen Wohnraum"
+          src="/images/hero-sortiment.jpg"
+          alt="Versiegelte Sammelkarten-Displays auf einem dunklen Tisch"
           fill
           priority
           sizes="100vw"
@@ -25,19 +25,19 @@ export default async function HomePage() {
         <div className="absolute inset-0 bg-gradient-to-r from-ink/80 via-ink/45 to-ink/10" />
         <div className="relative mx-auto flex min-h-[88vh] max-w-6xl items-end px-5 pb-16 pt-28">
           <div className="max-w-2xl">
-            <p className="text-xs font-medium uppercase tracking-[0.22em] text-cream/80">Mini-Saunen für zu Hause</p>
+            <p className="text-xs font-medium uppercase tracking-[0.22em] text-cream/80">Sammelkartenspiele</p>
             <h1 className="mt-4 text-4xl font-medium leading-[1.05] tracking-tight sm:text-6xl">
-              Deine persönliche Wellness-Oase für zu Hause.
+              Displays, Boxen und Decks, versiegelt.
             </h1>
             <p className="mt-5 max-w-xl text-lg leading-relaxed text-cream/90">
-              Entdecke kompakte Mini-Saunen, die Design, Komfort und Entspannung verbinden.
+              Pokémon, Magic: The Gathering, One Piece, Yu-Gi-Oh! und Lorcana. Preise inklusive Mehrwertsteuer.
             </p>
             <div className="mt-8 flex flex-wrap gap-3">
               <Link href="/shop" className={btnPrimary}>
-                Saunen entdecken
+                Sortiment ansehen
               </Link>
               <Link href="/ueber-uns" className={btnLight}>
-                Mehr über Badezimmer
+                Mehr über Iwoody
               </Link>
             </div>
           </div>
@@ -48,14 +48,14 @@ export default async function HomePage() {
         <div className="flex items-end justify-between gap-4">
           <div>
             <p className="text-xs font-medium uppercase tracking-[0.22em] text-moss">Sortiment</p>
-            <h2 className="mt-2 text-3xl font-medium tracking-tight">Sechs Mini-Saunen</h2>
+            <h2 className="mt-2 text-3xl font-medium tracking-tight">Das Sortiment</h2>
           </div>
           <Link href="/shop" className="text-sm underline underline-offset-4">
-            Alle Modelle
+            Alle Produkte
           </Link>
         </div>
         <div className="mt-8 grid gap-6 sm:grid-cols-2">
-          {catalog.products.map((product) => (
+          {catalog.products.slice(0, 8).map((product) => (
             <ProductCard key={product.slug} product={product} vatRate={catalog.vatRate} shippingCents={catalog.shipping.costCents} />
           ))}
         </div>
@@ -74,7 +74,7 @@ export default async function HomePage() {
 
       <section className="mx-auto max-w-6xl px-5 py-16">
         <p className="text-xs font-medium uppercase tracking-[0.22em] text-moss">So geht es weiter</p>
-        <h2 className="mt-2 text-3xl font-medium tracking-tight">Vom Modell bis zur Aufstellung</h2>
+        <h2 className="mt-2 text-3xl font-medium tracking-tight">Vom Produkt bis zur Lieferung</h2>
         <ol className="mt-8 grid gap-6 md:grid-cols-3">
           {steps.map((step, index) => (
             <li key={step.title} className="rounded-3xl bg-paper p-6">
@@ -98,7 +98,7 @@ export default async function HomePage() {
 
       <section className="bg-forest text-cream">
         <div className="mx-auto max-w-6xl px-5 py-16">
-          <h2 className="text-3xl font-medium tracking-tight">Neuigkeiten zu den Mini-Saunen</h2>
+          <h2 className="text-3xl font-medium tracking-tight">Neuigkeiten zum Sortiment</h2>
           <p className="mt-3 max-w-xl text-cream/80">
             Der Newsletter ist freiwillig. Ohne gesetztes Häkchen passiert nichts, und ohne E-Mail-Anbieter verschicken wir keine Bestätigung.
           </p>

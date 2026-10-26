@@ -109,7 +109,7 @@ export type Catalog = {
   shipping: ShippingConfig;
   business: BusinessInfo;
   products: PublicProduct[];
-  checkoutMode: "stripe" | "cod" | "inquiry";
+  checkoutMode: "stripe" | "inquiry";
   paymentReady: boolean;
   emailReady: boolean;
 };

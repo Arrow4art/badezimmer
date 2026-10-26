@@ -14,8 +14,8 @@ export default async function ShippingPage() {
         title="Versand und Lieferung"
         lede={
           shipping.costCents === 0
-            ? "Kostenlose Lieferung innerhalb Deutschlands per Spedition."
-            : "Lieferung innerhalb Deutschlands per Spedition. Die Versandkosten sehen Sie vor dem Absenden der Bestellung."
+            ? "Kostenlose Lieferung innerhalb Deutschlands per Paket."
+            : "Lieferung innerhalb Deutschlands per Paket. Die Versandkosten sehen Sie vor dem Absenden der Bestellung."
         }
       />
       <div className="mx-auto max-w-3xl space-y-8 px-5 py-12 leading-relaxed">
@@ -52,7 +52,7 @@ export default async function ShippingPage() {
           </p>
         </section>
         <section>
-          <h2 className="text-2xl font-medium">Sperrgut</h2>
+          <h2 className="text-2xl font-medium">Was geliefert wird</h2>
           <p className="mt-3">{shipping.bulkyGoodsText}</p>
         </section>
         <section>
@@ -64,11 +64,8 @@ export default async function ShippingPage() {
           </p>
         </section>
         <section>
-          <h2 className="text-2xl font-medium">Montage</h2>
-          <p className="mt-3">
-            {shipping.assemblyIncluded ? "Die Montage ist nach aktueller Einstellung enthalten. " : "Die Montage ist nicht enthalten. "}
-            {shipping.assemblyText}
-          </p>
+          <h2 className="text-2xl font-medium">Verpackung</h2>
+          <p className="mt-3">{shipping.assemblyText}</p>
           <p className="mt-3">{installationText}</p>
         </section>
         <section>

@@ -1,10 +1,14 @@
 import { productDescription, typeCopy } from "@/lib/copy";
 import type { Catalog } from "@/lib/types";
 
-const GOOGLE_PRODUCT_CATEGORY = "3992";
+const GOOGLE_PRODUCT_CATEGORY = "Toys & Games > Games > Card Games";
+
+function clean(value: string): string {
+  return value.replace(/[\u0000-\u0008\u000B\u000C\u000E-\u001F]/g, "").replace(/\s+/g, " ").trim();
+}
 
 function xml(value: string): string {
-  return value
+  return clean(value)
     .replace(/&/g, "&amp;")
     .replace(/</g, "&lt;")
     .replace(/>/g, "&gt;")
@@ -32,25 +36,31 @@ export function feedOrigin(request: Request): string {
 export function buildGoogleFeed(catalog: Catalog, origin: string): string {
   const items = catalog.products
     .map((product) => {
-      const kind = typeCopy(product.productType);
-      const description = [productDescription(product), kind.explanation].filter(Boolean).join(" ");
-      const images = product.images.map((image) => `${origin}${image.src}`);
+      const description = clean(productDescription(product)).slice(0, 5000);
+      const title = clean(product.name).slice(0, 150);
+      const images = product.images
+        .map((image) => (image.src.startsWith("http") ? image.src : `${origin}${image.src}`))
+        .filter((src) => src.startsWith("http"));
+      if (!title || !description || !product.sku || product.priceCents <= 0 || images.length === 0) return "";
       const lines = [
         tag("g:id", product.sku),
-        tag("g:title", product.name),
+        tag("g:title", title),
         tag("g:description", description),
         tag("g:link", `${origin}/produkt/${product.slug}`),
         tag("g:image_link", images[0]),
-        ...images.slice(1).map((image) => tag("g:additional_image_link", image)),
+        ...images.slice(1, 10).map((image) => tag("g:additional_image_link", image)),
         tag("g:availability", product.available > 0 ? "in_stock" : "out_of_stock"),
-        tag("g:quantity", String(product.available)),
         tag("g:price", price(product.priceCents)),
-        tag("g:brand", "Badezimmer"),
+        tag("g:brand", "Iwoody"),
         tag("g:identifier_exists", "false"),
         tag("g:condition", "new"),
         tag("g:google_product_category", GOOGLE_PRODUCT_CATEGORY),
-        tag("g:product_type", kind.label),
-        ...product.features.map((feature) => tag("g:product_highlight", feature)),
+        tag("g:product_type", product.targetUse || typeCopy(product.productType).label),
+        ...product.features
+          .map((feature) => clean(feature).slice(0, 150))
+          .filter(Boolean)
+          .slice(0, 10)
+          .map((feature) => tag("g:product_highlight", feature)),
         "      <g:shipping>",
         `        <g:country>DE</g:country>`,
         `        <g:service>${xml(catalog.shipping.label)}</g:service>`,
@@ -67,14 +77,15 @@ export function buildGoogleFeed(catalog: Catalog, origin: string): string {
       ];
       return `    <item>\n${lines.join("\n")}\n    </item>`;
     })
+    .filter(Boolean)
     .join("\n");
 
   return `<?xml version="1.0" encoding="UTF-8"?>
 <rss version="2.0" xmlns:g="http://base.google.com/ns/1.0">
   <channel>
-    <title>Badezimmer</title>
+    <title>Iwoody</title>
     <link>${xml(origin)}</link>
-    <description>Kompakte Mini-Saunen für zu Hause. Preise inklusive Mehrwertsteuer.</description>
+    <description>Versiegelte Displays, Boxen und Decks. Preise inklusive Mehrwertsteuer.</description>
 ${items}
   </channel>
 </rss>

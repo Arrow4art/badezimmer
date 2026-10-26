@@ -14,25 +14,25 @@ const outfit = Outfit({ subsets: ["latin"], display: "swap" });
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl()),
   title: {
-    default: "Badezimmer — Mini-Saunen für zu Hause",
-    template: "%s · Badezimmer",
+    default: "Iwoody — Displays, Boxen und Decks",
+    template: "%s · Iwoody",
   },
   description:
-    "Kompakte Mini-Saunen für zu Hause. Sechs Modelle, Preise inklusive 19 % MwSt., kostenloser Versand innerhalb Deutschlands in 0–3 Werktagen, Zahlung per Nachnahme.",
+    "Versiegelte Displays, Top-Trainer-Boxen und Decks. Preise inklusive 19 % MwSt., kostenloser Versand innerhalb Deutschlands, Zahlung per Karte über Stripe.",
   robots:
     process.env.ALLOW_INDEXING === "false"
       ? { index: false, follow: false }
       : { index: true, follow: true },
   openGraph: {
-    title: "Badezimmer",
-    description: "Deine persönliche Wellness-Oase für zu Hause.",
+    title: "Iwoody",
+    description: "Versiegelte Displays, Top-Trainer-Boxen und Decks.",
     locale: "de_DE",
     type: "website",
-    images: ["/images/hero-wellness-oase.webp"],
+    images: ["/images/hero-sortiment.jpg"],
   },
 };
 
-export const viewport: Viewport = { themeColor: "#F3EEE6" };
+export const viewport: Viewport = { themeColor: "#EEF1F6" };
 
 export default async function RootLayout({ children }: { children: React.ReactNode }) {
   const catalog = await getCatalog();
@@ -47,14 +47,22 @@ export default async function RootLayout({ children }: { children: React.ReactNo
           Zum Inhalt
         </a>
         <CartProvider>
-          <Header />
+          <Header
+            searchItems={catalog.products.map((product) => ({
+              slug: product.slug,
+              name: product.name,
+              sku: product.sku,
+              kind: product.targetUse,
+              priceCents: product.priceCents,
+            }))}
+          />
           <script
             type="application/ld+json"
             dangerouslySetInnerHTML={{
               __html: JSON.stringify({
                 "@context": "https://schema.org",
                 "@type": "OnlineStore",
-                name: "Badezimmer",
+                name: "Iwoody",
                 url: siteUrl(),
                 email: catalog.business.email,
                 ...(catalog.business.phone ? { telephone: catalog.business.phone } : {}),
@@ -65,9 +73,6 @@ export default async function RootLayout({ children }: { children: React.ReactNo
                   addressLocality: catalog.business.city,
                   addressCountry: "DE",
                 },
-                ...(catalog.business.legalName
-                  ? { founder: { "@type": "Person", name: catalog.business.legalName } }
-                  : {}),
                 hasMerchantReturnPolicy: {
                   "@type": "MerchantReturnPolicy",
                   applicableCountry: "DE",

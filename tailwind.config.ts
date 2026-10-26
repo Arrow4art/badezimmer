@@ -5,13 +5,13 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
-        cream: "#F3EEE6",
-        paper: "#FBF8F3",
-        oak: "#B08968",
-        ink: "#242220",
-        muted: "#6B645C",
-        forest: "#31493C",
-        moss: "#5E7464",
+        cream: "#EEF1F6",
+        paper: "#F7F8FB",
+        oak: "#9A4A3A",
+        ink: "#16181D",
+        muted: "#5C6370",
+        forest: "#1E2A4A",
+        moss: "#3E5C8A",
       },
       boxShadow: {
         card: "0 18px 50px -28px rgba(36, 34, 32, 0.45)",

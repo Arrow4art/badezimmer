@@ -46,7 +46,9 @@ export function CartView({ catalog }: { catalog: Catalog }) {
         {lines.map(({ qty, product }) => (
           <li key={product.slug} className="grid grid-cols-[7rem_1fr] gap-4 rounded-3xl bg-paper p-4 sm:grid-cols-[9rem_1fr]">
             <div className="relative aspect-[4/3] overflow-hidden rounded-2xl">
-              <Image src={product.images[0].src} alt={product.images[0].alt} fill sizes="140px" className="object-cover" />
+              {product.images[0] ? (
+                <Image src={product.images[0].src} alt={product.images[0].alt} fill sizes="140px" className="object-cover" />
+              ) : null}
             </div>
             <div>
               <h2 className="font-medium">

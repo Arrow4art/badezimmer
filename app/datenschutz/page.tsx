@@ -5,7 +5,7 @@ import { getCatalog } from "@/lib/catalog";
 export const metadata: Metadata = { title: "Datenschutzerklärung" };
 
 export default async function PrivacyPage() {
-  const { business, checkoutMode } = await getCatalog();
+  const { business } = await getCatalog();
   return (
     <>
       <PageHeader
@@ -17,7 +17,7 @@ export default async function PrivacyPage() {
         <section>
           <h2 className="text-2xl font-medium">Verantwortlicher</h2>
           <p className="mt-3">
-            <Placeholder value={business.legalName} label="Name" />, <Placeholder value={business.street} label="Straße" />,{" "}
+            Iwoody, <Placeholder value={business.street} label="Straße" />,{" "}
             <Placeholder value={[business.zip, business.city].filter(Boolean).join(" ")} label="Ort" />,{" "}
             <Placeholder value={business.email} label="E-Mail" />.
           </p>
@@ -36,14 +36,12 @@ export default async function PrivacyPage() {
             Für eine Bestellung verarbeiten wir Name, E-Mail, Telefonnummer, Lieferadresse, die gewählten Modelle und den
             Vorgangsstatus. Rechtsgrundlage ist Art. 6 Abs. 1 lit. b DSGVO, bei gesetzlichen Aufbewahrungspflichten lit. c.
             Kartendaten, Prüfziffern und Ablaufdaten erheben wir nicht.
-            {checkoutMode === "stripe"
-              ? " Diese Daten geben Sie unmittelbar bei Stripe ein."
-              : " Die Zahlung erfolgt in bar bei der Lieferung, nicht über einen Zahlungsdienstleister."}{" "}
+            {" "}
+            Kartendaten geben Sie unmittelbar bei Stripe ein. Eine Barzahlung bei der Lieferung bieten wir nicht an.{" "}
             Bestellungen, Kontaktnachrichten und Newsletter-Anmeldungen speichern wir in einer Datenbank von Upstash, Inc., die
             über Vercel bereitgestellt wird.
           </p>
         </section>
-        {checkoutMode === "stripe" ? (
         <section>
           <h2 className="text-2xl font-medium">Stripe</h2>
           <p className="mt-3">
@@ -53,7 +51,6 @@ export default async function PrivacyPage() {
             Informationen finden Sie in der Datenschutzerklärung von Stripe unter stripe.com/de/privacy.
           </p>
         </section>
-        ) : null}
         <section>
           <h2 className="text-2xl font-medium">Kontaktformular</h2>
           <p className="mt-3">

@@ -1,7 +1,7 @@
 import Link from "next/link";
 
 export const btnPrimary =
-  "inline-flex items-center justify-center rounded-full bg-forest px-5 py-3 text-sm font-medium text-cream transition hover:bg-[#283d32] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-forest disabled:cursor-not-allowed disabled:opacity-45";
+  "inline-flex items-center justify-center rounded-full bg-forest px-5 py-3 text-sm font-medium text-cream transition hover:bg-[#2A3A63] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-forest disabled:cursor-not-allowed disabled:opacity-45";
 
 export const btnSecondary =
   "inline-flex items-center justify-center rounded-full border border-ink/15 bg-white px-5 py-3 text-sm font-medium text-ink transition hover:border-ink/40 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-forest disabled:cursor-not-allowed disabled:opacity-45";

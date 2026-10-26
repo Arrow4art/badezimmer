@@ -19,7 +19,7 @@ export default async function ContactPage() {
       <div className="mx-auto grid max-w-6xl gap-10 px-5 py-12 lg:grid-cols-2">
         <ContactForm />
         <aside className="text-sm leading-relaxed text-muted">
-          <p className="font-medium text-ink">Badezimmer</p>
+          <p className="font-medium text-ink">Iwoody</p>
           {business.street ? (
             <p className="mt-2">
               {business.street}, {[business.zip, business.city].filter(Boolean).join(" ")}

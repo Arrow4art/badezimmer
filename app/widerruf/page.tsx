@@ -45,7 +45,7 @@ export default async function WithdrawalPage() {
           <p className="mt-3">
             Um das Widerrufsrecht auszuüben, müssen Sie uns mittels einer eindeutigen Erklärung informieren, zum Beispiel per
             E-Mail oder mit dem untenstehenden Muster:{" "}
-            <Placeholder value={business.legalName} label="Name" />, <Placeholder value={business.street} label="Straße" />,{" "}
+            Iwoody, <Placeholder value={business.street} label="Straße" />,{" "}
             <Placeholder value={[business.zip, business.city].filter(Boolean).join(" ")} label="Ort" />,{" "}
             <Placeholder value={business.email} label="E-Mail" />. Zur Wahrung der Frist reicht es, dass Sie die Mitteilung vor
             Ablauf der Frist absenden.
@@ -65,11 +65,10 @@ export default async function WithdrawalPage() {
           </p>
         </section>
         <section>
-          <h2 className="text-2xl font-medium">Rücksendung von Sperrgut</h2>
+          <h2 className="text-2xl font-medium">Rücksendung</h2>
           <p className="mt-3">
-            Bei einem Widerruf ohne Mangel tragen Sie die unmittelbaren Kosten der Rücksendung. Eine Mini-Sauna ist Sperrgut
-            und wird per Spedition zurückgeschickt. Die Kosten hängen von Maß, Gewicht und Adresse ab und können erheblich
-            sein. Bitte stimmen Sie die Abholung vorher per E-Mail mit uns ab.
+            Bei einem Widerruf ohne Mangel tragen Sie die unmittelbaren Kosten der Rücksendung. Die Ware wird als Paket
+            zurückgeschickt. Bitte stimmen Sie die Rücksendung vorher per E-Mail mit uns ab.
           </p>
           <p className="mt-3">
             Sie müssen für einen etwaigen Wertverlust nur aufkommen, wenn der Wertverlust auf einen Umgang zurückzuführen ist,
@@ -87,7 +86,7 @@ export default async function WithdrawalPage() {
           <h2 className="text-2xl font-medium">Muster-Widerrufsformular</h2>
           <div className="mt-3 rounded-3xl bg-paper p-5 text-sm">
             <p>
-              An <Placeholder value={business.legalName} label="Name" />, <Placeholder value={business.street} label="Straße" />,{" "}
+              An Iwoody, <Placeholder value={business.street} label="Straße" />,{" "}
               <Placeholder value={[business.zip, business.city].filter(Boolean).join(" ")} label="Ort" />,{" "}
               <Placeholder value={business.email} label="E-Mail" />:
             </p>

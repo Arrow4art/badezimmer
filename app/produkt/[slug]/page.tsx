@@ -31,7 +31,9 @@ export default async function ProductPage({ params }: Props) {
   const catalog = await getCatalog();
   const product = catalog.products.find((entry) => entry.slug === slug);
   if (!product) notFound();
-  const kind = typeCopy(product.productType);
+  const kind = product.productType
+    ? typeCopy(product.productType)
+    : { label: product.targetUse, explanation: "" };
   const percent = Math.round(catalog.vatRate * 100);
   const publishedSpecs = product.techSpecs.filter((spec) => spec.label !== "Artikelnummer");
   const related = relatedProducts(catalog, product.slug);
@@ -53,7 +55,7 @@ export default async function ProductPage({ params }: Props) {
     },
     {
       q: "Wie sind Widerruf und Rückgabe geregelt?",
-      a: "Die Einzelheiten stehen in der Widerrufsbelehrung. Bei einer Kabine als Sperrgut können die Rücksendekosten erheblich sein.",
+      a: "Die Einzelheiten stehen in der Widerrufsbelehrung.",
     },
   ];
 
@@ -62,9 +64,11 @@ export default async function ProductPage({ params }: Props) {
     "@type": "Product",
     name: product.name,
     sku: product.sku,
-    image: product.images.map((image) => `${siteUrl()}${image.src}`),
+    image: product.images.map((image) =>
+      image.src.startsWith("http") ? image.src : `${siteUrl()}${image.src}`,
+    ),
     description: productDescription(product),
-    brand: { "@type": "Brand", name: "Badezimmer" },
+    brand: { "@type": "Brand", name: "Iwoody" },
     ...(publishedSpecs.length
       ? {
           additionalProperty: publishedSpecs.map((spec) => ({
@@ -82,8 +86,7 @@ export default async function ProductPage({ params }: Props) {
       availability: product.available > 0 ? "https://schema.org/InStock" : "https://schema.org/OutOfStock",
       inventoryLevel: { "@type": "QuantitativeValue", value: product.available },
       url: `${siteUrl()}/produkt/${product.slug}`,
-      acceptedPaymentMethod:
-        catalog.checkoutMode === "cod" ? "http://purl.org/goodrelations/v1#COD" : undefined,
+      acceptedPaymentMethod: "https://schema.org/CreditCard",
       hasMerchantReturnPolicy: {
         "@type": "MerchantReturnPolicy",
         applicableCountry: "DE",
@@ -136,14 +139,12 @@ export default async function ProductPage({ params }: Props) {
             inkl. {percent} % MwSt.,{" "}
             {catalog.shipping.costCents === 0 ? "kostenloser Versand" : `zzgl. Versand ${formatEUR(catalog.shipping.costCents)}`}
           </p>
-          {catalog.checkoutMode === "cod" ? (
-            <p className="mt-2 text-sm">
-              Zahlung per Nachnahme: Sie zahlen den Gesamtbetrag in bar bei der Lieferung.{" "}
-              <Link href="/zahlung" className="underline underline-offset-4">
-                Zahlungsarten
-              </Link>
-            </p>
-          ) : null}
+          <p className="mt-2 text-sm">
+            Zahlung per Karte über Stripe.{" "}
+            <Link href="/zahlung" className="underline underline-offset-4">
+              Zahlungsarten
+            </Link>
+          </p>
           <p className="mt-4 leading-relaxed">{product.shortDescription}</p>
           <BuyBox slug={product.slug} available={product.available} />
           {kind.explanation ? (
@@ -169,7 +170,7 @@ export default async function ProductPage({ params }: Props) {
             ))}
           </div>
           <p className="mt-4 text-sm">Gedacht für: {product.targetUse}</p>
-          <h3 className="mt-8 text-lg font-medium">Gestaltungsmerkmale</h3>
+          <h3 className="mt-8 text-lg font-medium">Merkmale</h3>
           <ul className="mt-3 list-disc space-y-1 pl-5 text-muted">
             {product.features.map((feature) => (
               <li key={feature}>{feature}</li>
@@ -177,7 +178,7 @@ export default async function ProductPage({ params }: Props) {
           </ul>
         </div>
         <div>
-          <h2 className="text-2xl font-medium">Technische Daten</h2>
+          <h2 className="text-2xl font-medium">Artikeldaten</h2>
           <dl className="mt-4 divide-y divide-ink/10">
             {customerSpecRows(product.sku).map((spec) => (
               <div key={spec.label} className="py-3">
@@ -186,13 +187,6 @@ export default async function ProductPage({ params }: Props) {
               </div>
             ))}
           </dl>
-          <p className="mt-4 text-sm leading-relaxed text-muted">
-            Weitere technische Angaben teilen wir per E-Mail an{" "}
-            <a href={`mailto:${catalog.business.email}`} className="underline underline-offset-4">
-              {catalog.business.email}
-            </a>{" "}
-            mit.
-          </p>
         </div>
       </section>
 
@@ -232,7 +226,7 @@ export default async function ProductPage({ params }: Props) {
           </Link>
         </div>
         <div className="rounded-3xl bg-paper p-6">
-          <h2 className="text-xl font-medium">Montage und Anschluss</h2>
+          <h2 className="text-xl font-medium">Hinweis</h2>
           <p className="mt-4 text-sm leading-relaxed">{catalog.installationText}</p>
           <p className="mt-3 text-sm leading-relaxed text-muted">
             {catalog.shipping.assemblyText}
@@ -241,7 +235,7 @@ export default async function ProductPage({ params }: Props) {
       </section>
 
       <section className="mt-14">
-        <h2 className="text-2xl font-medium">Fragen zu diesem Modell</h2>
+        <h2 className="text-2xl font-medium">Fragen zu diesem Produkt</h2>
         <div className="mt-4">
           <FaqList items={faqs} />
         </div>

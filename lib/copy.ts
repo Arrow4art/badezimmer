@@ -1,7 +1,7 @@
 import type { ProductType, PublicProduct } from "@/lib/types";
 
 export const NEWSLETTER_CONSENT =
-  "Ich willige ein, dass Badezimmer mich per E-Mail über Mini-Saunen und Angebote informiert. Die Einwilligung kann ich jederzeit mit Wirkung für die Zukunft widerrufen. Details stehen in der Datenschutzerklärung.";
+  "Ich willige ein, dass Iwoody mich per E-Mail über das Sortiment und Angebote informiert. Die Einwilligung kann ich jederzeit mit Wirkung für die Zukunft widerrufen. Details stehen in der Datenschutzerklärung.";
 
 export const nav = [
   { href: "/shop", label: "Shop" },
@@ -21,20 +21,8 @@ export const legalNav = [
 ];
 
 export function typeCopy(type: ProductType | null): { label: string; explanation: string } {
-  if (type === "traditionell") {
-    return {
-      label: "Klassische Mini-Sauna",
-      explanation: "Diese Kabine ist eine klassische Sauna mit elektrischem Saunaofen und keine Infrarotkabine.",
-    };
-  }
-  if (type === "infrarot") {
-    return {
-      label: "Infrarot-Mini-Sauna",
-      explanation:
-        "Diese Kabine wird mit Infrarotstrahlern beheizt. Sie ist keine klassische finnische Sauna mit Saunaofen und Aufguss.",
-    };
-  }
-  return { label: "Mini-Sauna", explanation: "" };
+  if (!type) return { label: "Sammelkarten", explanation: "" };
+  return { label: type, explanation: "" };
 }
 
 export function productDescription(product: Pick<PublicProduct, "shortDescription" | "description">): string {
@@ -43,46 +31,44 @@ export function productDescription(product: Pick<PublicProduct, "shortDescriptio
 
 export const benefits = [
   {
-    title: "Kompaktes Format",
-    text: "Die Modelle sind für Wohnung, Bad oder eine ruhige Ecke im Haus gedacht.",
+    title: "Versiegelt",
+    text: "Displays und Boxen werden originalverpackt angeboten.",
   },
   {
-    title: "Zeitlose Gestaltung",
-    text: "Holzoptik, Glas und ruhige Proportionen.",
+    title: "Klare Preise",
+    text: "Jeder Preis enthält die Mehrwertsteuer. Der Versand steht vor dem Abschluss.",
   },
   {
-    title: "Wellness zu Hause",
-    text: "Ein Ort für Wärme und Ruhe im eigenen Raum. Wir machen dazu keine gesundheitlichen oder therapeutischen Versprechen.",
+    title: "Mehrere Spiele",
+    text: "Pokémon, Magic: The Gathering, One Piece, Yu-Gi-Oh! und Lorcana.",
   },
 ];
 
 export const steps = [
   {
-    title: "Modell wählen",
-    text: "Sechs Mini-Saunen mit festem Preis und sichtbarem Bestand.",
+    title: "Produkt wählen",
+    text: "Displays, Boxen und Decks mit festem Preis und sichtbarem Bestand.",
   },
   {
     title: "Lieferung prüfen",
-    text: "Kostenlose Lieferung innerhalb Deutschlands in 0–3 Werktagen. Die Zahlung erfolgt per Nachnahme bei der Lieferung.",
+    text: "Kostenlose Lieferung innerhalb Deutschlands in 0–3 Werktagen. Die Zahlung erfolgt per Karte über Stripe.",
   },
   {
-    title: "Aufstellen und anschließen",
-    text: "Aufstellung und Montage übernehmen Sie selbst. Den elektrischen Anschluss darf nur eine Elektrofachkraft vornehmen.",
+    title: "Versiegelt erhalten",
+    text: "Die Ware kommt originalverpackt. Eine Montage ist nicht erforderlich.",
   },
 ];
 
 export function buildFaqs(
   products: Pick<PublicProduct, "name" | "productType">[],
-  checkoutMode: "stripe" | "cod" | "inquiry" = "inquiry",
+  checkoutMode: "stripe" | "inquiry" = "inquiry",
 ) {
   const typed = products.filter((product) => product.productType);
   const typeFaq = typed.length
     ? [
         {
-          q: "Ist das eine Infrarotkabine oder eine klassische Sauna?",
-          a: `Eine Infrarotkabine ist keine klassische Sauna mit Saunaofen. ${typed
-            .map((product) => `${product.name}: ${typeCopy(product.productType).label}.`)
-            .join(" ")}`,
+          q: "Welche Ausgabe ist das?",
+          a: typed.map((product) => `${product.name}: ${typeCopy(product.productType).label}.`).join(" "),
         },
       ]
     : [];
@@ -90,41 +76,31 @@ export function buildFaqs(
   return [
     ...typeFaq,
     {
-      q: "Für welche Räume sind die Kabinen gedacht?",
-      a: "Kompakt Sauna One und Nordik Mini Sauna sind für kleinere Wohnungen und ruhige Ecken gedacht. Premium Relax Sauna, Panorama Mini Sauna und Aurora Panorama Mini Sauna eignen sich eher für größere Bäder, Home-Gyms oder einen eigenen Wellnessraum. Fragen zu Stellfläche und Anschluss beantworten wir gern per E-Mail an support@iwoody.de.",
+      q: "Welche Spiele sind im Sortiment?",
+      a: "Pokémon, Magic: The Gathering, One Piece, Yu-Gi-Oh! und Disney Lorcana. Sprache und Inhalt stehen auf der jeweiligen Produktseite.",
     },
     {
-      q: "Wo finde ich die technischen Daten?",
-      a: "Maße, Holz, Leistung und Prüfzeichen stehen auf der Produktseite erst, wenn sie durch Unterlagen des Herstellers belegt sind. Solange sie fehlen, beantworten wir Fragen dazu per E-Mail an support@iwoody.de.",
+      q: "Sind die Produkte versiegelt?",
+      a: "Ja. Displays, Boxen und Decks werden originalverpackt angeboten. Der genaue Inhalt steht in der Produktbeschreibung.",
     },
     {
       q: "Wie hoch sind die Versandkosten?",
-      a: "Der Versand per Spedition innerhalb Deutschlands ist kostenlos. Die Summe im Warenkorb und an der Kasse ist der Endpreis.",
+      a: "Der Versand innerhalb Deutschlands ist kostenlos. Die Summe im Warenkorb und an der Kasse ist der Endpreis.",
     },
     {
       q: "Wie lange dauert die Lieferung?",
-      a: "Die Lieferung innerhalb Deutschlands dauert 0–3 Werktage. Den genauen Liefertermin stimmt die Spedition vorher mit Ihnen ab.",
-    },
-    {
-      q: "Ist die Montage enthalten?",
-      a: "Nein. Aufstellung und Montage sind nicht im Preis enthalten.",
-    },
-    {
-      q: "Wer schließt die Kabine elektrisch an?",
-      a: "Den elektrischen Anschluss darf nur eine qualifizierte Elektrofachkraft vornehmen.",
+      a: "Die Lieferung innerhalb Deutschlands dauert 0–3 Werktage.",
     },
     {
       q: "Welche Zahlungsmöglichkeiten gibt es?",
       a:
-        checkoutMode === "cod"
-          ? "Sie zahlen per Nachnahme. Der Gesamtbetrag ist bei der Zustellung in bar an den Zusteller zu zahlen. Vorher wird nichts abgebucht, und es kommt kein Nachnahmezuschlag dazu."
-          : checkoutMode === "stripe"
-            ? "Sie zahlen auf der Seite von Stripe. Kartendaten werden in diesem Shop nicht eingegeben. Welche Methoden dort erscheinen, hängt vom Stripe-Konto ab."
-            : "Eine Online-Zahlung ist derzeit nicht freigeschaltet. Das Formular erzeugt nur eine unverbindliche Anfrage.",
+        checkoutMode === "stripe"
+          ? "Sie zahlen auf der Seite von Stripe. Kartendaten werden in diesem Shop nicht eingegeben. Nachnahme gibt es nicht."
+          : "Kartenzahlung über Stripe ist derzeit nicht freigeschaltet. Nachnahme gibt es nicht. Es wird nichts abgebucht.",
     },
     {
       q: "Kann ich widerrufen?",
-      a: "Ja. Sie können innerhalb von 14 Tagen nach Erhalt ohne Angabe von Gründen widerrufen. Sie erhalten den Kaufpreis zurück, ein Umtausch wird nicht angeboten. Ablauf, Rücksendekosten bei Sperrgut und das Musterformular stehen auf der Seite Rückgabe und Widerruf.",
+      a: "Ja. Sie können innerhalb von 14 Tagen nach Erhalt ohne Angabe von Gründen widerrufen. Sie erhalten den Kaufpreis zurück, ein Umtausch wird nicht angeboten. Ablauf und Musterformular stehen auf der Seite Rückgabe und Widerruf.",
     },
     {
       q: "Gibt es Bewertungen, Garantien oder Prüfzeichen?",
@@ -132,7 +108,7 @@ export function buildFaqs(
     },
     {
       q: "Was tue ich bei einem Transportschaden?",
-      a: "Vermerken Sie sichtbare Schäden bei der Annahme auf den Frachtpapieren und fotografieren Sie Verpackung und Kabine. Melden Sie den Schaden unverzüglich an support@iwoody.de. Der Ablauf steht auf der Seite Versand.",
+      a: "Vermerken Sie sichtbare Schäden bei der Annahme und fotografieren Sie Verpackung und Inhalt. Melden Sie den Schaden unverzüglich an support@iwoody.de. Der Ablauf steht auf der Seite Versand.",
     },
   ];
 }

@@ -132,11 +132,9 @@ export function AdminPanel() {
           <h1 className="text-3xl font-medium tracking-tight">Shop-Verwaltung</h1>
           <p className="mt-2 text-sm text-muted">
             Zahlung:{" "}
-            {data.catalog.checkoutMode === "cod"
-              ? "Nachnahme ist aktiv. Der Kunde zahlt bar bei der Lieferung."
-              : data.catalog.checkoutMode === "stripe"
-                ? "Stripe ist konfiguriert."
-                : "Stripe ist nicht konfiguriert. Es wird keine Zahlung ausgeführt."}
+            {data.catalog.checkoutMode === "stripe"
+              ? "Stripe ist verbunden. Nachnahme ist abgeschaltet."
+              : "Stripe ist nicht verbunden. Nachnahme ist abgeschaltet, es wird keine Zahlung ausgeführt."}
           </p>
           <p className="text-sm text-muted">
             E-Mail: {data.catalog.emailReady ? "Versand ist konfiguriert." : "Kein E-Mail-Anbieter. Es wird keine Nachricht verschickt."}
@@ -263,9 +261,9 @@ export function AdminPanel() {
               checked={draft.shipping.assemblyIncluded}
               onChange={(event) => patchShipping("assemblyIncluded", event.target.checked)}
             />
-            Montage ist enthalten
+            Zusatzleistung ist enthalten
           </label>
-          <Area label="Montage-Hinweis" value={draft.shipping.assemblyText} onChange={(value) => patchShipping("assemblyText", value)} />
+          <Area label="Verpackungshinweis" value={draft.shipping.assemblyText} onChange={(value) => patchShipping("assemblyText", value)} />
           <Area label="Schwer erreichbare Orte" value={draft.shipping.remoteText} onChange={(value) => patchShipping("remoteText", value)} />
           <Area label="Transportschäden" value={draft.shipping.damageText} onChange={(value) => patchShipping("damageText", value)} />
           <label className="text-sm">
@@ -283,7 +281,7 @@ export function AdminPanel() {
       </section>
 
       <section className="rounded-3xl bg-paper p-5">
-        <h2 className="text-xl font-medium">Montage und Anschluss</h2>
+        <h2 className="text-xl font-medium">Lieferhinweis</h2>
         <textarea
           className={fieldClass}
           rows={5}
@@ -297,7 +295,6 @@ export function AdminPanel() {
         <div className="mt-4 grid gap-4 sm:grid-cols-2">
           {(
             [
-              ["legalName", "Unternehmens- oder Personenname"],
               ["owner", "Vertreten durch"],
               ["street", "Straße und Hausnummer"],
               ["zip", "PLZ"],
@@ -305,7 +302,6 @@ export function AdminPanel() {
               ["country", "Land"],
               ["email", "E-Mail"],
               ["phone", "Telefon"],
-              ["register", "Register"],
               ["vatId", "USt-IdNr."],
               ["responsiblePerson", "Inhaltlich verantwortlich"],
             ] as const

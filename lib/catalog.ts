@@ -14,15 +14,6 @@ import type {
   PublicProduct,
 } from "@/lib/types";
 
-const KNOWN_SLUGS = [
-  "kompakt-sauna-one",
-  "nordik-mini-sauna",
-  "premium-relax-sauna",
-  "panorama-mini-sauna",
-  "eichenholz-mini-sauna",
-  "aurora-panorama-mini-sauna",
-];
-
 function reservedQty(orders: Order[], slug: string): number {
   return orders
     .filter((order) => order.status === "zahlung_ausstehend")
@@ -62,7 +53,7 @@ export async function getCatalog(): Promise<Catalog> {
     const store = await readStore();
     const orders = await readOrders();
     const products = store.products.map((product) => toPublic(product, orders));
-    const checkoutMode: Catalog["checkoutMode"] = process.env.STRIPE_SECRET_KEY ? "stripe" : "cod";
+    const checkoutMode: Catalog["checkoutMode"] = process.env.STRIPE_SECRET_KEY ? "stripe" : "inquiry";
     return {
       vatRate: store.vatRate,
       installationText: store.installationText,
@@ -157,59 +148,6 @@ export async function createInquiry(input: CheckoutInput): Promise<CheckoutResul
   });
 }
 
-export async function createCodOrder(input: CheckoutInput): Promise<CheckoutResult> {
-  return withLock(async () => {
-    await expireStale();
-    const store = await readStore();
-    const orders = await readOrders();
-    const products = store.products.map((product) => toPublic(product, orders));
-    const built = buildItems(products, input.items);
-    if ("error" in built) return { ok: false, error: built.error };
-    const stockBefore = new Map(store.products.map((product) => [product.slug, product.stock]));
-    for (const item of built.items) {
-      const product = store.products.find((entry) => entry.slug === item.slug);
-      if (!product || product.stock < item.qty) {
-        return { ok: false, error: `Von „${item.name}“ sind nicht mehr genug Stück verfügbar.` };
-      }
-      product.stock -= item.qty;
-    }
-    const summary = summarize(built.items, store.shipping.costCents, store.vatRate);
-    const order: Order = {
-      id: newId(),
-      createdAt: new Date().toISOString(),
-      status: "nachnahme",
-      customer: input.customer,
-      items: built.items,
-      shippingGrossCents: store.shipping.costCents,
-      shippingLabel: store.shipping.label,
-      vatRate: store.vatRate,
-      goodsGrossCents: summary.goodsGrossCents,
-      totalGrossCents: summary.totalGrossCents,
-      paymentProvider: "cod",
-      emailSent: false,
-      emailNote: "",
-      note: `Bestellung mit Nachnahme. Sie zahlen den Gesamtbetrag von ${(summary.totalGrossCents / 100).toLocaleString("de-DE", { style: "currency", currency: "EUR" })} in bar bei der Zustellung an den Zusteller. Es kommt kein Nachnahmezuschlag dazu. Vorher wird nichts abgebucht. Der Bestand wurde um die bestellte Menge verringert.`,
-    };
-    orders.unshift(order);
-    try {
-      await writeStore(store);
-      await writeOrders(orders);
-    } catch (error) {
-      for (const product of store.products) {
-        const stock = stockBefore.get(product.slug);
-        if (stock !== undefined) product.stock = stock;
-      }
-      try {
-        await writeStore(store);
-      } catch {
-        // Report the original storage failure. A second write can fail for the same reason.
-      }
-      throw error;
-    }
-    return { ok: true, order };
-  });
-}
-
 export async function createPendingOrder(input: CheckoutInput): Promise<CheckoutResult> {
   return withLock(async () => {
     await expireStale();
@@ -296,7 +234,7 @@ export async function markPaid(orderId: string, sessionId: string): Promise<Orde
     order.status = "bezahlt";
     order.stripeSessionId = sessionId;
     order.note =
-      "Zahlung bei Stripe bestätigt. Kartendaten liegen Badezimmer nicht vor. Der Shop-Bestand wurde um die bezahlte Menge verringert.";
+      "Zahlung bei Stripe bestätigt. Kartendaten liegen Iwoody nicht vor. Der Shop-Bestand wurde um die bezahlte Menge verringert.";
     await writeStore(store);
     await writeOrders(orders);
     return order;
@@ -324,17 +262,13 @@ export async function listOrders(): Promise<Order[]> {
 }
 
 export function validateAdminUpdate(input: AdminUpdate): string | null {
-  if (input.products.length !== KNOWN_SLUGS.length) return "Es müssen genau sechs Produkte bleiben.";
-  const slugs = input.products.map((product) => product.slug);
-  if (slugs.slice().sort().join() !== KNOWN_SLUGS.slice().sort().join()) {
-    return "Die Modelle dürfen nicht ersetzt werden.";
-  }
+  if (input.products.length < 1) return "Es muss mindestens ein Produkt bleiben.";
   for (const product of input.products) {
-    if (!Number.isInteger(product.stock) || product.stock < 0 || product.stock > 999) {
-      return "Der Bestand muss eine ganze Zahl zwischen 0 und 999 sein.";
+    if (!Number.isInteger(product.stock) || product.stock < 0 || product.stock > 9999) {
+      return "Der Bestand muss eine ganze Zahl zwischen 0 und 9999 sein.";
     }
-    if (!Number.isInteger(product.priceCents) || product.priceCents < 80000 || product.priceCents > 160000) {
-      return "Jeder Preis muss zwischen 800,00 € und 1.600,00 € liegen.";
+    if (!Number.isInteger(product.priceCents) || product.priceCents < 50 || product.priceCents > 500000) {
+      return "Jeder Preis muss zwischen 0,50 € und 5.000,00 € liegen.";
     }
   }
   const shipping = input.shipping;
@@ -348,7 +282,7 @@ export function validateAdminUpdate(input: AdminUpdate): string | null {
     return "Eine bestätigte Lieferzeit braucht einen Text.";
   }
   if (input.installationText.trim().length < 20) {
-    return "Bitte hinterlegen Sie einen verständlichen Hinweis zu Montage und Anschluss.";
+    return "Bitte hinterlegen Sie einen verständlichen Lieferhinweis.";
   }
   return null;
 }

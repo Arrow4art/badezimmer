@@ -5,13 +5,18 @@ import { getCatalog } from "@/lib/catalog";
 
 export const metadata: Metadata = { title: "Shop" };
 
-export default async function ShopPage() {
+export default async function ShopPage({
+  searchParams,
+}: {
+  searchParams: Promise<{ q?: string }>;
+}) {
+  const { q } = await searchParams;
   const catalog = await getCatalog();
   return (
     <>
       <PageHeader
         eyebrow="Shop"
-        title="Sechs Mini-Saunen, klar bepreist."
+        title="Displays, Boxen und Decks."
         lede={[
           `Jeder Preis enthält ${Math.round(catalog.vatRate * 100)} % MwSt.`,
           catalog.shipping.costCents === 0
@@ -23,7 +28,12 @@ export default async function ShopPage() {
           .filter(Boolean)
           .join(" ")}
       />
-      <ShopBrowser products={catalog.products} vatRate={catalog.vatRate} shippingCents={catalog.shipping.costCents} />
+      <ShopBrowser
+        products={catalog.products}
+        vatRate={catalog.vatRate}
+        shippingCents={catalog.shipping.costCents}
+        initialQuery={q ?? ""}
+      />
     </>
   );
 }

@@ -25,16 +25,20 @@ export function ProductCard({
   return (
     <article className="flex h-full flex-col overflow-hidden rounded-3xl bg-paper shadow-card">
       <Link href={`/produkt/${product.slug}`} className="relative block aspect-[4/3] overflow-hidden bg-cream">
-        <Image
-          src={product.images[0].src}
-          alt={product.images[0].alt}
-          fill
-          sizes="(min-width: 1024px) 30vw, (min-width: 640px) 50vw, 100vw"
-          className="object-cover motion-safe:transition motion-safe:duration-700 motion-safe:hover:scale-105"
-        />
+        {product.images[0] ? (
+          <Image
+            src={product.images[0].src}
+            alt={product.images[0].alt}
+            fill
+            sizes="(min-width: 1024px) 30vw, (min-width: 640px) 50vw, 100vw"
+            className="object-cover motion-safe:transition motion-safe:duration-700 motion-safe:hover:scale-105"
+          />
+        ) : null}
       </Link>
       <div className="flex flex-1 flex-col p-5">
-        <p className="text-xs uppercase tracking-[0.16em] text-moss">{typeCopy(product.productType).label}</p>
+        <p className="text-xs uppercase tracking-[0.16em] text-moss">
+          {product.productType ? typeCopy(product.productType).label : product.targetUse}
+        </p>
         <h2 className="mt-2 text-xl font-medium tracking-tight">
           <Link href={`/produkt/${product.slug}`}>{product.name}</Link>
         </h2>

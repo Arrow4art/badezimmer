@@ -11,7 +11,7 @@ export function Footer({
   vatRate,
 }: {
   business: BusinessInfo;
-  checkoutMode: "stripe" | "cod" | "inquiry";
+  checkoutMode: "stripe" | "inquiry";
   shipping: ShippingConfig;
   vatRate: number;
 }) {
@@ -22,7 +22,7 @@ export function Footer({
         <div>
           <Logo tone="light" />
           <p className="mt-4 max-w-xs text-sm leading-relaxed text-cream/75">
-            Kompakte Mini-Saunen für das eigene Zuhause. Preise in Euro, Lieferung innerhalb Deutschlands.
+            Versiegelte Displays, Boxen und Decks. Preise in Euro, Lieferung innerhalb Deutschlands.
           </p>
         </div>
         <div>
@@ -51,7 +51,7 @@ export function Footer({
         </div>
         <div className="text-sm leading-relaxed text-cream/75">
           <p className="text-xs uppercase tracking-[0.18em] text-cream/50">Kontakt</p>
-          <p className="mt-3">Badezimmer</p>
+          <p className="mt-3">Iwoody</p>
           {place.length > 0 ? <p className="mt-1">{place.join(", ")}</p> : null}
           {business.email ? (
             <a href={`mailto:${business.email}`} className="mt-1 block text-cream/80 hover:text-cream">
@@ -70,9 +70,9 @@ export function Footer({
           Preise inklusive {Math.round(vatRate * 100)} % MwSt.{" "}
           {shipping.costCents === 0 ? "Kostenloser Versand" : "Versand"} innerhalb Deutschlands
           {shipping.deliveryEstimateConfirmed ? `. Lieferzeit: ${shipping.deliveryEstimateText}` : ""}.{" "}
-          {checkoutMode === "cod"
-            ? "Zahlung per Nachnahme bei der Lieferung."
-            : "Kartendaten werden in diesem Shop nicht gespeichert."}
+          {checkoutMode === "stripe"
+            ? "Zahlung per Karte über Stripe. Kartendaten werden in diesem Shop nicht gespeichert."
+            : "Zahlung per Karte über Stripe, sobald das Konto verbunden ist."}
         </p>
       </div>
     </footer>

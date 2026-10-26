@@ -54,8 +54,8 @@ export function orderMessage(order: Order): { subject: string; text: string } {
         address,
         `Telefon: ${order.customer.phone}`,
         "",
-        "Die Lieferung innerhalb Deutschlands dauert 0–3 Werktage. Die Spedition stimmt den Termin vorher mit Ihnen ab.",
-        "Montage und elektrischer Anschluss richten sich nach den Hinweisen im Shop.",
+        "Die Lieferung innerhalb Deutschlands dauert 0–3 Werktage.",
+        "Die Ware kommt originalverpackt.",
       ].join("\n"),
     };
   }
@@ -67,7 +67,7 @@ export function orderMessage(order: Order): { subject: string; text: string } {
         `Guten Tag ${order.customer.firstName} ${order.customer.lastName},`,
         "",
         "Ihre Zahlung ist bei Stripe eingegangen. Dies ist die Bestellbestätigung.",
-        "Kartendaten liegen Badezimmer nicht vor.",
+        "Kartendaten liegen Iwoody nicht vor.",
         "",
         `Vorgang: ${order.id}`,
         "",
@@ -78,8 +78,8 @@ export function orderMessage(order: Order): { subject: string; text: string } {
         "Lieferadresse:",
         address,
         "",
-        "Die Lieferung innerhalb Deutschlands dauert 0–3 Werktage. Die Spedition stimmt den Termin vorher mit Ihnen ab.",
-        "Montage und elektrischer Anschluss richten sich nach den Hinweisen im Shop.",
+        "Die Lieferung innerhalb Deutschlands dauert 0–3 Werktage.",
+        "Die Ware kommt originalverpackt.",
       ].join("\n"),
     };
   }
