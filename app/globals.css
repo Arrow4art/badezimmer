@@ -340,18 +340,21 @@ summary::-webkit-details-marker {
   box-shadow: 0 0 18px 2px rgba(255, 43, 214, 0.7);
 }
 
-/* Fan of holo-foil cards */
+/* Fan of holo-foil cards (components/card-fan.tsx). Each card links to one game. */
 
+/* Phones and tablets: in the page flow above the headline, so it can never cover the text. */
 .card-fan {
   --card-w: 6.25rem;
   --spread: 1.9rem;
-  position: absolute;
-  top: 6.5rem;
-  left: 50%;
+  position: relative;
+  z-index: 10;
+  flex: none;
   width: 20rem;
+  max-width: 100%;
   height: 12rem;
-  margin-left: -10rem;
+  margin: 0 auto 3rem;
   transform-origin: 50% 100%;
+  pointer-events: none;
   animation: fan-sway 9s ease-in-out infinite;
 }
 
@@ -359,7 +362,7 @@ summary::-webkit-details-marker {
   .card-fan {
     --card-w: 7rem;
     --spread: 2.2rem;
-    top: 5.5rem;
+    height: 13rem;
   }
 }
 
@@ -367,12 +370,12 @@ summary::-webkit-details-marker {
   .card-fan {
     --card-w: 7.5rem;
     --spread: 2.4rem;
+    position: absolute;
     top: 14%;
-    left: auto;
     right: 2%;
     width: 24rem;
     height: 15rem;
-    margin-left: 0;
+    margin: 0;
   }
 }
 
@@ -404,14 +407,21 @@ summary::-webkit-details-marker {
   width: var(--card-w);
   margin-left: calc(var(--card-w) / -2);
   aspect-ratio: 250 / 350;
-  border-radius: calc(var(--card-w) * 0.064);
-  overflow: hidden;
   transform-origin: 50% 130%;
   rotate: var(--r);
   translate: calc(var(--x) * var(--spread)) 0;
-  box-shadow: 0 24px 40px -14px rgba(0, 0, 0, 0.85), 0 0 34px -4px var(--glow);
+  pointer-events: auto;
+  outline: none;
+  -webkit-tap-highlight-color: transparent;
+  transition: rotate 0.35s ease;
   animation: tcg-bob 6s ease-in-out infinite;
   animation-delay: var(--d);
+}
+
+.tcg:hover,
+.tcg:focus-visible {
+  z-index: 10;
+  rotate: 0deg;
 }
 
 @keyframes tcg-bob {
@@ -424,14 +434,50 @@ summary::-webkit-details-marker {
   }
 }
 
+.tcg-card {
+  position: relative;
+  display: block;
+  height: 100%;
+  border-radius: calc(var(--card-w) * 0.064);
+  overflow: hidden;
+  box-shadow: 0 24px 40px -14px rgba(0, 0, 0, 0.85), 0 0 calc(34px + var(--near, 0) * 30px) -4px var(--glow);
+  transform: perspective(800px) translateY(calc(var(--near, 0) * -16px)) rotateX(var(--tilt-x, 0deg))
+    rotateY(var(--tilt-y, 0deg)) scale(calc(1 + var(--near, 0) * 0.05));
+  transition: transform 0.25s ease-out, box-shadow 0.3s ease, filter 0.3s ease;
+  will-change: transform;
+}
+
+.tcg:hover .tcg-card,
+.tcg:focus-visible .tcg-card {
+  transform: perspective(800px) translateY(-34px) rotateX(var(--tilt-x, 0deg)) rotateY(var(--tilt-y, 0deg)) scale(1.12);
+  box-shadow: 0 30px 50px -16px rgba(0, 0, 0, 0.9), 0 0 60px 4px var(--glow);
+}
+
+.tcg:focus-visible .tcg-card {
+  outline: 3px solid #22d3ee;
+  outline-offset: 4px;
+}
+
+.card-fan:has(.tcg:hover) .tcg:not(:hover) .tcg-card,
+.card-fan:has(.tcg:focus-visible) .tcg:not(:focus-visible) .tcg-card {
+  filter: brightness(0.6) saturate(0.7);
+}
+
 .tcg-holo {
   position: absolute;
   inset: 0;
   background: linear-gradient(125deg, transparent 25%, rgba(255, 43, 214, 0.45) 38%, rgba(34, 211, 238, 0.45) 48%, rgba(255, 224, 138, 0.4) 58%, transparent 72%);
   background-size: 300% 300%;
   mix-blend-mode: color-dodge;
+  opacity: 0.75;
+  transition: opacity 0.3s ease;
   animation: holo-pan 5s ease-in-out infinite;
   animation-delay: var(--d);
+}
+
+.tcg:hover .tcg-holo,
+.tcg:focus-visible .tcg-holo {
+  opacity: 1;
 }
 
 @keyframes holo-pan {
@@ -447,8 +493,31 @@ summary::-webkit-details-marker {
 .tcg-glare {
   position: absolute;
   inset: 0;
-  background: radial-gradient(circle at 30% 20%, rgba(255, 255, 255, 0.35), transparent 45%);
+  background: radial-gradient(circle at var(--glare-x, 30%) var(--glare-y, 20%), rgba(255, 255, 255, calc(0.3 + var(--near, 0) * 0.35)), transparent 50%);
   mix-blend-mode: overlay;
+}
+
+.tcg-cta {
+  position: absolute;
+  left: 50%;
+  bottom: 7%;
+  translate: -50% 8px;
+  padding: 0.3em 0.85em;
+  border-radius: 9999px;
+  background: linear-gradient(90deg, #22d3ee, #ff2bd6);
+  box-shadow: 0 0 16px rgba(255, 43, 214, 0.7);
+  color: #0a0716;
+  font-size: clamp(0.55rem, calc(var(--card-w) * 0.085), 0.8rem);
+  font-weight: 700;
+  white-space: nowrap;
+  opacity: 0;
+  transition: opacity 0.25s ease, translate 0.25s ease;
+}
+
+.tcg:hover .tcg-cta,
+.tcg:focus-visible .tcg-cta {
+  opacity: 1;
+  translate: -50% 0;
 }
 
 /* Keeps the headline readable over the scene. */

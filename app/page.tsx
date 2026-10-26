@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { CardFan } from "@/components/card-fan";
 import { FaqList } from "@/components/faq-list";
 import { HeroScene } from "@/components/hero-scene";
 import { NewsletterForm } from "@/components/newsletter-form";
@@ -15,7 +16,8 @@ export default async function HomePage() {
     <>
       <section className="relative min-h-[88vh] overflow-hidden text-cream">
         <HeroScene />
-        <div className="relative mx-auto flex min-h-[88vh] max-w-6xl items-end px-5 pb-16 pt-28">
+        <div className="relative mx-auto flex min-h-[88vh] max-w-6xl flex-col justify-end px-5 pb-16 pt-24 lg:pt-28">
+          <CardFan />
           <div className="max-w-2xl">
             <p className="inline-flex items-center gap-2 rounded-full border border-moss/40 bg-night/60 px-3 py-1 text-xs font-medium uppercase tracking-[0.22em] text-moss">
               <span className="h-1.5 w-1.5 rounded-full bg-moss shadow-[0_0_8px_#22d3ee]" aria-hidden="true" />
