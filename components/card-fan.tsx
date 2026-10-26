@@ -39,6 +39,10 @@ function CardBack({ id, label, logo, from, to }: { id: string; label: string; lo
           <stop offset="0" stopColor={from} stopOpacity="0.75" />
           <stop offset="1" stopColor={to} stopOpacity="0" />
         </radialGradient>
+        <radialGradient id={`${g}-halo`}>
+          <stop offset="0" stopColor="#fff" stopOpacity="0.16" />
+          <stop offset="1" stopColor="#fff" stopOpacity="0" />
+        </radialGradient>
         <pattern id={`${g}-pt`} width="12" height="12" patternUnits="userSpaceOnUse" patternTransform="rotate(45)">
           <line x1="0" y1="0" x2="0" y2="12" stroke="#fff" strokeOpacity="0.07" strokeWidth="2" />
         </pattern>
@@ -48,16 +52,14 @@ function CardBack({ id, label, logo, from, to }: { id: string; label: string; lo
       <rect x="8" y="8" width="234" height="334" rx="11" fill="none" stroke={`url(#${g}-ac)`} strokeWidth="3.5" />
       <rect x="19" y="19" width="212" height="312" rx="7" fill="none" stroke={`url(#${g}-ac)`} strokeWidth="1.2" opacity="0.6" />
       <circle cx="125" cy="165" r="96" fill={`url(#${g}-core)`} opacity="0.55" />
-      <circle cx="125" cy="165" r="84" fill="none" stroke={`url(#${g}-ac)`} strokeWidth="1.5" strokeDasharray="3 6" opacity="0.6" />
       {/* Soft light behind the logo so dark lettering still reads on the dark card. */}
-      <ellipse cx="125" cy="165" rx="108" ry="60" fill="#fff" opacity="0.1" />
+      <ellipse cx="125" cy="165" rx="112" ry="66" fill={`url(#${g}-halo)`} />
       <image href={logo} x="20" y="112" width="210" height="106" preserveAspectRatio="xMidYMid meet" />
       {corners.map(([x, y]) => (
         <path key={`${x}-${y}`} d={`M${x} ${y - 9}L${x + 9} ${y}L${x} ${y + 9}L${x - 9} ${y}Z`} fill={`url(#${g}-ac)`} />
       ))}
       {/* Top-left, the part of each card the fan leaves visible. */}
       <rect x="22" y="22" width={label.length * 15 + 34} height="40" rx="20" fill="#0A0718" fillOpacity="0.8" stroke={`url(#${g}-ac)`} strokeWidth="2" />
-      <path d="M60 308H190M95 298H155" stroke={`url(#${g}-ac)`} strokeWidth="1.5" opacity="0.5" />
       <text
         x="39"
         y="49"
