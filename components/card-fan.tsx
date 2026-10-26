@@ -22,7 +22,7 @@ const corners: Array<[number, number]> = [
   [216, 316],
 ];
 
-function CardBack({ id, label, logo, from, to }: { id: string; label: string; logo: string; from: string; to: string }) {
+function CardBack({ id, logo, from, to }: { id: string; logo: string; from: string; to: string }) {
   const g = `card-${id}`;
   return (
     <svg viewBox="0 0 250 350" className="block h-full w-full" aria-hidden="true">
@@ -58,20 +58,6 @@ function CardBack({ id, label, logo, from, to }: { id: string; label: string; lo
       {corners.map(([x, y]) => (
         <path key={`${x}-${y}`} d={`M${x} ${y - 9}L${x + 9} ${y}L${x} ${y + 9}L${x - 9} ${y}Z`} fill={`url(#${g}-ac)`} />
       ))}
-      {/* Top-left, the part of each card the fan leaves visible. */}
-      <rect x="22" y="22" width={label.length * 15 + 34} height="40" rx="20" fill="#0A0718" fillOpacity="0.8" stroke={`url(#${g}-ac)`} strokeWidth="2" />
-      <text
-        x="39"
-        y="49"
-        textAnchor="start"
-        fill="#fff"
-        fontSize="24"
-        fontWeight="700"
-        letterSpacing="0.5"
-        fontFamily="inherit"
-      >
-        {label}
-      </text>
     </svg>
   );
 }
@@ -148,7 +134,7 @@ export function CardFan() {
           }
         >
           <span className="tcg-card">
-            <CardBack id={card.id} label={card.label} logo={card.logo} from={card.from} to={card.to} />
+            <CardBack id={card.id} logo={card.logo} from={card.from} to={card.to} />
             <span className="tcg-holo" />
             <span className="tcg-glare" />
             <span className="tcg-cta" aria-hidden="true">
