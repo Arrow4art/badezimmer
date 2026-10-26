@@ -54,6 +54,10 @@ export type Product = {
   features: string[];
   targetUse: string;
   images: ProductImage[];
+  /** Overrides the brand derived from the product name. */
+  brand?: string;
+  /** EAN/GTIN barcode from the packaging, digits only. */
+  gtin?: string;
 };
 
 export type ShippingConfig = {
@@ -170,7 +174,7 @@ export type NewsletterEntry = {
 };
 
 export type AdminUpdate = {
-  products: { slug: string; stock: number; priceCents: number }[];
+  products: { slug: string; stock: number; priceCents: number; gtin: string }[];
   shipping: ShippingConfig;
   business: BusinessInfo;
   installationText: string;

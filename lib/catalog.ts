@@ -2,6 +2,7 @@ import { randomBytes } from "node:crypto";
 import { summarize } from "@/lib/money";
 import { withLock } from "@/lib/lock";
 import { readMessages, readOrders, writeMessages, writeNewsletter, readNewsletter, writeOrders } from "@/lib/records";
+import { normalizeGtin } from "@/lib/product-ids";
 import { readStore, writeStore } from "@/lib/store";
 import { verifiedProductType, verifiedSpecs } from "@/lib/tech-specs";
 import type {
@@ -270,6 +271,9 @@ export function validateAdminUpdate(input: AdminUpdate): string | null {
     if (!Number.isInteger(product.priceCents) || product.priceCents < 50 || product.priceCents > 500000) {
       return "Jeder Preis muss zwischen 0,50 € und 5.000,00 € liegen.";
     }
+    if (product.gtin.trim() && !normalizeGtin(product.gtin)) {
+      return `Die EAN bei „${product.slug}“ ist ungültig. Bitte die 8, 12, 13 oder 14 Ziffern unter dem Barcode prüfen.`;
+    }
   }
   const shipping = input.shipping;
   if (!Number.isInteger(shipping.costCents) || shipping.costCents < 0 || shipping.costCents > 500000) {
@@ -295,6 +299,9 @@ export async function updateCatalog(input: AdminUpdate): Promise<void> {
       if (!product) continue;
       product.stock = update.stock;
       product.priceCents = update.priceCents;
+      const gtin = normalizeGtin(update.gtin);
+      if (gtin) product.gtin = gtin;
+      else delete product.gtin;
     }
     store.shipping = input.shipping;
     store.business = input.business;

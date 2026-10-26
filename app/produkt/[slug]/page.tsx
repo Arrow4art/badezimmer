@@ -8,6 +8,7 @@ import { ProductCard } from "@/components/product-card";
 import { getCatalog, relatedProducts } from "@/lib/catalog";
 import { productDescription, typeCopy } from "@/lib/copy";
 import { formatEUR, formatShipping } from "@/lib/money";
+import { normalizeGtin, productBrand } from "@/lib/product-ids";
 import { siteUrl } from "@/lib/site";
 import { customerSpecRows } from "@/lib/tech-specs";
 
@@ -59,6 +60,8 @@ export default async function ProductPage({ params }: Props) {
     },
   ];
 
+  const brand = productBrand(product);
+  const gtin = normalizeGtin(product.gtin);
   const jsonLd = {
     "@context": "https://schema.org",
     "@type": "Product",
@@ -68,7 +71,8 @@ export default async function ProductPage({ params }: Props) {
       image.src.startsWith("http") ? image.src : `${siteUrl()}${image.src}`,
     ),
     description: productDescription(product),
-    brand: { "@type": "Brand", name: "Iwoody" },
+    ...(brand ? { brand: { "@type": "Brand", name: brand } } : {}),
+    ...(gtin ? { gtin } : {}),
     ...(publishedSpecs.length
       ? {
           additionalProperty: publishedSpecs.map((spec) => ({
