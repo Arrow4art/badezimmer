@@ -1,4 +1,4 @@
-// Fixed, decorative layer behind every page: drifting neon glows, a faint grid and rising sparks.
+// Fixed, decorative layer behind every page: drifting neon glows, twinkling stars, a faint grid and rising sparks.
 // Pure CSS (see globals.css), so it costs no JavaScript and stops under prefers-reduced-motion.
 
 const particles = [
@@ -20,6 +20,8 @@ export function Backdrop() {
       <div className="fx-aurora fx-aurora--violet" />
       <div className="fx-aurora fx-aurora--cyan" />
       <div className="fx-aurora fx-aurora--pink" />
+      <div className="fx-stars" />
+      <div className="fx-stars fx-stars--late" />
       <div className="fx-grid" />
       {particles.map((particle) => (
         <span

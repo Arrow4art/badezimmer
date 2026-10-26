@@ -1,6 +1,6 @@
-import Image from "next/image";
 import Link from "next/link";
 import { FaqList } from "@/components/faq-list";
+import { HeroScene } from "@/components/hero-scene";
 import { NewsletterForm } from "@/components/newsletter-form";
 import { ProductCard } from "@/components/product-card";
 import { btnLight, btnPrimary } from "@/components/ui";
@@ -14,25 +14,7 @@ export default async function HomePage() {
   return (
     <>
       <section className="relative min-h-[88vh] overflow-hidden text-cream">
-        <Image
-          src="/images/hero-sortiment.jpg"
-          alt="Versiegelte Sammelkarten-Displays auf einem dunklen Tisch"
-          fill
-          priority
-          sizes="100vw"
-          className="object-cover opacity-60"
-        />
-        <div className="absolute inset-0 bg-gradient-to-r from-night via-night/70 to-forest/30" />
-        <div className="absolute inset-0 bg-gradient-to-t from-night via-transparent to-night/40" />
-        <div aria-hidden="true">
-          <div className="hero-floor" />
-          <div className="hero-horizon" />
-          <div className="hidden lg:block">
-            <div className="hero-card right-[22%] top-[18%] -rotate-12" />
-            <div className="hero-card hero-card--b right-[8%] top-[26%] rotate-6" />
-            <div className="hero-card hero-card--c right-[15%] top-[44%] rotate-[-4deg] scale-90" />
-          </div>
-        </div>
+        <HeroScene />
         <div className="relative mx-auto flex min-h-[88vh] max-w-6xl items-end px-5 pb-16 pt-28">
           <div className="max-w-2xl">
             <p className="inline-flex items-center gap-2 rounded-full border border-moss/40 bg-night/60 px-3 py-1 text-xs font-medium uppercase tracking-[0.22em] text-moss">
