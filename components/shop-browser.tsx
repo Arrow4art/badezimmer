@@ -6,7 +6,15 @@ import { SearchField } from "@/components/search-field";
 import { fieldClass } from "@/components/ui";
 import type { PublicProduct } from "@/lib/types";
 
-type PriceFilter = "all" | "under-1000" | "mid" | "over-1400";
+// Upper bounds in euros, chosen so each range holds a similar share of the catalog.
+const priceRanges = {
+  "under-50": { label: "Bis 50 €", min: 0, max: 50 },
+  "50-100": { label: "50 € bis 100 €", min: 50, max: 100 },
+  "100-200": { label: "100 € bis 200 €", min: 100, max: 200 },
+  "over-200": { label: "Über 200 €", min: 200, max: Infinity },
+} as const;
+
+type PriceFilter = "all" | keyof typeof priceRanges;
 type SortKey = "name-asc" | "name-desc" | "price-asc" | "price-desc";
 
 export function ShopBrowser({
@@ -37,11 +45,8 @@ export function ShopBrowser({
         .toLocaleLowerCase("de");
       const queryOk = !needle || haystack.includes(needle);
       const euros = product.priceCents / 100;
-      const priceOk =
-        price === "all" ||
-        (price === "under-1000" && euros <= 1000) ||
-        (price === "mid" && euros > 1000 && euros <= 1400) ||
-        (price === "over-1400" && euros > 1400);
+      const range = price === "all" ? null : priceRanges[price];
+      const priceOk = !range || (euros > range.min && euros <= range.max);
       const typeOk = type === "all" || product.productType === type;
       return queryOk && priceOk && typeOk;
     });
@@ -81,9 +86,11 @@ export function ShopBrowser({
           Preis
           <select className={fieldClass} value={price} onChange={(event) => setPrice(event.target.value as PriceFilter)}>
             <option value="all">Alle Preise</option>
-            <option value="under-1000">Bis 1.000 €</option>
-            <option value="mid">1.000 € bis 1.400 €</option>
-            <option value="over-1400">Über 1.400 €</option>
+            {Object.entries(priceRanges).map(([value, range]) => (
+              <option key={value} value={value}>
+                {range.label}
+              </option>
+            ))}
           </select>
         </label>
         {types.length > 1 ? (
