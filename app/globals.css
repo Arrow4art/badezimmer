@@ -606,6 +606,30 @@ summary::-webkit-details-marker {
   background-position: -20% 0;
 }
 
+/* Auto-scrolling product strip at the bottom of the hero (see product-marquee.tsx). */
+.marquee {
+  overflow: hidden;
+  -webkit-mask-image: linear-gradient(to right, transparent, #000 6%, #000 94%, transparent);
+  mask-image: linear-gradient(to right, transparent, #000 6%, #000 94%, transparent);
+}
+
+.marquee-track {
+  display: flex;
+  width: max-content;
+  animation: marquee-slide 70s linear infinite;
+}
+
+.marquee:hover .marquee-track,
+.marquee:focus-within .marquee-track {
+  animation-play-state: paused;
+}
+
+@keyframes marquee-slide {
+  to {
+    transform: translateX(-50%);
+  }
+}
+
 /* Stage behind product photos shot on plain white or black (see product-photo.tsx).
    White photos multiply onto a light holo wash, black ones screen onto a night glow. */
 .photo-stage--light {
@@ -630,5 +654,9 @@ summary::-webkit-details-marker {
 
   .fx-particle {
     display: none;
+  }
+
+  .marquee {
+    overflow-x: auto;
   }
 }
