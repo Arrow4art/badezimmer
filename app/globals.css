@@ -616,7 +616,7 @@ summary::-webkit-details-marker {
 .marquee-track {
   display: flex;
   width: max-content;
-  animation: marquee-slide 70s linear infinite;
+  animation: marquee-slide 100s linear infinite;
 }
 
 .marquee:hover .marquee-track,
