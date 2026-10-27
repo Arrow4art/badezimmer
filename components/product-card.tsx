@@ -1,9 +1,9 @@
 "use client";
 
-import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
 import { useCart } from "@/components/cart-context";
+import { ProductPhoto } from "@/components/product-photo";
 import { btnPrimary, btnSecondary } from "@/components/ui";
 import { formatEUR } from "@/lib/money";
 import type { PublicProduct } from "@/lib/types";
@@ -25,12 +25,10 @@ export function ProductCard({
     <article className="holo-card flex h-full flex-col overflow-hidden rounded-3xl bg-paper/90 shadow-card">
       <Link href={`/produkt/${product.slug}`} className="holo-shine relative block aspect-[4/3] overflow-hidden bg-night">
         {product.images[0] ? (
-          <Image
-            src={product.images[0].src}
-            alt={product.images[0].alt}
-            fill
+          <ProductPhoto
+            image={product.images[0]}
             sizes="(min-width: 1024px) 30vw, 50vw"
-            className="object-cover motion-safe:transition motion-safe:duration-700 motion-safe:hover:scale-105"
+            className="motion-safe:transition motion-safe:duration-700 motion-safe:hover:scale-105"
           />
         ) : null}
       </Link>

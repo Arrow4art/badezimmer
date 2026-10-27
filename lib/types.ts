@@ -1,6 +1,8 @@
 export type ProductImage = {
   src: string;
   alt: string;
+  /** Set when the photo sits on a plain white ("light") or black ("dark") backdrop. */
+  tone?: "light" | "dark";
 };
 
 export type Product = {
