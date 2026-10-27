@@ -1,10 +1,10 @@
 "use client";
 
-import Image from "next/image";
 import Link from "next/link";
 import { useMemo } from "react";
 import { useCart } from "@/components/cart-context";
 import { PriceBreakdown } from "@/components/price-summary";
+import { ProductPhoto } from "@/components/product-photo";
 import { btnPrimary, btnSecondary } from "@/components/ui";
 import { formatEUR, summarize } from "@/lib/money";
 import type { Catalog } from "@/lib/types";
@@ -47,7 +47,7 @@ export function CartView({ catalog }: { catalog: Catalog }) {
           <li key={product.slug} className="grid grid-cols-[7rem_1fr] gap-4 rounded-3xl bg-paper p-4 sm:grid-cols-[9rem_1fr]">
             <div className="relative aspect-[4/3] overflow-hidden rounded-2xl">
               {product.images[0] ? (
-                <Image src={product.images[0].src} alt={product.images[0].alt} fill sizes="140px" className="object-cover" />
+                <ProductPhoto image={product.images[0]} sizes="140px" />
               ) : null}
             </div>
             <div>
