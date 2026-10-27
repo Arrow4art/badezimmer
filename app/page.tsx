@@ -51,8 +51,8 @@ export default async function HomePage() {
             Alle Produkte
           </Link>
         </div>
-        <div className="mt-8 grid gap-6 sm:grid-cols-2">
-          {catalog.products.slice(0, 8).map((product) => (
+        <div className="mt-8 grid grid-cols-2 gap-3 sm:gap-6 lg:grid-cols-3">
+          {catalog.products.slice(0, 6).map((product) => (
             <ProductCard key={product.slug} product={product} vatRate={catalog.vatRate} shippingCents={catalog.shipping.costCents} />
           ))}
         </div>

@@ -101,7 +101,7 @@ export function ShopBrowser({
       {visible.length === 0 ? (
         <p className="mt-8 rounded-3xl bg-paper p-8 text-muted">Kein Produkt passt zu diesem Filter.</p>
       ) : (
-        <div className="mt-6 grid gap-6 sm:grid-cols-2">
+        <div className="mt-6 grid grid-cols-2 gap-3 sm:gap-6 lg:grid-cols-3">
           {visible.map((product) => (
             <ProductCard key={product.slug} product={product} vatRate={vatRate} shippingCents={shippingCents} />
           ))}

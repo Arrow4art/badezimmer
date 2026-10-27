@@ -29,36 +29,38 @@ export function ProductCard({
             src={product.images[0].src}
             alt={product.images[0].alt}
             fill
-            sizes="(min-width: 1024px) 30vw, (min-width: 640px) 50vw, 100vw"
+            sizes="(min-width: 1024px) 30vw, 50vw"
             className="object-cover motion-safe:transition motion-safe:duration-700 motion-safe:hover:scale-105"
           />
         ) : null}
       </Link>
-      <div className="flex flex-1 flex-col p-5">
-        <p className="text-xs uppercase tracking-[0.16em] text-moss">
+      {/* Two cards share a phone screen, so text and padding shrink below sm. */}
+      <div className="flex flex-1 flex-col p-3 sm:p-5">
+        <p className="text-[0.65rem] uppercase tracking-[0.16em] text-moss sm:text-xs">
           {product.targetUse}
         </p>
-        <h2 className="mt-2 text-xl font-medium tracking-tight">
+        <h2 className="mt-1.5 text-sm font-medium leading-snug tracking-tight sm:mt-2 sm:text-xl">
           <Link href={`/produkt/${product.slug}`}>{product.name}</Link>
         </h2>
-        <p className="mt-3 text-2xl font-semibold text-gold">{formatEUR(product.priceCents)}</p>
-        <p className="text-sm text-muted">
+        <p className="mt-2 text-lg font-semibold text-gold sm:mt-3 sm:text-2xl">{formatEUR(product.priceCents)}</p>
+        <p className="text-xs text-muted sm:text-sm">
           inkl. {percent} % MwSt., {shippingCents === 0 ? "kostenloser Versand" : "zzgl. Versand"}
         </p>
-        <p className="mt-2 flex items-center gap-2 text-sm">
+        <p className="mt-2 flex items-center gap-2 text-xs sm:text-sm">
           <span
             className={`h-2 w-2 rounded-full ${product.available > 0 ? "bg-emerald-400 shadow-[0_0_8px_#34d399]" : "bg-muted"}`}
             aria-hidden="true"
           />
           {product.available > 0 ? `${product.available} Stück auf Lager` : "Nicht verfügbar"}
         </p>
-        <div className="mt-5 flex flex-col gap-2 sm:flex-row">
-          <Link href={`/produkt/${product.slug}`} className={btnSecondary}>
+        <div className="mt-auto flex flex-col gap-2 pt-4 sm:pt-5">
+          {/* Image and title already link to the product, so phones keep only the cart button. */}
+          <Link href={`/produkt/${product.slug}`} className={`${btnSecondary} max-sm:hidden`}>
             Produkt ansehen
           </Link>
           <button
             type="button"
-            className={btnPrimary}
+            className={`${btnPrimary} max-sm:px-3 max-sm:py-2.5 max-sm:text-xs`}
             disabled={product.available < 1}
             onClick={() => {
               const ok = add(product.slug, 1, product.available);
