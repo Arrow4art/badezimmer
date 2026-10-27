@@ -25,7 +25,7 @@ export default async function WithdrawalPage() {
               </li>
             ) : null}
             <li>Zurückgegeben werden können mangelfreie und mangelhafte Artikel.</li>
-            <li>Ein Umtausch gegen ein anderes Modell wird nicht angeboten. Sie erhalten den Kaufpreis zurück.</li>
+            <li>Ein Umtausch gegen einen anderen Artikel wird nicht angeboten. Sie erhalten den Kaufpreis zurück.</li>
             <li>
               Bei einer Rückgabe ohne Mangel tragen Sie die Kosten der Rücksendung. Bei einem Mangel tragen wir die Kosten.
             </li>

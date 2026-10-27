@@ -1,4 +1,4 @@
-import { productDescription, typeCopy } from "@/lib/copy";
+import { productDescription } from "@/lib/copy";
 import { normalizeGtin, productBrand } from "@/lib/product-ids";
 import type { Catalog } from "@/lib/types";
 
@@ -29,7 +29,7 @@ export function feedOrigin(request: Request): string {
   const configured = process.env.NEXT_PUBLIC_SITE_URL?.replace(/\/$/, "");
   if (configured && !/localhost|127\.0\.0\.1/.test(configured)) return configured;
   const host = request.headers.get("x-forwarded-host") || request.headers.get("host");
-  if (!host) return configured || "https://badezimmer.vercel.app";
+  if (!host) return configured || "https://www.iwoody.de";
   const proto = request.headers.get("x-forwarded-proto") || (host.startsWith("localhost") ? "http" : "https");
   return `${proto}://${host}`;
 }
@@ -60,7 +60,7 @@ export function buildGoogleFeed(catalog: Catalog, origin: string): string {
         ...(gtin ? [tag("g:gtin", gtin)] : []),
         tag("g:condition", "new"),
         tag("g:google_product_category", GOOGLE_PRODUCT_CATEGORY),
-        tag("g:product_type", product.targetUse || typeCopy(product.productType).label),
+        tag("g:product_type", product.targetUse || "Sammelkarten"),
         ...product.features
           .map((feature) => clean(feature).slice(0, 150))
           .filter(Boolean)

@@ -30,12 +30,7 @@ export function ShopBrowser({
 }) {
   const [query, setQuery] = useState(initialQuery);
   const [price, setPrice] = useState<PriceFilter>("all");
-  const [type, setType] = useState("all");
   const [sort, setSort] = useState<SortKey>("name-asc");
-
-  const types = Array.from(
-    new Set(products.flatMap((product) => (product.productType ? [product.productType] : []))),
-  );
 
   const visible = useMemo(() => {
     const needle = query.trim().toLocaleLowerCase("de");
@@ -47,8 +42,7 @@ export function ShopBrowser({
       const euros = product.priceCents / 100;
       const range = price === "all" ? null : priceRanges[price];
       const priceOk = !range || (euros > range.min && euros <= range.max);
-      const typeOk = type === "all" || product.productType === type;
-      return queryOk && priceOk && typeOk;
+      return queryOk && priceOk;
     });
     return filtered.sort((a, b) => {
       if (sort === "name-asc") return a.name.localeCompare(b.name, "de");
@@ -56,12 +50,12 @@ export function ShopBrowser({
       if (sort === "price-asc") return a.priceCents - b.priceCents;
       return b.priceCents - a.priceCents;
     });
-  }, [products, price, query, sort, type]);
+  }, [products, price, query, sort]);
 
   return (
     <div className="mx-auto max-w-6xl px-5 py-10">
       <form
-        className={`grid gap-3 rounded-3xl bg-paper p-4 ${types.length > 1 ? "sm:grid-cols-3" : "sm:grid-cols-2"}`}
+        className="grid gap-3 rounded-3xl bg-paper p-4 sm:grid-cols-2"
         aria-label="Produkte filtern"
         onSubmit={(event) => event.preventDefault()}
       >
@@ -93,19 +87,6 @@ export function ShopBrowser({
             ))}
           </select>
         </label>
-        {types.length > 1 ? (
-          <label className="text-sm">
-            Heizart
-            <select className={fieldClass} value={type} onChange={(event) => setType(event.target.value)}>
-              <option value="all">Alle Heizarten</option>
-              {types.map((entry) => (
-                <option key={entry} value={entry}>
-                  {entry}
-                </option>
-              ))}
-            </select>
-          </label>
-        ) : null}
         <label className="text-sm">
           Sortierung
           <select className={fieldClass} value={sort} onChange={(event) => setSort(event.target.value as SortKey)}>

@@ -23,7 +23,6 @@ export function CheckoutForm({ catalog }: { catalog: Catalog }) {
   const { items } = useCart();
   const [customer, setCustomer] = useState(empty);
   const [acceptTerms, setAcceptTerms] = useState(false);
-  const [acceptInstallation, setAcceptInstallation] = useState(false);
   const [companyWebsite, setCompanyWebsite] = useState("");
   const [error, setError] = useState("");
   const [pending, setPending] = useState(false);
@@ -75,7 +74,6 @@ export function CheckoutForm({ catalog }: { catalog: Catalog }) {
             items: lines.map((line) => ({ slug: line.product.slug, qty: line.qty })),
             customer: { ...customer, country: "Deutschland" },
             acceptTerms,
-            acceptInstallation,
             companyWebsite,
           }),
         });
@@ -144,10 +142,6 @@ export function CheckoutForm({ catalog }: { catalog: Catalog }) {
             Ich habe die <Link href="/agb" className="underline underline-offset-4">AGB</Link> und die{" "}
             <Link href="/widerruf" className="underline underline-offset-4">Widerrufsbelehrung</Link> gelesen.
           </span>
-        </label>
-        <label className="flex items-start gap-3 text-sm leading-relaxed">
-          <input type="checkbox" checked={acceptInstallation} onChange={(event) => setAcceptInstallation(event.target.checked)} className="mt-1" required />
-          <span>{catalog.installationText}</span>
         </label>
         <div className="absolute left-[-9999px]" aria-hidden="true">
           <label>

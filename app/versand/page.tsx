@@ -56,16 +56,8 @@ export default async function ShippingPage() {
           <p className="mt-3">{shipping.bulkyGoodsText}</p>
         </section>
         <section>
-          <h2 className="text-2xl font-medium">Liefertermin</h2>
-          <p className="mt-3">
-            {shipping.appointmentRequired
-              ? shipping.appointmentText
-              : "Ein separater Liefertermin muss nicht bestätigt werden."}
-          </p>
-        </section>
-        <section>
           <h2 className="text-2xl font-medium">Verpackung</h2>
-          <p className="mt-3">{shipping.assemblyText}</p>
+          {shipping.assemblyText ? <p className="mt-3">{shipping.assemblyText}</p> : null}
           <p className="mt-3">{installationText}</p>
         </section>
         <section>

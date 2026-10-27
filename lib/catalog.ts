@@ -4,7 +4,6 @@ import { withLock } from "@/lib/lock";
 import { readMessages, readOrders, writeMessages, writeNewsletter, readNewsletter, writeOrders } from "@/lib/records";
 import { normalizeGtin } from "@/lib/product-ids";
 import { readStore, writeStore } from "@/lib/store";
-import { verifiedProductType, verifiedSpecs } from "@/lib/tech-specs";
 import type {
   AdminUpdate,
   Catalog,
@@ -27,8 +26,6 @@ function toPublic(product: Product, orders: Order[]): PublicProduct {
   return {
     ...product,
     available: Math.max(0, product.stock - reservedQty(orders, product.slug)),
-    productType: verifiedProductType(product.sku),
-    techSpecs: verifiedSpecs(product.sku),
   };
 }
 
@@ -78,7 +75,7 @@ export function relatedProducts(catalog: Catalog, slug: string): PublicProduct[]
 }
 
 function newId(): string {
-  return `BZ-${randomBytes(5).toString("hex").toUpperCase()}`;
+  return `IW-${randomBytes(5).toString("hex").toUpperCase()}`;
 }
 
 export type CheckoutInput = {

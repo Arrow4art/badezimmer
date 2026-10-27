@@ -1,6 +1,6 @@
 {
   "vatRate": 0.19,
-  "installationText": "Die Artikel werden originalverpackt geliefert. Eine Montage ist nicht erforderlich.",
+  "installationText": "Die Artikel werden originalverpackt und versiegelt geliefert.",
   "shipping": {
     "destination": "Deutschland",
     "costCents": 0,
@@ -14,7 +14,7 @@
     "appointmentRequired": false,
     "appointmentText": "Eine Terminabsprache ist für den Paketversand nicht erforderlich.",
     "assemblyIncluded": false,
-    "assemblyText": "Eine Montage ist nicht erforderlich.",
+    "assemblyText": "",
     "remoteText": "Geliefert wird derzeit nur innerhalb Deutschlands. Adressen, die ein Paketdienst nicht regulär anfährt, können ausgeschlossen werden. Solange kein weiterer Zuschlag hinterlegt ist, gilt an der Kasse nur der angezeigte Versandpreis.",
     "damageText": "Prüfen Sie die Sendung bei der Annahme. Fotografieren Sie Verpackung und Beschädigung. Melden Sie den Schaden unverzüglich an support@iwoody.de, möglichst noch am Liefertag. Gesetzliche Rechte bleiben unberührt.",
     "reservationHours": 2

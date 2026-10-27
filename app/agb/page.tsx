@@ -34,7 +34,7 @@ export default async function TermsPage() {
           </p>
           <p className="mt-3">
             Verbindlich sind Preis, Lieferzeit und die auf der Produktseite veröffentlichten Eigenschaften. Maße, Material
-            und Leistung, die dort nicht stehen, sind nicht zugesichert. Die Abbildung zeigt das bestellte Modell.
+            und Leistung, die dort nicht stehen, sind nicht zugesichert. Die Abbildung zeigt den bestellten Artikel.
           </p>
         </section>
         <section>
@@ -60,7 +60,7 @@ export default async function TermsPage() {
             {shipping.deliveryEstimateConfirmed
               ? `Die Lieferzeit beträgt ${shipping.deliveryEstimateText}.`
               : "Eine Lieferfrist nennen wir nur, wenn sie bestätigt ist."}{" "}
-            Die Ware kommt originalverpackt. Eine Montage ist nicht geschuldet.
+            Die Ware kommt originalverpackt.
           </p>
         </section>
         <section>

@@ -5,7 +5,6 @@ import Link from "next/link";
 import { useState } from "react";
 import { useCart } from "@/components/cart-context";
 import { btnPrimary, btnSecondary } from "@/components/ui";
-import { typeCopy } from "@/lib/copy";
 import { formatEUR } from "@/lib/money";
 import type { PublicProduct } from "@/lib/types";
 
@@ -37,7 +36,7 @@ export function ProductCard({
       </Link>
       <div className="flex flex-1 flex-col p-5">
         <p className="text-xs uppercase tracking-[0.16em] text-moss">
-          {product.productType ? typeCopy(product.productType).label : product.targetUse}
+          {product.targetUse}
         </p>
         <h2 className="mt-2 text-xl font-medium tracking-tight">
           <Link href={`/produkt/${product.slug}`}>{product.name}</Link>
