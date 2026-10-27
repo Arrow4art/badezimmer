@@ -32,7 +32,7 @@ export default async function ProductPage({ params }: Props) {
   const product = catalog.products.find((entry) => entry.slug === slug);
   if (!product) notFound();
   const percent = Math.round(catalog.vatRate * 100);
-  const related = relatedProducts(catalog, product.slug);
+  const related = relatedProducts(catalog, product);
   const faqs = [
     {
       q: "Wie viele Stück sind verfügbar?",

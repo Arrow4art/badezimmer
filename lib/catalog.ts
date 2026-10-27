@@ -2,7 +2,7 @@ import { randomBytes } from "node:crypto";
 import { summarize } from "@/lib/money";
 import { withLock } from "@/lib/lock";
 import { readMessages, readOrders, writeMessages, writeNewsletter, readNewsletter, writeOrders } from "@/lib/records";
-import { normalizeGtin } from "@/lib/product-ids";
+import { normalizeGtin, productBrand } from "@/lib/product-ids";
 import { readStore, writeStore } from "@/lib/store";
 import type {
   AdminUpdate,
@@ -70,8 +70,13 @@ export async function getProduct(slug: string): Promise<PublicProduct | undefine
   return catalog.products.find((product) => product.slug === slug);
 }
 
-export function relatedProducts(catalog: Catalog, slug: string): PublicProduct[] {
-  return catalog.products.filter((product) => product.slug !== slug);
+/** Up to `limit` other products, same game (brand) first, then the rest of the catalog to fill up. */
+export function relatedProducts(catalog: Catalog, current: PublicProduct, limit = 6): PublicProduct[] {
+  const others = catalog.products.filter((product) => product.slug !== current.slug);
+  const game = productBrand(current);
+  const sameGame = game ? others.filter((product) => productBrand(product) === game) : [];
+  const rest = others.filter((product) => !sameGame.includes(product));
+  return [...sameGame, ...rest].slice(0, limit);
 }
 
 function newId(): string {
