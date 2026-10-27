@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { Logo } from "@/components/logo";
+import { TrustBadges } from "@/components/trust-badges";
 import { legalNav, nav } from "@/lib/copy";
 import { phoneHref } from "@/lib/site";
 import type { BusinessInfo, ShippingConfig } from "@/lib/types";
@@ -65,6 +66,9 @@ export function Footer({
             </a>
           ) : null}
         </div>
+      </div>
+      <div className="border-t border-white/10">
+        <TrustBadges checkoutMode={checkoutMode} freeShipping={shipping.costCents === 0} />
       </div>
       <div className="border-t border-white/10">
         <p className="mx-auto max-w-6xl px-5 py-4 text-xs leading-relaxed text-cream/55">
