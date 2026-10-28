@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { ClearCart } from "@/components/clear-cart";
+import { CustomerReviewsOptIn } from "@/components/customer-reviews-opt-in";
 import { PriceBreakdown } from "@/components/price-summary";
 import { PurchaseConversion } from "@/components/purchase-conversion";
 import { getOrder, markPaid } from "@/lib/catalog";
@@ -58,6 +59,9 @@ export default async function OrderPage({
     <div className="mx-auto max-w-3xl px-5 py-14">
       {finished ? <ClearCart /> : null}
       {order.status === "bezahlt" ? <PurchaseConversion orderId={order.id} valueCents={summary.totalGrossCents} /> : null}
+      {order.status === "bezahlt" ? (
+        <CustomerReviewsOptIn orderId={order.id} email={order.customer.email} createdAt={order.createdAt} />
+      ) : null}
       <p className="text-xs font-medium uppercase tracking-[0.18em] text-moss">{statusLabel[order.status]}</p>
       <h1 className="mt-3 text-4xl font-medium tracking-tight">
         {title}

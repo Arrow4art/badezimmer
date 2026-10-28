@@ -52,7 +52,8 @@ export function ConsentBanner() {
     >
       <div className="mx-auto flex max-w-6xl flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
         <p id="consent-title" className="max-w-3xl text-sm leading-relaxed">
-          Google Ads misst Besuche nur nach Ihrer Wahl. Ohne Zustimmung bleibt der Werbungsspeicher aus. Details stehen in der{" "}
+          Google Ads misst Besuche und Google Kundenrezensionen fragt nach einem Kauf nach einer Bewertung, beides nur nach
+          Ihrer Wahl. Ohne Zustimmung bleibt der Werbungsspeicher aus. Details stehen in der{" "}
           <Link href="/datenschutz" className="underline underline-offset-4">
             Datenschutzerklärung
           </Link>
