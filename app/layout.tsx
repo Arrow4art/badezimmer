@@ -1,6 +1,7 @@
 import { Analytics } from "@vercel/analytics/next";
 import type { Metadata, Viewport } from "next";
 import { Outfit } from "next/font/google";
+import { Analytics } from "@vercel/analytics/next";
 import { Backdrop } from "@/components/backdrop";
 import { CartProvider } from "@/components/cart-context";
 import { ConsentBanner } from "@/components/consent-banner";
