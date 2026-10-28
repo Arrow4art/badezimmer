@@ -1,3 +1,4 @@
+import { Analytics } from "@vercel/analytics/next";
 import type { Metadata, Viewport } from "next";
 import { Outfit } from "next/font/google";
 import { Backdrop } from "@/components/backdrop";
@@ -97,6 +98,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
           />
           <ConsentBanner />
         </CartProvider>
+        <Analytics />
       </body>
     </html>
   );
