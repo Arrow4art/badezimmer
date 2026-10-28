@@ -62,6 +62,16 @@ export default async function PrivacyPage() {
           </p>
         </section>
         <section>
+          <h2 className="text-2xl font-medium">Google Kundenrezensionen</h2>
+          <p className="mt-3">
+            Wenn Sie im Hinweis auf „Zustimmen“ geklickt haben, blenden wir nach einer bezahlten Bestellung ein Fenster von
+            Google Kundenrezensionen ein (Google Ireland Limited, Gordon House, Barrow Street, Dublin 4, Irland). Dafür
+            übergeben wir Bestellnummer, E-Mail-Adresse, Lieferland und das voraussichtliche Lieferdatum an dieses Fenster. Nur
+            wenn Sie dort zustimmen, schickt Google Ihnen nach der Lieferung eine E-Mail mit der Bitte, den Einkauf zu bewerten.
+            Rechtsgrundlage ist Art. 6 Abs. 1 lit. a DSGVO. Die Einwilligung können Sie jederzeit gegenüber Google widerrufen.
+          </p>
+        </section>
+        <section>
           <h2 className="text-2xl font-medium">Kontaktformular</h2>
           <p className="mt-3">
             Name, E-Mail und Nachricht speichern wir, um die Anfrage zu beantworten. Rechtsgrundlage ist Art. 6 Abs. 1 lit. b
