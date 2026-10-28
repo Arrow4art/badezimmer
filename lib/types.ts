@@ -122,6 +122,7 @@ export type Order = {
   stripeSessionId?: string;
   emailSent: boolean;
   emailNote: string;
+  telegramSent?: boolean;
   note: string;
 };
 

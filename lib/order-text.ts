@@ -11,6 +11,24 @@ export const statusLabel: Record<OrderStatus, string> = {
   fehlgeschlagen: "Zahlung nicht gestartet",
 };
 
+/** Short alert for the shop owner (Telegram): what was ordered, by whom, and where it goes. */
+export function ownerAlert(order: Order, adminUrl: string): string {
+  const heading = order.status === "anfrage" ? "Neue Anfrage" : "Neue Bestellung";
+  const c = order.customer;
+  return [
+    `🛒 ${heading} ${order.id}`,
+    `${statusLabel[order.status]} · ${formatEUR(order.totalGrossCents)}`,
+    "",
+    ...order.items.map((item) => `${item.qty} × ${item.name}`),
+    "",
+    `${c.firstName} ${c.lastName}`,
+    [c.email, c.phone].filter(Boolean).join(" · "),
+    `${c.street}, ${c.zip} ${c.city}`,
+    "",
+    adminUrl,
+  ].join("\n");
+}
+
 export function orderMessage(order: Order): { subject: string; text: string } {
   const summary = summarize(order.items, order.shippingGrossCents, order.vatRate);
   const lines = order.items
