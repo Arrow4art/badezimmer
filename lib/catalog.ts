@@ -244,6 +244,18 @@ export async function markPaid(orderId: string, sessionId: string): Promise<Orde
   });
 }
 
+/** Marks the owner's Telegram alert as sent; true only for the first caller, so the webhook and the order page never both send it. */
+export async function claimTelegramAlert(orderId: string): Promise<boolean> {
+  return withLock(async () => {
+    const orders = await readOrders();
+    const order = orders.find((entry) => entry.id === orderId);
+    if (!order || order.telegramSent) return false;
+    order.telegramSent = true;
+    await writeOrders(orders);
+    return true;
+  });
+}
+
 export async function setEmailResult(orderId: string, sent: boolean, note: string): Promise<void> {
   await withLock(async () => {
     const orders = await readOrders();

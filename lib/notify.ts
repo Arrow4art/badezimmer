@@ -1,11 +1,14 @@
-import { setEmailResult } from "@/lib/catalog";
+import { claimTelegramAlert, setEmailResult } from "@/lib/catalog";
 import { sendMail } from "@/lib/email";
-import { orderMessage } from "@/lib/order-text";
+import { orderMessage, ownerAlert } from "@/lib/order-text";
+import { siteUrl } from "@/lib/site";
+import { sendTelegram } from "@/lib/telegram";
 import type { Order } from "@/lib/types";
 
 export async function notifyOrder(order: Order): Promise<Order> {
   if (order.emailSent || order.emailNote) return order;
   if (order.status !== "bezahlt" && order.status !== "anfrage" && order.status !== "nachnahme") return order;
+  if (await claimTelegramAlert(order.id)) await sendTelegram(ownerAlert(order, `${siteUrl()}/admin`));
   const message = orderMessage(order);
   const result = await sendMail({
     to: order.customer.email,
