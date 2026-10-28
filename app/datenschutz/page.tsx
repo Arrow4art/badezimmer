@@ -31,6 +31,15 @@ export default async function PrivacyPage() {
           </p>
         </section>
         <section>
+          <h2 className="text-2xl font-medium">Besucherstatistik</h2>
+          <p className="mt-3">
+            Um zu sehen, wie oft welche Seiten aufgerufen werden, nutzen wir Vercel Web Analytics. Dabei werden keine Cookies
+            gesetzt und keine Profile über mehrere Websites gebildet. Erfasst werden die aufgerufene Seite, die verweisende
+            Seite, Browser, Gerätetyp, Betriebssystem und Land. Besucher werden nur über einen Hash aus Anfragedaten
+            unterschieden, der nach 24 Stunden verfällt. Rechtsgrundlage ist Art. 6 Abs. 1 lit. f DSGVO.
+          </p>
+        </section>
+        <section>
           <h2 className="text-2xl font-medium">Anfragen und Bestellungen</h2>
           <p className="mt-3">
             Für eine Bestellung verarbeiten wir Name, E-Mail, Telefonnummer, Lieferadresse, die gewählten Artikel und den
@@ -39,7 +48,8 @@ export default async function PrivacyPage() {
             {" "}
             Kartendaten geben Sie unmittelbar bei Stripe ein. Eine Barzahlung bei der Lieferung bieten wir nicht an.{" "}
             Bestellungen, Kontaktnachrichten und Newsletter-Anmeldungen speichern wir in einer Datenbank von Upstash, Inc., die
-            über Vercel bereitgestellt wird.
+            über Vercel bereitgestellt wird. Über jede neue Bestellung oder Anfrage benachrichtigen wir uns selbst per
+            Telegram (Telegram Messenger Inc.). Diese Nachricht enthält Name, Kontaktdaten, Lieferadresse, Artikel und Betrag.
           </p>
         </section>
         <section>
