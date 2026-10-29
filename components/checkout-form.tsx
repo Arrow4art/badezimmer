@@ -2,6 +2,8 @@
 
 import Link from "next/link";
 import { useMemo, useState } from "react";
+import { EmbeddedCheckout, EmbeddedCheckoutProvider } from "@stripe/react-stripe-js";
+import { loadStripe, type Stripe } from "@stripe/stripe-js";
 import { useCart } from "@/components/cart-context";
 import { PriceBreakdown } from "@/components/price-summary";
 import { btnPrimary, fieldClass } from "@/components/ui";
@@ -19,8 +21,11 @@ const empty = {
   deliveryNote: "",
 };
 
-export function CheckoutForm({ catalog }: { catalog: Catalog }) {
+type Payment = { id: string; clientSecret: string; stripe: Promise<Stripe | null> };
+
+export function CheckoutForm({ catalog, publishableKey }: { catalog: Catalog; publishableKey: string | null }) {
   const { items } = useCart();
+  const [payment, setPayment] = useState<Payment | null>(null);
   const [customer, setCustomer] = useState(empty);
   const [acceptTerms, setAcceptTerms] = useState(false);
   const [companyWebsite, setCompanyWebsite] = useState("");
@@ -47,6 +52,58 @@ export function CheckoutForm({ catalog }: { catalog: Catalog }) {
 
   function update(key: keyof typeof empty, value: string) {
     setCustomer((prev) => ({ ...prev, [key]: value }));
+  }
+
+  const overview = (
+    <>
+      <h2 className="text-lg font-medium">Ihre Auswahl</h2>
+      <ul className="mt-4 space-y-2 text-sm">
+        {lines.map((line) => (
+          <li key={line.product.slug} className="flex justify-between gap-4">
+            <span>
+              {line.qty} × {line.product.name}
+            </span>
+            <span>{formatEUR(line.product.priceCents * line.qty)}</span>
+          </li>
+        ))}
+      </ul>
+      <div className="mt-4">
+        <PriceBreakdown summary={summary} shippingLabel={catalog.shipping.label} vatRate={catalog.vatRate} />
+      </div>
+      <p className="mt-4 text-sm text-muted">
+        {catalog.shipping.deliveryEstimateConfirmed
+          ? `Lieferzeit: ${catalog.shipping.deliveryEstimateText}`
+          : "Lieferzeit: noch nicht vom Lieferanten bestätigt."}
+      </p>
+    </>
+  );
+
+  // Stripe's payment form, embedded in this page once the order is saved. Card data goes straight to Stripe.
+  if (payment) {
+    return (
+      <div className="mx-auto grid max-w-6xl gap-10 px-5 py-10 lg:grid-cols-[1.1fr_0.9fr]">
+        <div>
+          <div className="overflow-hidden rounded-3xl bg-white p-1 sm:p-3">
+            <EmbeddedCheckoutProvider stripe={payment.stripe} options={{ clientSecret: payment.clientSecret }}>
+              <EmbeddedCheckout />
+            </EmbeddedCheckoutProvider>
+          </div>
+          <Link
+            href={`/kasse/abbruch?order=${encodeURIComponent(payment.id)}`}
+            className="mt-4 inline-block text-sm underline underline-offset-4"
+          >
+            Zahlung abbrechen und Angaben ändern
+          </Link>
+        </div>
+        <aside className="h-fit rounded-3xl bg-paper p-5">
+          {overview}
+          <p className="mt-3 text-sm leading-relaxed">
+            Die Zahlung gilt erst, wenn Stripe sie als bezahlt bestätigt. Kartendaten gehen direkt an Stripe, nicht an
+            diesen Shop.
+          </p>
+        </aside>
+      </div>
+    );
   }
 
   if (lines.length === 0) {
@@ -77,10 +134,21 @@ export function CheckoutForm({ catalog }: { catalog: Catalog }) {
             companyWebsite,
           }),
         });
-        const data = (await response.json()) as { error?: string; url?: string; id?: string; mode?: string };
+        const data = (await response.json()) as {
+          error?: string;
+          url?: string;
+          clientSecret?: string;
+          id?: string;
+          mode?: string;
+        };
         if (!response.ok || !data.id) {
           setPending(false);
           setError(data.error || "Die Kasse konnte nicht abgeschlossen werden.");
+          return;
+        }
+        if (data.mode === "stripe" && data.clientSecret && publishableKey) {
+          setPayment({ id: data.id, clientSecret: data.clientSecret, stripe: loadStripe(publishableKey) });
+          window.scrollTo({ top: 0 });
           return;
         }
         if (data.mode === "stripe" && data.url) {
@@ -151,28 +219,12 @@ export function CheckoutForm({ catalog }: { catalog: Catalog }) {
         </div>
       </div>
       <aside className="h-fit rounded-3xl bg-paper p-5">
-        <h2 className="text-lg font-medium">Ihre Auswahl</h2>
-        <ul className="mt-4 space-y-2 text-sm">
-          {lines.map((line) => (
-            <li key={line.product.slug} className="flex justify-between gap-4">
-              <span>
-                {line.qty} × {line.product.name}
-              </span>
-              <span>{formatEUR(line.product.priceCents * line.qty)}</span>
-            </li>
-          ))}
-        </ul>
-        <div className="mt-4">
-          <PriceBreakdown summary={summary} shippingLabel={catalog.shipping.label} vatRate={catalog.vatRate} />
-        </div>
-        <p className="mt-4 text-sm text-muted">
-          {catalog.shipping.deliveryEstimateConfirmed
-            ? `Lieferzeit: ${catalog.shipping.deliveryEstimateText}`
-            : "Lieferzeit: noch nicht vom Lieferanten bestätigt."}
-        </p>
+        {overview}
         <p className="mt-3 text-sm leading-relaxed">
           {catalog.checkoutMode === "stripe"
-            ? "Weiter geht es zu Stripe. Die Zahlung gilt erst, wenn Stripe sie als bezahlt bestätigt. Kartendaten geben Sie nur dort ein, nicht in diesem Shop. Nachnahme gibt es nicht."
+            ? publishableKey
+              ? "Danach erscheint hier das Zahlungsformular von Stripe. Kartendaten gehen direkt an Stripe, nicht an diesen Shop. Nachnahme gibt es nicht."
+              : "Weiter geht es zu Stripe. Die Zahlung gilt erst, wenn Stripe sie als bezahlt bestätigt. Kartendaten geben Sie nur dort ein, nicht in diesem Shop. Nachnahme gibt es nicht."
             : "Kartenzahlung über Stripe ist noch nicht freigeschaltet. Nachnahme gibt es nicht. Es wird nichts abgebucht."}
         </p>
         {error ? <p className="mt-3 text-sm text-oak">{error}</p> : null}

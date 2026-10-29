@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { cancelPendingOrder } from "@/lib/catalog";
 import { btnPrimary } from "@/components/ui";
+import { getStripe } from "@/lib/stripe";
 
 export const metadata: Metadata = { title: "Zahlung abgebrochen", robots: { index: false, follow: false } };
 
@@ -11,7 +12,15 @@ export default async function CancelPage({
   searchParams: Promise<{ order?: string }>;
 }) {
   const { order } = await searchParams;
-  if (order) await cancelPendingOrder(order);
+  const cancelled = order ? await cancelPendingOrder(order) : null;
+  // Close the Stripe session too, so the payment form left behind in /kasse can no longer be paid.
+  if (cancelled?.status === "storniert" && cancelled.stripeSessionId) {
+    try {
+      await getStripe()?.checkout.sessions.expire(cancelled.stripeSessionId);
+    } catch {
+      // Already expired or completed. Nothing else to do.
+    }
+  }
   return (
     <div className="mx-auto max-w-2xl px-5 py-16">
       <h1 className="text-4xl font-medium tracking-tight">Keine Zahlung ausgeführt</h1>
