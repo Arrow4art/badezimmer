@@ -2,7 +2,7 @@ import { NextResponse } from "next/server";
 import { attachStripeSession, createPendingOrder, failPendingOrder } from "@/lib/catalog";
 import { siteUrl } from "@/lib/site";
 import { readStore } from "@/lib/store";
-import { getStripe } from "@/lib/stripe";
+import { getStripe, stripePublishableKey } from "@/lib/stripe";
 import type { Order } from "@/lib/types";
 import { parseCheckout } from "@/lib/validate";
 import type Stripe from "stripe";
@@ -18,8 +18,6 @@ async function createSession(stripe: Stripe, order: Order, reservationHours: num
     customer_email: order.customer.email,
     client_reference_id: order.id,
     metadata: { orderId: order.id },
-    success_url: `${siteUrl()}/bestellung/${order.id}?session_id={CHECKOUT_SESSION_ID}`,
-    cancel_url: `${siteUrl()}/kasse/abbruch?order=${encodeURIComponent(order.id)}`,
     line_items: order.items.map((item) => ({
       quantity: item.qty,
       price_data: {
@@ -43,8 +41,17 @@ async function createSession(stripe: Stripe, order: Order, reservationHours: num
       },
     ],
   };
+  const returnUrl = `${siteUrl()}/bestellung/${order.id}?session_id={CHECKOUT_SESSION_ID}`;
 
-  return stripe.checkout.sessions.create(base);
+  // With a publishable key Stripe's payment form sits inside /kasse; otherwise the buyer goes to Stripe's page.
+  if (stripePublishableKey()) {
+    return stripe.checkout.sessions.create({ ...base, ui_mode: "embedded_page", return_url: returnUrl });
+  }
+  return stripe.checkout.sessions.create({
+    ...base,
+    success_url: returnUrl,
+    cancel_url: `${siteUrl()}/kasse/abbruch?order=${encodeURIComponent(order.id)}`,
+  });
 }
 
 export async function POST(request: Request) {
@@ -72,9 +79,14 @@ export async function POST(request: Request) {
   try {
     const store = await readStore();
     const session = await createSession(stripe, created.order, store.shipping.reservationHours);
-    if (!session.url) throw new Error("Stripe lieferte keine Weiterleitung.");
+    if (!session.client_secret && !session.url) throw new Error("Stripe lieferte kein Zahlungsformular.");
     await attachStripeSession(created.order.id, session.id);
-    return NextResponse.json({ mode: "stripe", id: created.order.id, url: session.url });
+    return NextResponse.json({
+      mode: "stripe",
+      id: created.order.id,
+      clientSecret: session.client_secret ?? undefined,
+      url: session.url ?? undefined,
+    });
   } catch {
     await failPendingOrder(
       created.order.id,
