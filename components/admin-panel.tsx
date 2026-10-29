@@ -5,14 +5,28 @@ import { btnPrimary, btnSecondary, fieldClass } from "@/components/ui";
 import { formatEUR } from "@/lib/money";
 import { statusLabel } from "@/lib/order-text";
 import type { CartAddDay } from "@/lib/cart-adds";
-import type { AdminUpdate, BusinessInfo, Catalog, Order, ShippingConfig } from "@/lib/types";
+import type {
+  AdminUpdate,
+  BusinessInfo,
+  Catalog,
+  ContactMessage,
+  NewsletterEntry,
+  Order,
+  ShippingConfig,
+} from "@/lib/types";
 
 type Payload = {
   catalog: Catalog;
   orders: Order[];
   cartAdds: CartAddDay[];
+  messages: ContactMessage[];
+  newsletter: NewsletterEntry[];
   devPasswordHint: boolean;
 };
+
+function dateTime(iso: string): string {
+  return new Date(iso).toLocaleString("de-DE", { dateStyle: "medium", timeStyle: "short", timeZone: "Europe/Berlin" });
+}
 
 export function AdminPanel() {
   const [password, setPassword] = useState("");
@@ -155,6 +169,10 @@ export function AdminPanel() {
           Abmelden
         </button>
       </div>
+
+      <Orders orders={data.orders} />
+
+      <Messages messages={data.messages} newsletter={data.newsletter} />
 
       <CartAdds days={data.cartAdds} orders={data.orders} names={names} />
 
@@ -332,39 +350,6 @@ export function AdminPanel() {
         </div>
       </section>
 
-      <section>
-        <h2 className="text-xl font-medium">Vorgänge</h2>
-        {data.orders.length === 0 ? (
-          <p className="mt-3 text-sm text-muted">Noch keine Anfragen oder Zahlungen.</p>
-        ) : (
-          <div className="mt-4 overflow-x-auto">
-            <table className="w-full min-w-[40rem] text-left text-sm">
-              <thead className="text-muted">
-                <tr>
-                  <th className="py-2 font-medium">Nummer</th>
-                  <th className="py-2 font-medium">Status</th>
-                  <th className="py-2 font-medium">Summe</th>
-                  <th className="py-2 font-medium">E-Mail</th>
-                </tr>
-              </thead>
-              <tbody>
-                {data.orders.map((order) => (
-                  <tr key={order.id} className="border-t border-ink/10">
-                    <td className="py-2">{order.id}</td>
-                    <td className="py-2">{statusLabel[order.status]}</td>
-                    <td className="py-2">{formatEUR(order.totalGrossCents)}</td>
-                    <td className="py-2">
-                      {order.customer.email}
-                      <span className="block text-muted">{order.emailSent ? "E-Mail versendet" : order.emailNote || "Keine E-Mail"}</span>
-                    </td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
-        )}
-      </section>
-
       {error ? <p className="text-sm text-oak">{error}</p> : null}
       {message ? <p className="text-sm text-moss">{message}</p> : null}
       <button className={btnPrimary} type="submit" disabled={pending}>
@@ -374,7 +359,189 @@ export function AdminPanel() {
   );
 }
 
-type FunnelRow = { slug: string; adds: number; started: number; paid: number };
+type OrderFilter = "alle" | "bezahlt" | "offen" | "sonstige";
+
+/** Every order with customer, address, items, totals and payment details, newest first. */
+function Orders({ orders }: { orders: Order[] }) {
+  const [filter, setFilter] = useState<OrderFilter>("alle");
+  const [openId, setOpenId] = useState("");
+
+  // The Telegram alert links to /admin#<order id>, which opens and shows that order.
+  useEffect(() => {
+    const id = decodeURIComponent(window.location.hash.slice(1));
+    if (!id) return;
+    setOpenId(id);
+    requestAnimationFrame(() => document.getElementById(id)?.scrollIntoView({ block: "start" }));
+  }, []);
+
+  const sorted = [...orders].sort((a, b) => b.createdAt.localeCompare(a.createdAt));
+  const shown = sorted.filter((order) => {
+    if (filter === "bezahlt") return order.status === "bezahlt";
+    if (filter === "offen") return order.status === "zahlung_ausstehend";
+    if (filter === "sonstige") return order.status !== "bezahlt" && order.status !== "zahlung_ausstehend";
+    return true;
+  });
+  const paid = orders.filter((order) => order.status === "bezahlt");
+  const revenue = paid.reduce((sum, order) => sum + order.totalGrossCents, 0);
+
+  return (
+    <section className="rounded-3xl bg-paper p-5">
+      <div className="flex flex-wrap items-end justify-between gap-3">
+        <div>
+          <h2 className="text-xl font-medium">Bestellungen</h2>
+          <p className="mt-1 text-sm text-muted">
+            {paid.length} bezahlt · Umsatz {formatEUR(revenue)} · {orders.length} Vorgänge insgesamt
+          </p>
+        </div>
+        <label className="text-sm">
+          Anzeigen
+          <select className={fieldClass} value={filter} onChange={(event) => setFilter(event.target.value as OrderFilter)}>
+            <option value="alle">Alle</option>
+            <option value="bezahlt">Bezahlt</option>
+            <option value="offen">Zahlung offen</option>
+            <option value="sonstige">Abgebrochen, abgelaufen, Anfragen</option>
+          </select>
+        </label>
+      </div>
+      {shown.length === 0 ? (
+        <p className="mt-4 text-sm text-muted">Keine Vorgänge.</p>
+      ) : (
+        <div className="mt-4">
+          {shown.map((order) => {
+            const c = order.customer;
+            return (
+              <details key={order.id} id={order.id} open={openId === order.id} className="scroll-mt-24 border-t border-ink/10">
+                <summary className="grid cursor-pointer gap-1 py-3 text-sm sm:grid-cols-[10rem_1fr_11rem_6rem] sm:items-center sm:gap-4">
+                  <span className="text-muted">{dateTime(order.createdAt)}</span>
+                  <span>
+                    <span className="font-medium">
+                      {c.firstName} {c.lastName}
+                    </span>
+                    <span className="block text-muted">
+                      {order.items.map((item) => `${item.qty} × ${item.name}`).join(", ")}
+                    </span>
+                  </span>
+                  <span className={order.status === "bezahlt" ? "text-moss" : "text-muted"}>{statusLabel[order.status]}</span>
+                  <span className="font-medium sm:text-right">{formatEUR(order.totalGrossCents)}</span>
+                </summary>
+                <div className="grid gap-5 pb-5 text-sm sm:grid-cols-3">
+                  <div>
+                    <h3 className="font-medium">Kunde</h3>
+                    <p className="mt-1">
+                      {c.firstName} {c.lastName}
+                    </p>
+                    <a className="block underline underline-offset-4" href={`mailto:${c.email}`}>
+                      {c.email}
+                    </a>
+                    {c.phone ? (
+                      <a className="block underline underline-offset-4" href={`tel:${c.phone}`}>
+                        {c.phone}
+                      </a>
+                    ) : null}
+                  </div>
+                  <div>
+                    <h3 className="font-medium">Lieferadresse</h3>
+                    <p className="mt-1">
+                      {c.street}
+                      <br />
+                      {c.zip} {c.city}
+                      <br />
+                      {c.country}
+                    </p>
+                    {c.deliveryNote ? <p className="mt-1 text-muted">Hinweis: {c.deliveryNote}</p> : null}
+                  </div>
+                  <div>
+                    <h3 className="font-medium">Vorgang</h3>
+                    <p className="mt-1">Nummer {order.id}</p>
+                    <p>{statusLabel[order.status]}</p>
+                    {order.stripeSessionId ? <p className="break-all text-muted">Stripe {order.stripeSessionId}</p> : null}
+                    <p className="text-muted">{order.emailSent ? "E-Mail versendet" : order.emailNote || "Keine E-Mail"}</p>
+                    <p className="text-muted">{order.telegramSent ? "Telegram gemeldet" : "Nicht per Telegram gemeldet"}</p>
+                  </div>
+                  <div className="sm:col-span-3">
+                    <h3 className="font-medium">Artikel</h3>
+                    <ul className="mt-1 divide-y divide-ink/10">
+                      {order.items.map((item) => (
+                        <li key={item.slug} className="flex justify-between gap-4 py-1.5">
+                          <span>
+                            {item.qty} × {item.name}
+                            <span className="block text-muted">
+                              {item.sku} · je {formatEUR(item.unitGrossCents)}
+                            </span>
+                          </span>
+                          <span>{formatEUR(item.unitGrossCents * item.qty)}</span>
+                        </li>
+                      ))}
+                      <li className="flex justify-between gap-4 py-1.5 text-muted">
+                        <span>Versand ({order.shippingLabel})</span>
+                        <span>{formatEUR(order.shippingGrossCents)}</span>
+                      </li>
+                      <li className="flex justify-between gap-4 py-1.5 font-medium">
+                        <span>Gesamt inkl. {Math.round(order.vatRate * 100)} % MwSt.</span>
+                        <span>{formatEUR(order.totalGrossCents)}</span>
+                      </li>
+                    </ul>
+                    {order.note ? <p className="mt-2 text-muted">{order.note}</p> : null}
+                  </div>
+                </div>
+              </details>
+            );
+          })}
+        </div>
+      )}
+    </section>
+  );
+}
+
+function Messages({ messages, newsletter }: { messages: ContactMessage[]; newsletter: NewsletterEntry[] }) {
+  return (
+    <section className="grid gap-5 rounded-3xl bg-paper p-5 lg:grid-cols-2">
+      <div>
+        <h2 className="text-xl font-medium">Kontaktnachrichten ({messages.length})</h2>
+        {messages.length === 0 ? (
+          <p className="mt-3 text-sm text-muted">Noch keine Nachrichten.</p>
+        ) : (
+          <ul className="mt-3 max-h-[32rem] divide-y divide-ink/10 overflow-y-auto text-sm">
+            {messages.map((message) => (
+              <li key={message.id} className="py-3">
+                <p className="text-muted">{dateTime(message.createdAt)}</p>
+                <p className="font-medium">{message.name}</p>
+                <a className="underline underline-offset-4" href={`mailto:${message.email}`}>
+                  {message.email}
+                </a>
+                <p className="mt-1 whitespace-pre-wrap">{message.message}</p>
+              </li>
+            ))}
+          </ul>
+        )}
+      </div>
+      <div>
+        <h2 className="text-xl font-medium">Newsletter ({newsletter.length})</h2>
+        {newsletter.length === 0 ? (
+          <p className="mt-3 text-sm text-muted">Noch keine Anmeldungen.</p>
+        ) : (
+          <ul className="mt-3 max-h-[32rem] divide-y divide-ink/10 overflow-y-auto text-sm">
+            {newsletter.map((entry) => (
+              <li key={entry.email} className="py-2">
+                <span className="font-medium">{entry.email}</span>
+                <span className="block text-muted">
+                  {dateTime(entry.createdAt)} ·{" "}
+                  {entry.confirmed
+                    ? "bestätigt"
+                    : entry.confirmationEmailSent
+                      ? "E-Mail gesendet, nicht bestätigt"
+                      : "keine E-Mail gesendet, nicht bestätigt"}
+                </span>
+              </li>
+            ))}
+          </ul>
+        )}
+      </div>
+    </section>
+  );
+}
+
+type FunnelRow ={ slug: string; adds: number; started: number; paid: number };
 
 /** Clicks on "In den Warenkorb" next to the Stripe payments started and paid for the same product, last 30 days. */
 function CartAdds({ days, orders, names }: { days: CartAddDay[]; orders: Order[]; names: Record<string, string> }) {

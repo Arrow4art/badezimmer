@@ -8,7 +8,7 @@ import type { Order } from "@/lib/types";
 export async function notifyOrder(order: Order): Promise<Order> {
   if (order.emailSent || order.emailNote) return order;
   if (order.status !== "bezahlt" && order.status !== "anfrage" && order.status !== "nachnahme") return order;
-  if (await claimTelegramAlert(order.id)) await sendTelegram(ownerAlert(order, `${siteUrl()}/admin`));
+  if (await claimTelegramAlert(order.id)) await sendTelegram(ownerAlert(order, `${siteUrl()}/admin#${order.id}`));
   const message = orderMessage(order);
   const result = await sendMail({
     to: order.customer.email,
