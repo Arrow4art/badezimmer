@@ -4,11 +4,13 @@ import { useEffect, useState } from "react";
 import { btnPrimary, btnSecondary, fieldClass } from "@/components/ui";
 import { formatEUR } from "@/lib/money";
 import { statusLabel } from "@/lib/order-text";
+import type { CartAddDay } from "@/lib/cart-adds";
 import type { AdminUpdate, BusinessInfo, Catalog, Order, ShippingConfig } from "@/lib/types";
 
 type Payload = {
   catalog: Catalog;
   orders: Order[];
+  cartAdds: CartAddDay[];
   devPasswordHint: boolean;
 };
 
@@ -153,6 +155,8 @@ export function AdminPanel() {
           Abmelden
         </button>
       </div>
+
+      <CartAdds days={data.cartAdds} orders={data.orders} names={names} />
 
       <section className="rounded-3xl bg-paper p-5">
         <h2 className="text-xl font-medium">Produkte</h2>
@@ -367,6 +371,68 @@ export function AdminPanel() {
         {pending ? "Speichert …" : "Änderungen speichern"}
       </button>
     </form>
+  );
+}
+
+type FunnelRow = { slug: string; adds: number; started: number; paid: number };
+
+/** Clicks on "In den Warenkorb" next to the Stripe payments started and paid for the same product, last 30 days. */
+function CartAdds({ days, orders, names }: { days: CartAddDay[]; orders: Order[]; names: Record<string, string> }) {
+  const total = (list: CartAddDay[]) =>
+    list.reduce((sum, day) => sum + Object.values(day.counts).reduce((a, b) => a + b, 0), 0);
+  const rows = new Map<string, FunnelRow>();
+  const row = (slug: string) => {
+    let entry = rows.get(slug);
+    if (!entry) rows.set(slug, (entry = { slug, adds: 0, started: 0, paid: 0 }));
+    return entry;
+  };
+  for (const day of days) {
+    for (const [slug, count] of Object.entries(day.counts)) row(slug).adds += count;
+  }
+  const since = Date.now() - days.length * 86_400_000;
+  for (const order of orders) {
+    // Inquiries and cash on delivery never reach the Stripe payment page.
+    if (order.status === "anfrage" || order.status === "nachnahme" || Date.parse(order.createdAt) < since) continue;
+    for (const item of order.items) {
+      row(item.slug).started += 1;
+      if (order.status === "bezahlt") row(item.slug).paid += 1;
+    }
+  }
+  const sorted = [...rows.values()].sort((a, b) => b.adds - a.adds || b.paid - a.paid);
+
+  return (
+    <section className="rounded-3xl bg-paper p-5">
+      <h2 className="text-xl font-medium">In den Warenkorb</h2>
+      <p className="mt-2 text-sm text-muted">
+        Heute {total(days.slice(0, 1))} · 7 Tage {total(days.slice(0, 7))} · {days.length} Tage {total(days)} Klicks
+      </p>
+      {sorted.length === 0 ? (
+        <p className="mt-3 text-sm text-muted">Noch keine Klicks gezählt.</p>
+      ) : (
+        <div className="mt-4 overflow-x-auto">
+          <table className="w-full min-w-[32rem] text-left text-sm">
+            <thead className="text-muted">
+              <tr>
+                <th className="py-2 font-medium">Produkt ({days.length} Tage)</th>
+                <th className="py-2 text-right font-medium">Warenkorb</th>
+                <th className="py-2 text-right font-medium">Zahlung gestartet</th>
+                <th className="py-2 text-right font-medium">Bezahlt</th>
+              </tr>
+            </thead>
+            <tbody>
+              {sorted.map((entry) => (
+                <tr key={entry.slug} className="border-t border-ink/10">
+                  <td className="py-2">{names[entry.slug] ?? entry.slug}</td>
+                  <td className="py-2 text-right">{entry.adds}</td>
+                  <td className="py-2 text-right">{entry.started}</td>
+                  <td className="py-2 text-right">{entry.paid}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      )}
+    </section>
   );
 }
 

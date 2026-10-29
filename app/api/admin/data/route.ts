@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server";
 import { isAdmin } from "@/lib/auth";
+import { readCartAdds } from "@/lib/cart-adds";
 import { getCatalog, listOrders, updateCatalog, validateAdminUpdate } from "@/lib/catalog";
 import { devPasswordHint } from "@/lib/auth";
 import type { AdminUpdate, BusinessInfo, ShippingConfig } from "@/lib/types";
@@ -70,8 +71,8 @@ function parseUpdate(body: unknown): AdminUpdate | null {
 
 export async function GET() {
   if (!(await isAdmin())) return NextResponse.json({ error: "Nicht angemeldet." }, { status: 401 });
-  const [catalog, orders] = await Promise.all([getCatalog(), listOrders()]);
-  return NextResponse.json({ catalog, orders, devPasswordHint: devPasswordHint() });
+  const [catalog, orders, cartAdds] = await Promise.all([getCatalog(), listOrders(), readCartAdds(30)]);
+  return NextResponse.json({ catalog, orders, cartAdds, devPasswordHint: devPasswordHint() });
 }
 
 export async function PUT(request: Request) {
