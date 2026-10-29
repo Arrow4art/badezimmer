@@ -56,6 +56,15 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
       if (!existing) return [...prev, { slug, qty }];
       return prev.map((item) => (item.slug === slug ? { ...item, qty: item.qty + qty } : item));
     });
+    // Counted for the add-to-cart numbers in /admin. A failed count never blocks the cart.
+    if (added) {
+      void fetch("/api/cart-add", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ slug }),
+        keepalive: true,
+      }).catch(() => undefined);
+    }
     return added;
   }, []);
 

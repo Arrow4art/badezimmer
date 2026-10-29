@@ -36,7 +36,9 @@ export default async function PrivacyPage() {
             Um zu sehen, wie oft welche Seiten aufgerufen werden, nutzen wir Vercel Web Analytics. Dabei werden keine Cookies
             gesetzt und keine Profile über mehrere Websites gebildet. Erfasst werden die aufgerufene Seite, die verweisende
             Seite, Browser, Gerätetyp, Betriebssystem und Land. Besucher werden nur über einen Hash aus Anfragedaten
-            unterschieden, der nach 24 Stunden verfällt. Rechtsgrundlage ist Art. 6 Abs. 1 lit. f DSGVO.
+            unterschieden, der nach 24 Stunden verfällt. Außerdem zählen wir, wie oft ein Produkt in den Warenkorb gelegt
+            wird. Gespeichert wird nur die Anzahl je Produkt und Tag, ohne Bezug zu einer Person. Rechtsgrundlage ist Art. 6
+            Abs. 1 lit. f DSGVO.
           </p>
         </section>
         <section>
