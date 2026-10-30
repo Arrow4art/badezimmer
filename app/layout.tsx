@@ -20,7 +20,7 @@ export const metadata: Metadata = {
     template: "%s · Iwoody",
   },
   description:
-    "Versiegelte Displays, Top-Trainer-Boxen und Decks. Preise inklusive 19 % MwSt., kostenloser Versand innerhalb Deutschlands, Zahlung per Karte über Stripe.",
+    "Versiegelte Displays, Top-Trainer-Boxen und Decks. Preise inklusive 19 % MwSt., kostenloser Versand innerhalb Deutschlands, Zahlung per Karte oder Klarna über Stripe.",
   robots:
     process.env.ALLOW_INDEXING === "false"
       ? { index: false, follow: false }

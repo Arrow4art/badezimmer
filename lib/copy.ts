@@ -46,7 +46,7 @@ export const steps = [
   },
   {
     title: "Lieferung prüfen",
-    text: "Kostenlose Lieferung innerhalb Deutschlands in 0–3 Werktagen. Die Zahlung erfolgt per Karte über Stripe.",
+    text: "Kostenlose Lieferung innerhalb Deutschlands in 0–3 Werktagen. Die Zahlung erfolgt per Karte oder Klarna über Stripe.",
   },
   {
     title: "Versiegelt erhalten",
@@ -79,7 +79,7 @@ export function buildFaqs(
       q: "Welche Zahlungsmöglichkeiten gibt es?",
       a:
         checkoutMode === "stripe"
-          ? "Sie zahlen auf der Seite von Stripe. Kartendaten werden in diesem Shop nicht eingegeben. Nachnahme gibt es nicht."
+          ? "Sie zahlen im Formular von Stripe, per Karte oder Klarna. Kartendaten werden in diesem Shop nicht eingegeben. Nachnahme gibt es nicht."
           : "Kartenzahlung über Stripe ist derzeit nicht freigeschaltet. Nachnahme gibt es nicht. Es wird nichts abgebucht.",
     },
     {

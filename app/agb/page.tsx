@@ -48,7 +48,7 @@ export default async function TermsPage() {
         <section>
           <h2 className="text-2xl font-medium">4. Zahlung</h2>
           <p className="mt-3">
-            Die Zahlung erfolgt per Karte über Stripe. Kartendaten werden nicht bei uns gespeichert. Nachnahme bieten wir nicht
+            Die Zahlung erfolgt per Karte oder mit Klarna, jeweils über Stripe. Bei Klarna gelten zusätzlich die Bedingungen von Klarna. Kartendaten werden nicht bei uns gespeichert. Nachnahme bieten wir nicht
             an. Ohne bestätigte Zahlung liefern wir nicht.
             {checkoutMode === "stripe" ? "" : " Das Stripe-Konto ist derzeit noch nicht verbunden."}
           </p>

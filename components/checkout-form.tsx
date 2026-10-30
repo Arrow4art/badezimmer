@@ -223,7 +223,7 @@ export function CheckoutForm({ catalog, publishableKey }: { catalog: Catalog; pu
         <p className="mt-3 text-sm leading-relaxed">
           {catalog.checkoutMode === "stripe"
             ? publishableKey
-              ? "Danach erscheint hier das Zahlungsformular von Stripe. Kartendaten gehen direkt an Stripe, nicht an diesen Shop. Nachnahme gibt es nicht."
+              ? "Danach erscheint hier das Zahlungsformular von Stripe, mit Karte oder Klarna. Zahlungsdaten gehen direkt an Stripe, nicht an diesen Shop. Nachnahme gibt es nicht."
               : "Weiter geht es zu Stripe. Die Zahlung gilt erst, wenn Stripe sie als bezahlt bestätigt. Kartendaten geben Sie nur dort ein, nicht in diesem Shop. Nachnahme gibt es nicht."
             : "Kartenzahlung über Stripe ist noch nicht freigeschaltet. Nachnahme gibt es nicht. Es wird nichts abgebucht."}
         </p>

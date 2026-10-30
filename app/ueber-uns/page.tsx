@@ -35,7 +35,7 @@ export default async function AboutPage() {
           {shipping.deliveryEstimateConfirmed ? ` und dauert ${shipping.deliveryEstimateText}` : ""}. Die Ware kommt
           originalverpackt und versiegelt.
           {checkoutMode === "stripe"
-            ? " Sie zahlen per Karte über Stripe, nicht bei der Lieferung."
+            ? " Sie zahlen per Karte oder Klarna über Stripe, nicht bei der Lieferung."
             : " Die Kartenzahlung über Stripe ist noch nicht freigeschaltet. Nachnahme gibt es nicht."}
         </p>
         <p>

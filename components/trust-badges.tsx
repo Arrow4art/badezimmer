@@ -1,7 +1,7 @@
 // Payment logos and security badges for the footer. Every badge states something that is
-// true for this shop: HTTPS with HSTS, card payment on Stripe's page (no card data stored
+// true for this shop: HTTPS with HSTS, payment in Stripe's form (no card data stored
 // here), sealed goods, the 14-day withdrawal right and free shipping within Germany.
-// Only the card brands the checkout promises ("Zahlung per Karte über Stripe") are shown.
+// Only the payment methods the checkout promises ("Zahlung per Karte oder Klarna über Stripe") are shown.
 
 function VisaLogo() {
   return (
@@ -31,6 +31,17 @@ function MastercardLogo() {
       <circle cx="19.5" cy="16" r="9" fill="#eb001b" />
       <circle cx="28.5" cy="16" r="9" fill="#f79e1b" />
       <path d="M24 8.2a9 9 0 0 1 0 15.6 9 9 0 0 1 0-15.6Z" fill="#ff5f00" />
+    </svg>
+  );
+}
+
+function KlarnaLogo() {
+  return (
+    <svg viewBox="0 0 48 32" className="h-full w-full" role="img" aria-label="Klarna">
+      <rect width="48" height="32" rx="5" fill="#ffb3c7" />
+      <text x="24" y="20.5" textAnchor="middle" fontFamily="Arial, sans-serif" fontSize="11" fontWeight="700" fill="#0b051d">
+        Klarna.
+      </text>
     </svg>
   );
 }
@@ -73,7 +84,7 @@ export function TrustBadges({ checkoutMode, freeShipping }: { checkoutMode: "str
     <div className="mx-auto max-w-6xl px-5 py-8">
       <ul className="grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-4">
         <Badge icon="lock" title="SSL-verschlüsselt" text="Die gesamte Seite läuft über eine verschlüsselte HTTPS-Verbindung." />
-        <Badge icon="shield" title="Sichere Zahlung" text="Sie zahlen auf der Seite von Stripe. Kartendaten speichern wir nicht." />
+        <Badge icon="shield" title="Sichere Zahlung" text="Sie zahlen im Formular von Stripe, per Karte oder Klarna. Kartendaten speichern wir nicht." />
         <Badge icon="box" title="Originalverpackt" text="Displays, Boxen und Decks kommen versiegelt." />
         <Badge
           icon={freeShipping ? "truck" : "back"}
@@ -90,6 +101,9 @@ export function TrustBadges({ checkoutMode, freeShipping }: { checkoutMode: "str
             </li>
             <li className="h-8 w-12">
               <MastercardLogo />
+            </li>
+            <li className="h-8 w-12">
+              <KlarnaLogo />
             </li>
             <li className="h-8 w-12">
               <StripeLogo />
