@@ -170,6 +170,8 @@ export function AdminPanel() {
         </button>
       </div>
 
+      {data.catalog.emailReady ? <TestEmail /> : null}
+
       <Orders orders={data.orders} />
 
       <Messages messages={data.messages} newsletter={data.newsletter} />
@@ -359,7 +361,59 @@ export function AdminPanel() {
   );
 }
 
-type OrderFilter = "alle" | "bezahlt" | "offen" | "sonstige";
+/** Sends the confirmation a buyer gets after paying, for a made-up order, to any address. Lives inside the settings form, so no nested form. */
+function TestEmail() {
+  const [to, setTo] = useState("");
+  const [status, setStatus] = useState<{ ok: boolean; text: string } | null>(null);
+  const [sending, setSending] = useState(false);
+
+  async function send() {
+    setSending(true);
+    setStatus(null);
+    const response = await fetch("/api/admin/test-email", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ to }),
+    });
+    const body = (await response.json()) as { message?: string; error?: string };
+    setSending(false);
+    setStatus({ ok: response.ok, text: body.message || body.error || "Unbekannter Fehler." });
+  }
+
+  return (
+    <section className="rounded-3xl bg-paper p-5">
+      <h2 className="text-xl font-medium">Test-Bestellbestätigung</h2>
+      <p className="mt-1 text-sm text-muted">
+        Schickt die E-Mail, die Käufer nach der Zahlung bekommen, mit einer Beispielbestellung. Es entsteht keine
+        Bestellung und keine Zahlung.
+      </p>
+      <div className="mt-4 flex flex-col gap-3 sm:flex-row sm:items-end">
+        <label className="block flex-1 text-sm">
+          E-Mail-Adresse
+          <input
+            className={fieldClass}
+            type="email"
+            value={to}
+            onChange={(event) => setTo(event.target.value)}
+            onKeyDown={(event) => {
+              if (event.key === "Enter") {
+                event.preventDefault();
+                if (to && !sending) void send();
+              }
+            }}
+            placeholder="name@example.com"
+          />
+        </label>
+        <button type="button" className={btnSecondary} disabled={!to || sending} onClick={() => void send()}>
+          {sending ? "Sendet …" : "Test senden"}
+        </button>
+      </div>
+      {status ? <p className={`mt-3 text-sm ${status.ok ? "text-moss" : "text-oak"}`}>{status.text}</p> : null}
+    </section>
+  );
+}
+
+type OrderFilter ="alle" | "bezahlt" | "offen" | "sonstige";
 
 /** Every order with customer, address, items, totals and payment details, newest first. */
 function Orders({ orders }: { orders: Order[] }) {
