@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { ShippingSteps } from "@/components/shipping-steps";
 import { PageHeader } from "@/components/ui";
 import { getCatalog } from "@/lib/catalog";
 import { formatEUR } from "@/lib/money";
@@ -6,7 +7,7 @@ import { formatEUR } from "@/lib/money";
 export const metadata: Metadata = { title: "Versand und Lieferung" };
 
 export default async function ShippingPage() {
-  const { shipping, installationText } = await getCatalog();
+  const { shipping, installationText, products } = await getCatalog();
   return (
     <>
       <PageHeader
@@ -18,6 +19,7 @@ export default async function ShippingPage() {
             : "Lieferung innerhalb Deutschlands per Paket. Die Versandkosten sehen Sie vor dem Absenden der Bestellung."
         }
       />
+      <ShippingSteps shipping={shipping} products={products} />
       <div className="mx-auto max-w-3xl space-y-8 px-5 py-12 leading-relaxed">
         <section>
           <h2 className="text-2xl font-medium">Liefergebiet</h2>
