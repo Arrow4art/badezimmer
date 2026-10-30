@@ -27,7 +27,7 @@ export default async function WithdrawalPage() {
             <li>Zurückgegeben werden können mangelfreie und mangelhafte Artikel.</li>
             <li>Ein Umtausch gegen einen anderen Artikel wird nicht angeboten. Sie erhalten den Kaufpreis zurück.</li>
             <li>
-              Bei einer Rückgabe ohne Mangel tragen Sie die Kosten der Rücksendung. Bei einem Mangel tragen wir die Kosten.
+              Die Rücksendung ist für Sie kostenlos. Sie erhalten von uns ein vorfrankiertes Rücksendeetikett per E-Mail.
             </li>
             <li>Die Erstattung erfolgt über dasselbe Zahlungsmittel, das Sie bei der Bestellung verwendet haben.</li>
             <li>
@@ -67,8 +67,8 @@ export default async function WithdrawalPage() {
         <section>
           <h2 className="text-2xl font-medium">Rücksendung</h2>
           <p className="mt-3">
-            Bei einem Widerruf ohne Mangel tragen Sie die unmittelbaren Kosten der Rücksendung. Die Ware wird als Paket
-            zurückgeschickt. Bitte stimmen Sie die Rücksendung vorher per E-Mail mit uns ab.
+            Wir tragen die Kosten der Rücksendung der Waren. Melden Sie die Rücksendung per E-Mail an, dann schicken wir Ihnen
+            ein vorfrankiertes Rücksendeetikett. Die Ware wird als Paket zurückgeschickt.
           </p>
           <p className="mt-3">
             Sie müssen für einen etwaigen Wertverlust nur aufkommen, wenn der Wertverlust auf einen Umgang zurückzuführen ist,

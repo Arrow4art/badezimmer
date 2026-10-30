@@ -88,8 +88,8 @@ export function TrustBadges({ checkoutMode, freeShipping }: { checkoutMode: "str
         <Badge icon="box" title="Originalverpackt" text="Displays, Boxen und Decks kommen versiegelt." />
         <Badge
           icon={freeShipping ? "truck" : "back"}
-          title={freeShipping ? "Gratis Versand & 14 Tage Widerruf" : "14 Tage Widerruf"}
-          text={freeShipping ? "Kostenlose Lieferung innerhalb Deutschlands, Rückgabe binnen 14 Tagen." : "Rückgabe binnen 14 Tagen ohne Angabe von Gründen."}
+          title={freeShipping ? "Gratis Versand & Rückgabe" : "Kostenlose Rückgabe"}
+          text={freeShipping ? "Kostenlose Lieferung innerhalb Deutschlands, kostenlose Rückgabe binnen 14 Tagen." : "Kostenlose Rückgabe binnen 14 Tagen ohne Angabe von Gründen."}
         />
       </ul>
       {checkoutMode === "stripe" ? (

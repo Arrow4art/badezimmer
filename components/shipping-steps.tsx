@@ -60,10 +60,10 @@ export function ShippingSteps({ shipping, products }: { shipping: ShippingConfig
               </svg>
             </span>
             <div>
-              <h3 className="text-lg font-semibold">14 Tage Widerrufsrecht</h3>
+              <h3 className="text-lg font-semibold">14 Tage kostenlose Rückgabe</h3>
               <p className="mt-1 leading-relaxed text-muted">
-                Sie können jede Bestellung innerhalb von 14 Tagen nach Erhalt ohne Angabe von Gründen zurückgeben. Bei einem
-                Mangel tragen wir die Kosten der Rücksendung.
+                Sie können jede Bestellung innerhalb von 14 Tagen nach Erhalt ohne Angabe von Gründen zurückgeben. Die
+                Rücksendung ist kostenlos, das Rücksendeetikett schicken wir Ihnen per E-Mail.
               </p>
               <Link href="/widerruf" className="mt-3 inline-flex items-center gap-2 text-sm font-medium underline-offset-4 hover:underline">
                 Zur Widerrufsbelehrung <span aria-hidden="true">→</span>

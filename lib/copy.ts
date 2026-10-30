@@ -70,7 +70,7 @@ export function buildFaqs(
     },
     {
       q: "Kann ich widerrufen?",
-      a: "Ja. Sie können innerhalb von 14 Tagen nach Erhalt ohne Angabe von Gründen widerrufen. Sie erhalten den Kaufpreis zurück, ein Umtausch wird nicht angeboten. Ablauf und Musterformular stehen auf der Seite Rückgabe und Widerruf.",
+      a: "Ja. Sie können innerhalb von 14 Tagen nach Erhalt ohne Angabe von Gründen widerrufen. Die Rücksendung ist kostenlos. Sie erhalten den Kaufpreis zurück, ein Umtausch wird nicht angeboten. Ablauf und Musterformular stehen auf der Seite Rückgabe und Widerruf.",
     },
     {
       q: "Gibt es Bewertungen, Garantien oder Prüfzeichen?",
