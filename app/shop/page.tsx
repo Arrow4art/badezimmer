@@ -23,7 +23,6 @@ export default async function ShopPage({
             ? "Der Versand innerhalb Deutschlands ist kostenlos."
             : "Die Versandkosten stehen vor dem Abschluss.",
           catalog.shipping.deliveryEstimateConfirmed ? `Lieferzeit: ${catalog.shipping.deliveryEstimateText}.` : "",
-          "Die angezeigte Stückzahl ist der bestellbare Bestand.",
         ]
           .filter(Boolean)
           .join(" ")}

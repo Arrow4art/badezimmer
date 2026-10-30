@@ -35,10 +35,10 @@ export default async function ProductPage({ params }: Props) {
   const related = relatedProducts(catalog, product);
   const faqs = [
     {
-      q: "Wie viele Stück sind verfügbar?",
+      q: "Ist das Produkt auf Lager?",
       a:
         product.available > 0
-          ? `Aktuell sind ${product.available} Stück verfügbar. Die Menge im Warenkorb ist auf diesen Bestand begrenzt.`
+          ? "Ja, das Produkt ist derzeit auf Lager und bestellbar."
           : "Dieses Produkt ist derzeit nicht verfügbar.",
     },
     {
@@ -73,7 +73,6 @@ export default async function ProductPage({ params }: Props) {
       priceCurrency: "EUR",
       price: (product.priceCents / 100).toFixed(2),
       availability: product.available > 0 ? "https://schema.org/InStock" : "https://schema.org/OutOfStock",
-      inventoryLevel: { "@type": "QuantitativeValue", value: product.available },
       url: `${siteUrl()}/produkt/${product.slug}`,
       acceptedPaymentMethod: "https://schema.org/CreditCard",
       hasMerchantReturnPolicy: {

@@ -49,7 +49,7 @@ export function ProductCard({
             className={`h-2 w-2 rounded-full ${product.available > 0 ? "bg-emerald-400 shadow-[0_0_8px_#34d399]" : "bg-muted"}`}
             aria-hidden="true"
           />
-          {product.available > 0 ? `${product.available} Stück auf Lager` : "Nicht verfügbar"}
+          {product.available > 0 ? "Auf Lager" : "Nicht verfügbar"}
         </p>
         <div className="mt-auto flex flex-col gap-2 pt-4 sm:pt-5">
           {/* Image and title already link to the product, so phones keep only the cart button. */}
