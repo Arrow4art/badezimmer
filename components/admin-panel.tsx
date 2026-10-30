@@ -413,7 +413,36 @@ function TestEmail() {
   );
 }
 
-type OrderFilter ="alle" | "bezahlt" | "offen" | "sonstige";
+/** Sends this order's confirmation email to the buyer, e.g. when it was paid before email was set up. Asks first. */
+function SendConfirmation({ order }: { order: Order }) {
+  const [status, setStatus] = useState<{ ok: boolean; text: string } | null>(null);
+  const [sending, setSending] = useState(false);
+
+  async function send() {
+    if (!window.confirm(`Bestätigung für ${order.id} an ${order.customer.email} senden?`)) return;
+    setSending(true);
+    setStatus(null);
+    const response = await fetch("/api/admin/send-confirmation", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ orderId: order.id }),
+    });
+    const body = (await response.json()) as { message?: string; error?: string };
+    setSending(false);
+    setStatus({ ok: response.ok, text: body.message || body.error || "Unbekannter Fehler." });
+  }
+
+  return (
+    <div className="mt-2">
+      <button type="button" className={btnSecondary} disabled={sending} onClick={() => void send()}>
+        {sending ? "Sendet …" : order.emailSent ? "Bestätigung erneut senden" : "Bestätigung senden"}
+      </button>
+      {status ? <p className={`mt-2 ${status.ok ? "text-moss" : "text-oak"}`}>{status.text}</p> : null}
+    </div>
+  );
+}
+
+type OrderFilter = "alle" | "bezahlt" | "offen" | "sonstige";
 
 /** Every order with customer, address, items, totals and payment details, newest first. */
 function Orders({ orders }: { orders: Order[] }) {
@@ -511,6 +540,9 @@ function Orders({ orders }: { orders: Order[] }) {
                     {order.stripeSessionId ? <p className="break-all text-muted">Stripe {order.stripeSessionId}</p> : null}
                     <p className="text-muted">{order.emailSent ? "E-Mail versendet" : order.emailNote || "Keine E-Mail"}</p>
                     <p className="text-muted">{order.telegramSent ? "Telegram gemeldet" : "Nicht per Telegram gemeldet"}</p>
+                    {order.status === "bezahlt" || order.status === "anfrage" || order.status === "nachnahme" ? (
+                      <SendConfirmation order={order} />
+                    ) : null}
                   </div>
                   <div className="sm:col-span-3">
                     <h3 className="font-medium">Artikel</h3>
