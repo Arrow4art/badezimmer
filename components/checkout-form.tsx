@@ -2,8 +2,8 @@
 
 import Link from "next/link";
 import { useMemo, useState } from "react";
-import { EmbeddedCheckout, EmbeddedCheckoutProvider } from "@stripe/react-stripe-js";
 import { loadStripe, type Stripe } from "@stripe/stripe-js";
+import { StripePayment } from "@/components/stripe-payment";
 import { useCart } from "@/components/cart-context";
 import { PriceBreakdown } from "@/components/price-summary";
 import { btnPrimary, fieldClass } from "@/components/ui";
@@ -78,15 +78,23 @@ export function CheckoutForm({ catalog, publishableKey }: { catalog: Catalog; pu
     </>
   );
 
-  // Stripe's payment form, embedded in this page once the order is saved. Card data goes straight to Stripe.
+  // The payment form (Stripe Elements) inside this page once the order is saved. Card data goes straight to Stripe.
   if (payment) {
     return (
       <div className="mx-auto grid max-w-6xl gap-10 px-5 py-10 lg:grid-cols-[1.1fr_0.9fr]">
         <div>
-          <div className="overflow-hidden rounded-3xl bg-white p-1 sm:p-3">
-            <EmbeddedCheckoutProvider stripe={payment.stripe} options={{ clientSecret: payment.clientSecret }}>
-              <EmbeddedCheckout />
-            </EmbeddedCheckoutProvider>
+          <div className="rounded-3xl bg-paper p-5">
+            <h2 className="mb-4 text-lg font-medium">Zahlung</h2>
+            <StripePayment
+              stripe={payment.stripe}
+              clientSecret={payment.clientSecret}
+              orderId={payment.id}
+              billingAddress={{
+                name: `${customer.firstName} ${customer.lastName}`.trim(),
+                address: { country: "DE", line1: customer.street, postal_code: customer.zip, city: customer.city },
+              }}
+              totalCents={summary.totalGrossCents}
+            />
           </div>
           <Link
             href={`/kasse/abbruch?order=${encodeURIComponent(payment.id)}`}
