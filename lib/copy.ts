@@ -39,20 +39,6 @@ export const benefits = [
   },
 ];
 
-export const steps = [
-  {
-    title: "Produkt wählen",
-    text: "Displays, Boxen und Decks mit festem Preis, ab Lager.",
-  },
-  {
-    title: "Lieferung prüfen",
-    text: "Kostenlose Lieferung innerhalb Deutschlands in 0–3 Werktagen. Die Zahlung erfolgt per Karte oder Klarna über Stripe.",
-  },
-  {
-    title: "Versiegelt erhalten",
-    text: "Die Ware kommt originalverpackt und versiegelt.",
-  },
-];
 
 export function buildFaqs(
   products: Pick<PublicProduct, "name">[],

@@ -7,7 +7,8 @@ import { ProductCard } from "@/components/product-card";
 import { ProductMarquee } from "@/components/product-marquee";
 import { btnLight, btnPrimary } from "@/components/ui";
 import { getCatalog } from "@/lib/catalog";
-import { benefits, buildFaqs, steps } from "@/lib/copy";
+import { ShippingSteps } from "@/components/shipping-steps";
+import { benefits, buildFaqs } from "@/lib/copy";
 
 export default async function HomePage() {
   const catalog = await getCatalog();
@@ -73,21 +74,9 @@ export default async function HomePage() {
         </div>
       </section>
 
-      <section className="mx-auto max-w-6xl px-5 py-16">
-        <p className="text-xs font-medium uppercase tracking-[0.22em] text-moss">So geht es weiter</p>
-        <h2 className="mt-2 text-3xl font-medium tracking-tight">Vom Produkt bis zur Lieferung</h2>
-        <ol className="mt-8 grid gap-6 md:grid-cols-3">
-          {steps.map((step, index) => (
-            <li key={step.title} className="holo-card rounded-3xl bg-paper/90 p-6">
-              <p className="text-holo text-3xl font-bold">0{index + 1}</p>
-              <h3 className="mt-3 text-xl font-medium">{step.title}</h3>
-              <p className="mt-3 leading-relaxed text-muted">{step.text}</p>
-            </li>
-          ))}
-        </ol>
-      </section>
+      <ShippingSteps shipping={catalog.shipping} products={catalog.products} />
 
-      <section className="mx-auto max-w-3xl px-5 pb-16">
+      <section className="mx-auto max-w-3xl px-5 py-16">
         <h2 className="text-3xl font-medium tracking-tight">Häufige Fragen</h2>
         <div className="mt-6">
           <FaqList items={faqs} />
