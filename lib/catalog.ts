@@ -106,7 +106,7 @@ function buildItems(
     }
     if (line.qty > product.available) {
       return {
-        error: `Von „${product.name}“ sind nur noch ${product.available} Stück verfügbar.`,
+        error: `„${product.name}“ ist in dieser Menge nicht mehr verfügbar.`,
       };
     }
     items.push({

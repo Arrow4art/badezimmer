@@ -42,7 +42,7 @@ export const benefits = [
 export const steps = [
   {
     title: "Produkt wählen",
-    text: "Displays, Boxen und Decks mit festem Preis und sichtbarem Bestand.",
+    text: "Displays, Boxen und Decks mit festem Preis, ab Lager.",
   },
   {
     title: "Lieferung prüfen",
