@@ -14,6 +14,7 @@ export async function notifyOrder(order: Order): Promise<Order> {
     to: order.customer.email,
     subject: message.subject,
     text: message.text,
+    html: message.html,
   });
   await setEmailResult(order.id, result.sent, result.note);
   return { ...order, emailSent: result.sent, emailNote: result.note };

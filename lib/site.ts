@@ -1,4 +1,4 @@
-const PRODUCTION_URL = "https://www.iwoody.de";
+export const PRODUCTION_URL = "https://www.iwoody.de";
 
 export function phoneHref(phone: string): string {
   return `tel:${phone.replace(/[^\d+]/g, "")}`;

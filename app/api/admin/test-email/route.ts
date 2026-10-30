@@ -55,12 +55,8 @@ export async function POST(request: Request) {
     note: "",
   };
 
-  const message = orderMessage(order);
-  const result = await sendMail({
-    to,
-    subject: `[TEST] ${message.subject}`,
-    text: `TEST: Beispiel einer Bestellbestätigung. Es gibt keine Bestellung und keine Zahlung.\n\n${message.text}`,
-  });
+  const message = orderMessage(order, "TEST: Beispiel einer Bestellbestätigung. Es gibt keine Bestellung und keine Zahlung.");
+  const result = await sendMail({ to, subject: `[TEST] ${message.subject}`, text: message.text, html: message.html });
   if (!result.sent) return NextResponse.json({ error: result.note }, { status: 502 });
   return NextResponse.json({ message: `Test-Bestellbestätigung an ${to} gesendet.` });
 }
