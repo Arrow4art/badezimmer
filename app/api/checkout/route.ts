@@ -43,9 +43,10 @@ async function createSession(stripe: Stripe, order: Order, reservationHours: num
   };
   const returnUrl = `${siteUrl()}/bestellung/${order.id}?session_id={CHECKOUT_SESSION_ID}`;
 
-  // With a publishable key Stripe's payment form sits inside /kasse; otherwise the buyer goes to Stripe's page.
+  // With a publishable key /kasse builds its own payment form from Stripe Elements (no Stripe page header);
+  // otherwise the buyer goes to Stripe's page.
   if (stripePublishableKey()) {
-    return stripe.checkout.sessions.create({ ...base, ui_mode: "embedded_page", return_url: returnUrl });
+    return stripe.checkout.sessions.create({ ...base, ui_mode: "elements", return_url: returnUrl });
   }
   return stripe.checkout.sessions.create({
     ...base,
