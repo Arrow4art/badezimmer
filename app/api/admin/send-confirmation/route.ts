@@ -23,7 +23,7 @@ export async function POST(request: Request) {
   }
 
   const message = orderMessage(order);
-  const result = await sendMail({ to: order.customer.email, subject: message.subject, text: message.text });
+  const result = await sendMail({ to: order.customer.email, subject: message.subject, text: message.text, html: message.html });
   await setEmailResult(order.id, result.sent, result.note);
   if (!result.sent) return NextResponse.json({ error: result.note }, { status: 502 });
   return NextResponse.json({ message: `Bestätigung an ${order.customer.email} gesendet.` });

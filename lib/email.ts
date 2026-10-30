@@ -2,6 +2,8 @@ type Mail = {
   to: string;
   subject: string;
   text: string;
+  /** Optional HTML version; mail apps that cannot show it use the text. */
+  html?: string;
 };
 
 export async function sendMail(mail: Mail): Promise<{ sent: boolean; note: string }> {
@@ -25,6 +27,7 @@ export async function sendMail(mail: Mail): Promise<{ sent: boolean; note: strin
       to: [mail.to],
       subject: mail.subject,
       text: mail.text,
+      ...(mail.html ? { html: mail.html } : {}),
     }),
   });
 
