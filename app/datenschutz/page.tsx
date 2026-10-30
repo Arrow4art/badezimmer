@@ -59,7 +59,9 @@ export default async function PrivacyPage() {
           <p className="mt-3">
             Für die Zahlung übermittelt der Shop die nötigen Vorgangsdaten an Stripe Payments Europe, Limited, 1 Grand Canal
             Street Lower, Dublin, Irland. Dazu gehören Bestellnummer, E-Mail-Adresse, Artikel und Beträge. Stripe verarbeitet
-            die Zahlungsdaten als eigener Verantwortlicher. Rechtsgrundlage ist Art. 6 Abs. 1 lit. b DSGVO. Weitere
+            die Zahlungsdaten als eigener Verantwortlicher. Wählen Sie Klarna, gehen die dafür nötigen Daten an Klarna Bank AB
+            (publ), Sveavägen 46, 111 34 Stockholm, Schweden, die sie ebenfalls als eigener Verantwortlicher verarbeitet,
+            etwa für eine Bonitätsprüfung. Rechtsgrundlage ist Art. 6 Abs. 1 lit. b DSGVO. Weitere
             Informationen finden Sie in der Datenschutzerklärung von Stripe unter stripe.com/de/privacy.
           </p>
         </section>

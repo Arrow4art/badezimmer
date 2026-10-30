@@ -30,7 +30,7 @@ export default async function PaymentPage() {
           <h2 className="text-2xl font-medium">Zahlungsarten</h2>
           <p className="mt-3">
             {catalog.checkoutMode === "stripe"
-              ? "Sie bezahlen per Karte über Stripe. Nach der Kasse öffnet sich die Zahlungsseite von Stripe. Nachnahme bieten wir nicht an."
+              ? "Sie bezahlen per Karte oder mit Klarna, beides über Stripe. Nach dem Absenden der Kasse erscheint das Zahlungsformular von Stripe auf derselben Seite. Klarna wird angezeigt, wenn Klarna für Sie und den Betrag verfügbar ist. Nachnahme bieten wir nicht an."
               : "Die Zahlungsart ist Karte über Stripe. Das Konto ist noch nicht verbunden, deshalb kann derzeit niemand bezahlen. Nachnahme bieten wir nicht an."}
           </p>
         </section>
@@ -38,14 +38,14 @@ export default async function PaymentPage() {
           <h2 className="text-2xl font-medium">Keine Kartendaten bei uns</h2>
           <p className="mt-3">
             Nummer, Prüfzahl und Ablaufdatum einer Karte werden nicht in diesem Shop eingegeben und nicht gespeichert. Die
-            Eingabe erfolgt auf der Seite von Stripe. Eine erfolgreiche Zahlung erkennen wir nur an der Rückmeldung von Stripe.
+            Eingabe erfolgt im Zahlungsformular von Stripe. Bei Klarna gelten zusätzlich die Bedingungen von Klarna. Eine erfolgreiche Zahlung erkennen wir nur an der Rückmeldung von Stripe.
           </p>
         </section>
         <section>
           <h2 className="text-2xl font-medium">Offene Zahlungen</h2>
           <p className="mt-3">
             Eine begonnene Stripe-Zahlung reserviert die Menge für {catalog.shipping.reservationHours} Stunden. Wird sie nicht
-            abgeschlossen, fällt die Reservierung weg. Ohne bestätigte Kartenzahlung wird nichts geliefert.
+            abgeschlossen, fällt die Reservierung weg. Ohne bestätigte Zahlung wird nichts geliefert.
           </p>
         </section>
       </div>

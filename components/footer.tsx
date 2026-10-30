@@ -76,7 +76,7 @@ export function Footer({
           {shipping.costCents === 0 ? "Kostenloser Versand" : "Versand"} innerhalb Deutschlands
           {shipping.deliveryEstimateConfirmed ? `. Lieferzeit: ${shipping.deliveryEstimateText}` : ""}.{" "}
           {checkoutMode === "stripe"
-            ? "Zahlung per Karte über Stripe. Kartendaten werden in diesem Shop nicht gespeichert."
+            ? "Zahlung per Karte oder Klarna über Stripe. Kartendaten werden in diesem Shop nicht gespeichert."
             : "Zahlung per Karte über Stripe, sobald das Konto verbunden ist."}
         </p>
       </div>

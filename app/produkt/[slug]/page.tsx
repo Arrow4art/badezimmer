@@ -128,7 +128,7 @@ export default async function ProductPage({ params }: Props) {
             {catalog.shipping.costCents === 0 ? "kostenloser Versand" : `zzgl. Versand ${formatEUR(catalog.shipping.costCents)}`}
           </p>
           <p className="mt-2 text-sm">
-            Zahlung per Karte über Stripe.{" "}
+            Zahlung per Karte oder Klarna über Stripe.{" "}
             <Link href="/zahlung" className="underline underline-offset-4">
               Zahlungsarten
             </Link>
