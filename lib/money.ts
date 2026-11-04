@@ -1,15 +1,17 @@
-export function formatEUR(cents: number): string {
-  return new Intl.NumberFormat("de-DE", {
-    style: "currency",
-    currency: "EUR",
-  }).format(cents / 100);
+export function formatMoney(cents: number, currency = "EUR"): string {
+  return new Intl.NumberFormat("en-US", { style: "currency", currency }).format(cents / 100);
+}
+
+/** A catalog price. Orders use formatMoney with their own currency, because orders from before the US switch are in euros. */
+export function formatPrice(cents: number): string {
+  return formatMoney(cents, "USD");
 }
 
 export function formatShipping(cents: number): string {
-  return cents === 0 ? "kostenlos" : formatEUR(cents);
+  return cents === 0 ? "Free" : formatPrice(cents);
 }
 
-export function vatFromGross(grossCents: number, vatRate = 0.19): number {
+export function vatFromGross(grossCents: number, vatRate = 0): number {
   const percent = Math.round(vatRate * 100);
   return Math.round((grossCents * percent) / (100 + percent));
 }
@@ -29,7 +31,7 @@ export type PriceSummary = {
 export function summarize(
   items: { unitGrossCents: number; qty: number }[],
   shippingGrossCents: number,
-  vatRate = 0.19,
+  vatRate = 0,
 ): PriceSummary {
   const goodsGrossCents = items.reduce((sum, item) => sum + item.unitGrossCents * item.qty, 0);
   const goodsVatCents = vatFromGross(goodsGrossCents, vatRate);
@@ -49,6 +51,6 @@ export function summarize(
   };
 }
 
-export function eurosToCents(value: number): number {
+export function dollarsToCents(value: number): number {
   return Math.round(value * 100);
 }

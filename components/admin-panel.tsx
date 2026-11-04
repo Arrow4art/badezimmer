@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { btnPrimary, btnSecondary, fieldClass } from "@/components/ui";
-import { formatEUR } from "@/lib/money";
+import { formatMoney, formatPrice } from "@/lib/money";
 import { statusLabel } from "@/lib/order-text";
 import type { CartAddDay } from "@/lib/cart-adds";
 import type {
@@ -25,7 +25,7 @@ type Payload = {
 };
 
 function dateTime(iso: string): string {
-  return new Date(iso).toLocaleString("de-DE", { dateStyle: "medium", timeStyle: "short", timeZone: "Europe/Berlin" });
+  return new Date(iso).toLocaleString("en-US", { dateStyle: "medium", timeStyle: "short", timeZone: "America/New_York" });
 }
 
 export function AdminPanel() {
@@ -78,25 +78,25 @@ export function AdminPanel() {
           });
           const body = (await response.json()) as { error?: string };
           if (!response.ok) {
-            setAuthError(body.error || "Anmeldung fehlgeschlagen.");
+            setAuthError(body.error || "Sign-in failed.");
             return;
           }
           setPassword("");
           await load();
         }}
       >
-        <h1 className="text-3xl font-medium tracking-tight">Shop-Verwaltung</h1>
+        <h1 className="text-3xl font-medium tracking-tight">Shop admin</h1>
         <p className="mt-3 text-sm leading-relaxed text-muted">
-          Hier ändern Sie Bestand, Preise, Versand und die Angaben für das Impressum. Der Bestand ist die Menge, die Kunden
-          bestellen können.
+          Change stock, prices, shipping, and your business details here. Stock is the quantity customers can
+          order.
         </p>
         {process.env.NODE_ENV !== "production" ? (
           <p className="mt-3 text-sm leading-relaxed text-muted">
-            In der lokalen Entwicklung ohne gesetztes Passwort gilt: demo-iwoody. Vor einem echten Betrieb ändern.
+            In local development with no password set, the password is demo-iwoody. Change it before going live.
           </p>
         ) : null}
         <label className="mt-6 block text-sm">
-          Passwort
+          Password
           <input
             className={fieldClass}
             type="password"
@@ -107,7 +107,7 @@ export function AdminPanel() {
         </label>
         {authError ? <p className="mt-3 text-sm text-oak">{authError}</p> : null}
         <button className={`${btnPrimary} mt-5`} type="submit">
-          Anmelden
+          Sign in
         </button>
       </form>
     );
@@ -137,24 +137,24 @@ export function AdminPanel() {
         const body = (await response.json()) as { error?: string };
         setPending(false);
         if (!response.ok) {
-          setError(body.error || "Speichern fehlgeschlagen.");
+          setError(body.error || "Saving failed.");
           return;
         }
-        setMessage("Gespeichert. Der Shop zeigt die neuen Werte sofort.");
+        setMessage("Saved. The shop shows the new values right away.");
         await load();
       }}
     >
       <div className="flex flex-wrap items-end justify-between gap-4">
         <div>
-          <h1 className="text-3xl font-medium tracking-tight">Shop-Verwaltung</h1>
+          <h1 className="text-3xl font-medium tracking-tight">Shop admin</h1>
           <p className="mt-2 text-sm text-muted">
-            Zahlung:{" "}
+            Payment:{" "}
             {data.catalog.checkoutMode === "stripe"
-              ? "Stripe ist verbunden. Nachnahme ist abgeschaltet."
-              : "Stripe ist nicht verbunden. Nachnahme ist abgeschaltet, es wird keine Zahlung ausgeführt."}
+              ? "Stripe is connected. Cash on delivery is off."
+              : "Stripe is not connected. Cash on delivery is off, and no payment is processed."}
           </p>
           <p className="text-sm text-muted">
-            E-Mail: {data.catalog.emailReady ? "Versand ist konfiguriert." : "Kein E-Mail-Anbieter. Es wird keine Nachricht verschickt."}
+            Email: {data.catalog.emailReady ? "Sending is configured." : "No email provider. No messages are sent."}
           </p>
         </div>
         <button
@@ -166,7 +166,7 @@ export function AdminPanel() {
             setDraft(null);
           }}
         >
-          Abmelden
+          Sign out
         </button>
       </div>
 
@@ -179,13 +179,13 @@ export function AdminPanel() {
       <CartAdds days={data.cartAdds} orders={data.orders} names={names} />
 
       <section className="rounded-3xl bg-paper p-5">
-        <h2 className="text-xl font-medium">Produkte</h2>
+        <h2 className="text-xl font-medium">Products</h2>
         <div className="mt-4 space-y-4">
           {draft.products.map((product, index) => (
             <div key={product.slug} className="grid gap-3 border-t border-ink/10 py-4 sm:grid-cols-4">
               <p className="font-medium sm:col-span-4">{names[product.slug]}</p>
               <label className="text-sm">
-                Bestand
+                Stock
                 <input
                   className={fieldClass}
                   type="number"
@@ -204,7 +204,7 @@ export function AdminPanel() {
                 />
               </label>
               <label className="text-sm">
-                Preis in Euro
+                Price in USD
                 <input
                   className={fieldClass}
                   type="number"
@@ -224,12 +224,12 @@ export function AdminPanel() {
                 />
               </label>
               <label className="text-sm sm:col-span-2">
-                EAN / GTIN (Barcode auf der Verpackung)
+                EAN / GTIN (barcode on the packaging)
                 <input
                   className={fieldClass}
                   inputMode="numeric"
                   autoComplete="off"
-                  placeholder="8, 12, 13 oder 14 Ziffern"
+                  placeholder="8, 12, 13, or 14 digits"
                   value={product.gtin}
                   onChange={(event) => {
                     const gtin = event.target.value;
@@ -248,10 +248,10 @@ export function AdminPanel() {
       </section>
 
       <section className="rounded-3xl bg-paper p-5">
-        <h2 className="text-xl font-medium">Versand</h2>
+        <h2 className="text-xl font-medium">Shipping</h2>
         <div className="mt-4 grid gap-4">
           <label className="text-sm">
-            Versandkosten in Euro
+            Shipping cost in USD
             <input
               className={fieldClass}
               type="number"
@@ -261,19 +261,19 @@ export function AdminPanel() {
               onChange={(event) => patchShipping("costCents", Math.round(Number(event.target.value) * 100))}
             />
           </label>
-          <Text label="Bezeichnung" value={draft.shipping.label} onChange={(value) => patchShipping("label", value)} />
-          <Text label="Liefergebiet" value={draft.shipping.destination} onChange={(value) => patchShipping("destination", value)} />
-          <Area label="Versandvorbereitung" value={draft.shipping.dispatchText} onChange={(value) => patchShipping("dispatchText", value)} />
+          <Text label="Label" value={draft.shipping.label} onChange={(value) => patchShipping("label", value)} />
+          <Text label="Delivery area" value={draft.shipping.destination} onChange={(value) => patchShipping("destination", value)} />
+          <Area label="Handling" value={draft.shipping.dispatchText} onChange={(value) => patchShipping("dispatchText", value)} />
           <label className="flex items-center gap-3 text-sm">
             <input
               type="checkbox"
               checked={draft.shipping.deliveryEstimateConfirmed}
               onChange={(event) => patchShipping("deliveryEstimateConfirmed", event.target.checked)}
             />
-            Lieferzeit ist vom Lieferanten bestätigt
+            Delivery time is confirmed by the supplier
           </label>
           <Area
-            label="Bestätigte Lieferzeit"
+            label="Confirmed delivery time"
             value={draft.shipping.deliveryEstimateText}
             onChange={(value) => patchShipping("deliveryEstimateText", value)}
           />
@@ -283,32 +283,32 @@ export function AdminPanel() {
               checked={draft.shipping.trackingAvailable}
               onChange={(event) => patchShipping("trackingAvailable", event.target.checked)}
             />
-            Sendungsverfolgung ist verfügbar
+            Tracking is available
           </label>
-          <Area label="Tracking-Hinweis" value={draft.shipping.trackingText} onChange={(value) => patchShipping("trackingText", value)} />
-          <Area label="Sperrgut" value={draft.shipping.bulkyGoodsText} onChange={(value) => patchShipping("bulkyGoodsText", value)} />
+          <Area label="Tracking note" value={draft.shipping.trackingText} onChange={(value) => patchShipping("trackingText", value)} />
+          <Area label="Bulky goods" value={draft.shipping.bulkyGoodsText} onChange={(value) => patchShipping("bulkyGoodsText", value)} />
           <label className="flex items-center gap-3 text-sm">
             <input
               type="checkbox"
               checked={draft.shipping.appointmentRequired}
               onChange={(event) => patchShipping("appointmentRequired", event.target.checked)}
             />
-            Liefertermin muss bestätigt werden
+            Delivery appointment must be confirmed
           </label>
-          <Area label="Termin-Hinweis" value={draft.shipping.appointmentText} onChange={(value) => patchShipping("appointmentText", value)} />
+          <Area label="Appointment note" value={draft.shipping.appointmentText} onChange={(value) => patchShipping("appointmentText", value)} />
           <label className="flex items-center gap-3 text-sm">
             <input
               type="checkbox"
               checked={draft.shipping.assemblyIncluded}
               onChange={(event) => patchShipping("assemblyIncluded", event.target.checked)}
             />
-            Zusatzleistung ist enthalten
+            Extra service is included
           </label>
-          <Area label="Verpackungshinweis" value={draft.shipping.assemblyText} onChange={(value) => patchShipping("assemblyText", value)} />
-          <Area label="Schwer erreichbare Orte" value={draft.shipping.remoteText} onChange={(value) => patchShipping("remoteText", value)} />
-          <Area label="Transportschäden" value={draft.shipping.damageText} onChange={(value) => patchShipping("damageText", value)} />
+          <Area label="Packaging note" value={draft.shipping.assemblyText} onChange={(value) => patchShipping("assemblyText", value)} />
+          <Area label="Hard-to-reach locations" value={draft.shipping.remoteText} onChange={(value) => patchShipping("remoteText", value)} />
+          <Area label="Shipping damage" value={draft.shipping.damageText} onChange={(value) => patchShipping("damageText", value)} />
           <label className="text-sm">
-            Reservierung einer offenen Stripe-Zahlung in Stunden
+            Hold time for an open Stripe payment, in hours
             <input
               className={fieldClass}
               type="number"
@@ -322,7 +322,7 @@ export function AdminPanel() {
       </section>
 
       <section className="rounded-3xl bg-paper p-5">
-        <h2 className="text-xl font-medium">Lieferhinweis</h2>
+        <h2 className="text-xl font-medium">Delivery note</h2>
         <textarea
           className={fieldClass}
           rows={5}
@@ -332,19 +332,19 @@ export function AdminPanel() {
       </section>
 
       <section className="rounded-3xl bg-paper p-5">
-        <h2 className="text-xl font-medium">Impressum</h2>
+        <h2 className="text-xl font-medium">Business details</h2>
         <div className="mt-4 grid gap-4 sm:grid-cols-2">
           {(
             [
-              ["owner", "Vertreten durch"],
-              ["street", "Straße und Hausnummer"],
-              ["zip", "PLZ"],
-              ["city", "Ort"],
-              ["country", "Land"],
-              ["email", "E-Mail"],
-              ["phone", "Telefon"],
-              ["vatId", "USt-IdNr."],
-              ["responsiblePerson", "Inhaltlich verantwortlich"],
+              ["owner", "Represented by"],
+              ["street", "Street address"],
+              ["zip", "ZIP code"],
+              ["city", "City"],
+              ["country", "Country"],
+              ["email", "Email"],
+              ["phone", "Phone"],
+              ["vatId", "Tax ID"],
+              ["responsiblePerson", "Responsible for content"],
             ] as const
           ).map(([key, label]) => (
             <Text key={key} label={label} value={draft.business[key]} onChange={(value) => patchBusiness(key, value)} />
@@ -355,7 +355,7 @@ export function AdminPanel() {
       {error ? <p className="text-sm text-oak">{error}</p> : null}
       {message ? <p className="text-sm text-moss">{message}</p> : null}
       <button className={btnPrimary} type="submit" disabled={pending}>
-        {pending ? "Speichert …" : "Änderungen speichern"}
+        {pending ? "Saving…" : "Save changes"}
       </button>
     </form>
   );
@@ -377,19 +377,19 @@ function TestEmail() {
     });
     const body = (await response.json()) as { message?: string; error?: string };
     setSending(false);
-    setStatus({ ok: response.ok, text: body.message || body.error || "Unbekannter Fehler." });
+    setStatus({ ok: response.ok, text: body.message || body.error || "Unknown error." });
   }
 
   return (
     <section className="rounded-3xl bg-paper p-5">
-      <h2 className="text-xl font-medium">Test-Bestellbestätigung</h2>
+      <h2 className="text-xl font-medium">Test order confirmation</h2>
       <p className="mt-1 text-sm text-muted">
-        Schickt die E-Mail, die Käufer nach der Zahlung bekommen, mit einer Beispielbestellung. Es entsteht keine
-        Bestellung und keine Zahlung.
+        Sends the email buyers get after paying, using a sample order. This creates no order and no
+        payment.
       </p>
       <div className="mt-4 flex flex-col gap-3 sm:flex-row sm:items-end">
         <label className="block flex-1 text-sm">
-          E-Mail-Adresse
+          Email address
           <input
             className={fieldClass}
             type="email"
@@ -405,7 +405,7 @@ function TestEmail() {
           />
         </label>
         <button type="button" className={btnSecondary} disabled={!to || sending} onClick={() => void send()}>
-          {sending ? "Sendet …" : "Test senden"}
+          {sending ? "Sending…" : "Send test"}
         </button>
       </div>
       {status ? <p className={`mt-3 text-sm ${status.ok ? "text-moss" : "text-oak"}`}>{status.text}</p> : null}
@@ -419,7 +419,7 @@ function SendConfirmation({ order }: { order: Order }) {
   const [sending, setSending] = useState(false);
 
   async function send() {
-    if (!window.confirm(`Bestätigung für ${order.id} an ${order.customer.email} senden?`)) return;
+    if (!window.confirm(`Send confirmation for ${order.id} to ${order.customer.email}?`)) return;
     setSending(true);
     setStatus(null);
     const response = await fetch("/api/admin/send-confirmation", {
@@ -429,13 +429,13 @@ function SendConfirmation({ order }: { order: Order }) {
     });
     const body = (await response.json()) as { message?: string; error?: string };
     setSending(false);
-    setStatus({ ok: response.ok, text: body.message || body.error || "Unbekannter Fehler." });
+    setStatus({ ok: response.ok, text: body.message || body.error || "Unknown error." });
   }
 
   return (
     <div className="mt-2">
       <button type="button" className={btnSecondary} disabled={sending} onClick={() => void send()}>
-        {sending ? "Sendet …" : order.emailSent ? "Bestätigung erneut senden" : "Bestätigung senden"}
+        {sending ? "Sending…" : order.emailSent ? "Resend confirmation" : "Send confirmation"}
       </button>
       {status ? <p className={`mt-2 ${status.ok ? "text-moss" : "text-oak"}`}>{status.text}</p> : null}
     </div>
@@ -465,29 +465,35 @@ function Orders({ orders }: { orders: Order[] }) {
     return true;
   });
   const paid = orders.filter((order) => order.status === "bezahlt");
-  const revenue = paid.reduce((sum, order) => sum + order.totalGrossCents, 0);
+  // Old orders are in EUR and new ones in USD, so revenue is summed per currency, never across them.
+  const revenue = new Map<string, number>();
+  for (const order of paid) {
+    const currency = order.currency ?? "EUR";
+    revenue.set(currency, (revenue.get(currency) ?? 0) + order.totalGrossCents);
+  }
+  const revenueText = [...revenue].map(([currency, cents]) => formatMoney(cents, currency)).join(" + ") || formatPrice(0);
 
   return (
     <section className="rounded-3xl bg-paper p-5">
       <div className="flex flex-wrap items-end justify-between gap-3">
         <div>
-          <h2 className="text-xl font-medium">Bestellungen</h2>
+          <h2 className="text-xl font-medium">Orders</h2>
           <p className="mt-1 text-sm text-muted">
-            {paid.length} bezahlt · Umsatz {formatEUR(revenue)} · {orders.length} Vorgänge insgesamt
+            {paid.length} paid · Revenue {revenueText} · {orders.length} orders in total
           </p>
         </div>
         <label className="text-sm">
-          Anzeigen
+          Show
           <select className={fieldClass} value={filter} onChange={(event) => setFilter(event.target.value as OrderFilter)}>
-            <option value="alle">Alle</option>
-            <option value="bezahlt">Bezahlt</option>
-            <option value="offen">Zahlung offen</option>
-            <option value="sonstige">Abgebrochen, abgelaufen, Anfragen</option>
+            <option value="alle">All</option>
+            <option value="bezahlt">Paid</option>
+            <option value="offen">Payment pending</option>
+            <option value="sonstige">Canceled, expired, inquiries</option>
           </select>
         </label>
       </div>
       {shown.length === 0 ? (
-        <p className="mt-4 text-sm text-muted">Keine Vorgänge.</p>
+        <p className="mt-4 text-sm text-muted">No orders.</p>
       ) : (
         <div className="mt-4">
           {shown.map((order) => {
@@ -505,11 +511,11 @@ function Orders({ orders }: { orders: Order[] }) {
                     </span>
                   </span>
                   <span className={order.status === "bezahlt" ? "text-moss" : "text-muted"}>{statusLabel[order.status]}</span>
-                  <span className="font-medium sm:text-right">{formatEUR(order.totalGrossCents)}</span>
+                  <span className="font-medium sm:text-right">{formatMoney(order.totalGrossCents, order.currency)}</span>
                 </summary>
                 <div className="grid gap-5 pb-5 text-sm sm:grid-cols-3">
                   <div>
-                    <h3 className="font-medium">Kunde</h3>
+                    <h3 className="font-medium">Customer</h3>
                     <p className="mt-1">
                       {c.firstName} {c.lastName}
                     </p>
@@ -523,7 +529,7 @@ function Orders({ orders }: { orders: Order[] }) {
                     ) : null}
                   </div>
                   <div>
-                    <h3 className="font-medium">Lieferadresse</h3>
+                    <h3 className="font-medium">Shipping address</h3>
                     <p className="mt-1">
                       {c.street}
                       <br />
@@ -531,40 +537,40 @@ function Orders({ orders }: { orders: Order[] }) {
                       <br />
                       {c.country}
                     </p>
-                    {c.deliveryNote ? <p className="mt-1 text-muted">Hinweis: {c.deliveryNote}</p> : null}
+                    {c.deliveryNote ? <p className="mt-1 text-muted">Note: {c.deliveryNote}</p> : null}
                   </div>
                   <div>
-                    <h3 className="font-medium">Vorgang</h3>
-                    <p className="mt-1">Nummer {order.id}</p>
+                    <h3 className="font-medium">Order</h3>
+                    <p className="mt-1">Number {order.id}</p>
                     <p>{statusLabel[order.status]}</p>
                     {order.stripeSessionId ? <p className="break-all text-muted">Stripe {order.stripeSessionId}</p> : null}
-                    <p className="text-muted">{order.emailSent ? "E-Mail versendet" : order.emailNote || "Keine E-Mail"}</p>
-                    <p className="text-muted">{order.telegramSent ? "Telegram gemeldet" : "Nicht per Telegram gemeldet"}</p>
+                    <p className="text-muted">{order.emailSent ? "Email sent" : order.emailNote || "No email"}</p>
+                    <p className="text-muted">{order.telegramSent ? "Telegram alert sent" : "No Telegram alert sent"}</p>
                     {order.status === "bezahlt" || order.status === "anfrage" || order.status === "nachnahme" ? (
                       <SendConfirmation order={order} />
                     ) : null}
                   </div>
                   <div className="sm:col-span-3">
-                    <h3 className="font-medium">Artikel</h3>
+                    <h3 className="font-medium">Items</h3>
                     <ul className="mt-1 divide-y divide-ink/10">
                       {order.items.map((item) => (
                         <li key={item.slug} className="flex justify-between gap-4 py-1.5">
                           <span>
                             {item.qty} × {item.name}
                             <span className="block text-muted">
-                              {item.sku} · je {formatEUR(item.unitGrossCents)}
+                              {item.sku} · {formatMoney(item.unitGrossCents, order.currency)} each
                             </span>
                           </span>
-                          <span>{formatEUR(item.unitGrossCents * item.qty)}</span>
+                          <span>{formatMoney(item.unitGrossCents * item.qty, order.currency)}</span>
                         </li>
                       ))}
                       <li className="flex justify-between gap-4 py-1.5 text-muted">
-                        <span>Versand ({order.shippingLabel})</span>
-                        <span>{formatEUR(order.shippingGrossCents)}</span>
+                        <span>Shipping ({order.shippingLabel})</span>
+                        <span>{formatMoney(order.shippingGrossCents, order.currency)}</span>
                       </li>
                       <li className="flex justify-between gap-4 py-1.5 font-medium">
-                        <span>Gesamt inkl. {Math.round(order.vatRate * 100)} % MwSt.</span>
-                        <span>{formatEUR(order.totalGrossCents)}</span>
+                        <span>Total</span>
+                        <span>{formatMoney(order.totalGrossCents, order.currency)}</span>
                       </li>
                     </ul>
                     {order.note ? <p className="mt-2 text-muted">{order.note}</p> : null}
@@ -583,9 +589,9 @@ function Messages({ messages, newsletter }: { messages: ContactMessage[]; newsle
   return (
     <section className="grid gap-5 rounded-3xl bg-paper p-5 lg:grid-cols-2">
       <div>
-        <h2 className="text-xl font-medium">Kontaktnachrichten ({messages.length})</h2>
+        <h2 className="text-xl font-medium">Contact messages ({messages.length})</h2>
         {messages.length === 0 ? (
-          <p className="mt-3 text-sm text-muted">Noch keine Nachrichten.</p>
+          <p className="mt-3 text-sm text-muted">No messages yet.</p>
         ) : (
           <ul className="mt-3 max-h-[32rem] divide-y divide-ink/10 overflow-y-auto text-sm">
             {messages.map((message) => (
@@ -604,7 +610,7 @@ function Messages({ messages, newsletter }: { messages: ContactMessage[]; newsle
       <div>
         <h2 className="text-xl font-medium">Newsletter ({newsletter.length})</h2>
         {newsletter.length === 0 ? (
-          <p className="mt-3 text-sm text-muted">Noch keine Anmeldungen.</p>
+          <p className="mt-3 text-sm text-muted">No signups yet.</p>
         ) : (
           <ul className="mt-3 max-h-[32rem] divide-y divide-ink/10 overflow-y-auto text-sm">
             {newsletter.map((entry) => (
@@ -613,10 +619,10 @@ function Messages({ messages, newsletter }: { messages: ContactMessage[]; newsle
                 <span className="block text-muted">
                   {dateTime(entry.createdAt)} ·{" "}
                   {entry.confirmed
-                    ? "bestätigt"
+                    ? "confirmed"
                     : entry.confirmationEmailSent
-                      ? "E-Mail gesendet, nicht bestätigt"
-                      : "keine E-Mail gesendet, nicht bestätigt"}
+                      ? "email sent, not confirmed"
+                      : "no email sent, not confirmed"}
                 </span>
               </li>
             ))}
@@ -629,7 +635,7 @@ function Messages({ messages, newsletter }: { messages: ContactMessage[]; newsle
 
 type FunnelRow ={ slug: string; adds: number; started: number; paid: number };
 
-/** Clicks on "In den Warenkorb" next to the Stripe payments started and paid for the same product, last 30 days. */
+/** Clicks on "Add to cart" next to the Stripe payments started and paid for the same product, last 30 days. */
 function CartAdds({ days, orders, names }: { days: CartAddDay[]; orders: Order[]; names: Record<string, string> }) {
   const total = (list: CartAddDay[]) =>
     list.reduce((sum, day) => sum + Object.values(day.counts).reduce((a, b) => a + b, 0), 0);
@@ -655,21 +661,21 @@ function CartAdds({ days, orders, names }: { days: CartAddDay[]; orders: Order[]
 
   return (
     <section className="rounded-3xl bg-paper p-5">
-      <h2 className="text-xl font-medium">In den Warenkorb</h2>
+      <h2 className="text-xl font-medium">Add to cart</h2>
       <p className="mt-2 text-sm text-muted">
-        Heute {total(days.slice(0, 1))} · 7 Tage {total(days.slice(0, 7))} · {days.length} Tage {total(days)} Klicks
+        Today {total(days.slice(0, 1))} · 7 days {total(days.slice(0, 7))} · {days.length} days {total(days)} clicks
       </p>
       {sorted.length === 0 ? (
-        <p className="mt-3 text-sm text-muted">Noch keine Klicks gezählt.</p>
+        <p className="mt-3 text-sm text-muted">No clicks counted yet.</p>
       ) : (
         <div className="mt-4 overflow-x-auto">
           <table className="w-full min-w-[32rem] text-left text-sm">
             <thead className="text-muted">
               <tr>
-                <th className="py-2 font-medium">Produkt ({days.length} Tage)</th>
-                <th className="py-2 text-right font-medium">Warenkorb</th>
-                <th className="py-2 text-right font-medium">Zahlung gestartet</th>
-                <th className="py-2 text-right font-medium">Bezahlt</th>
+                <th className="py-2 font-medium">Product ({days.length} days)</th>
+                <th className="py-2 text-right font-medium">Cart</th>
+                <th className="py-2 text-right font-medium">Payment started</th>
+                <th className="py-2 text-right font-medium">Paid</th>
               </tr>
             </thead>
             <tbody>

@@ -10,7 +10,7 @@ export async function POST(request: Request) {
   try {
     body = await request.json();
   } catch {
-    return NextResponse.json({ error: "Die Eingaben sind unvollständig." }, { status: 400 });
+    return NextResponse.json({ error: "Some information is missing." }, { status: 400 });
   }
   const parsed = parseContact(body);
   if (!parsed.ok) return NextResponse.json({ error: parsed.error }, { status: 400 });
@@ -20,13 +20,13 @@ export async function POST(request: Request) {
   if (inbox && process.env.RESEND_API_KEY) {
     await sendMail({
       to: inbox,
-      subject: `Kontaktanfrage von ${parsed.data.name}`,
+      subject: `Contact request from ${parsed.data.name}`,
       text: `${parsed.data.name} <${parsed.data.email}>\n\n${parsed.data.message}`,
     });
   }
 
   return NextResponse.json({
     message:
-      "Ihre Nachricht ist gespeichert. Wenn kein E-Mail-Anbieter konfiguriert ist, geht sie nicht zusätzlich per E-Mail hinaus.",
+      "Your message has been saved. If no email provider is configured, it isn't sent by email as well.",
   });
 }

@@ -6,7 +6,7 @@ import { useCart } from "@/components/cart-context";
 import { PriceBreakdown } from "@/components/price-summary";
 import { ProductPhoto } from "@/components/product-photo";
 import { btnPrimary, btnSecondary } from "@/components/ui";
-import { formatEUR, summarize } from "@/lib/money";
+import { formatPrice, summarize } from "@/lib/money";
 import type { Catalog } from "@/lib/types";
 
 export function CartView({ catalog }: { catalog: Catalog }) {
@@ -32,9 +32,9 @@ export function CartView({ catalog }: { catalog: Catalog }) {
   if (lines.length === 0) {
     return (
       <div className="mx-auto max-w-3xl px-5 py-16">
-        <p className="text-lg">Ihr Warenkorb ist leer.</p>
+        <p className="text-lg">Your cart is empty.</p>
         <Link href="/shop" className={`${btnPrimary} mt-6`}>
-          Saunen entdecken
+          Browse products
         </Link>
       </div>
     );
@@ -52,13 +52,13 @@ export function CartView({ catalog }: { catalog: Catalog }) {
             </div>
             <div>
               <h2 className="font-medium">
-                <Link href={`/produkt/${product.slug}`}>{product.name}</Link>
+                <Link href={`/product/${product.slug}`}>{product.name}</Link>
               </h2>
-              <p className="mt-1 text-sm text-muted">{formatEUR(product.priceCents)} inkl. MwSt.</p>
-              <p className="text-sm text-muted">{product.available > 0 ? "Auf Lager" : "Nicht verfügbar"}</p>
+              <p className="mt-1 text-sm text-muted">{formatPrice(product.priceCents)}</p>
+              <p className="text-sm text-muted">{product.available > 0 ? "In stock" : "Unavailable"}</p>
               <div className="mt-3 flex flex-wrap items-center gap-3">
                 <label className="text-sm" htmlFor={`qty-${product.slug}`}>
-                  Menge
+                  Quantity
                 </label>
                 <input
                   id={`qty-${product.slug}`}
@@ -70,7 +70,7 @@ export function CartView({ catalog }: { catalog: Catalog }) {
                   className="w-20 rounded-2xl border border-ink/15 bg-panel px-3 py-2"
                 />
                 <button type="button" className="text-sm underline underline-offset-4" onClick={() => remove(product.slug)}>
-                  Entfernen
+                  Remove
                 </button>
               </div>
             </div>
@@ -78,20 +78,20 @@ export function CartView({ catalog }: { catalog: Catalog }) {
         ))}
       </ul>
       <aside className="h-fit rounded-3xl bg-paper p-5">
-        <h2 className="text-lg font-medium">Summe</h2>
+        <h2 className="text-lg font-medium">Total</h2>
         <div className="mt-4">
           <PriceBreakdown summary={summary} shippingLabel={catalog.shipping.label} vatRate={catalog.vatRate} />
         </div>
         <p className="mt-4 text-sm text-muted">
           {catalog.shipping.deliveryEstimateConfirmed
-            ? `Lieferzeit: ${catalog.shipping.deliveryEstimateText}`
-            : "Lieferzeit: noch nicht vom Lieferanten bestätigt."}
+            ? `Delivery time: ${catalog.shipping.deliveryEstimateText}`
+            : "Delivery time: not confirmed by our supplier yet."}
         </p>
-        <Link href="/kasse" className={`${btnPrimary} mt-6 w-full`}>
-          Zur Kasse
+        <Link href="/checkout" className={`${btnPrimary} mt-6 w-full`}>
+          Go to checkout
         </Link>
         <Link href="/shop" className={`${btnSecondary} mt-3 w-full`}>
-          Weiter einkaufen
+          Continue shopping
         </Link>
       </aside>
     </div>

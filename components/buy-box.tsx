@@ -14,11 +14,11 @@ export function BuyBox({ slug, available }: { slug: string; available: number })
   return (
     <div className="mt-6 rounded-3xl bg-paper p-5">
       <p className="text-sm">
-        {max > 0 ? "Auf Lager" : "Nicht verfügbar"}
+        {max > 0 ? "In stock" : "Unavailable"}
       </p>
       <div className="mt-4 flex items-center gap-3">
         <label htmlFor="menge" className="text-sm">
-          Menge
+          Quantity
         </label>
         <input
           id="menge"
@@ -42,13 +42,13 @@ export function BuyBox({ slug, available }: { slug: string; available: number })
           disabled={max < 1}
           onClick={() => {
             const ok = add(slug, qty, max);
-            setNote(ok ? "In den Warenkorb gelegt." : "Diese Menge ist nicht vorrätig.");
+            setNote(ok ? "Added to cart." : "This quantity isn't in stock.");
           }}
         >
-          In den Warenkorb
+          Add to cart
         </button>
-        <Link href="/warenkorb" className={btnSecondary}>
-          Zum Warenkorb
+        <Link href="/cart" className={btnSecondary}>
+          View cart
         </Link>
       </div>
       {note ? (

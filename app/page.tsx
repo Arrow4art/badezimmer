@@ -23,20 +23,20 @@ export default async function HomePage() {
           <div className="max-w-2xl">
             <p className="inline-flex items-center gap-2 rounded-full border border-moss/40 bg-night/60 px-3 py-1 text-xs font-medium uppercase tracking-[0.22em] text-moss">
               <span className="h-1.5 w-1.5 rounded-full bg-moss shadow-[0_0_8px_#22d3ee]" aria-hidden="true" />
-              Sammelkartenspiele
+              Trading Card Games
             </p>
             <h1 className="mt-4 text-4xl font-semibold leading-[1.05] tracking-tight sm:text-6xl">
-              Displays, Boxen und Decks, <span className="text-holo">versiegelt.</span>
+              Booster displays, boxes and decks, <span className="text-holo">sealed.</span>
             </h1>
             <p className="mt-5 max-w-xl text-lg leading-relaxed text-cream/90">
-              Pokémon, Magic: The Gathering, One Piece, Yu-Gi-Oh! und Lorcana. Preise inklusive Mehrwertsteuer.
+              Pokémon, Magic: The Gathering, One Piece, Yu-Gi-Oh! and Lorcana. Prices in USD with free US shipping.
             </p>
             <div className="mt-8 flex flex-wrap gap-3">
               <Link href="/shop" className={btnPrimary}>
-                Sortiment ansehen
+                Shop the collection
               </Link>
-              <Link href="/ueber-uns" className={btnLight}>
-                Mehr über Iwoody
+              <Link href="/about" className={btnLight}>
+                About Pilands Cards
               </Link>
             </div>
           </div>
@@ -49,11 +49,11 @@ export default async function HomePage() {
       <section className="mx-auto max-w-6xl px-5 py-16">
         <div className="flex items-end justify-between gap-4">
           <div>
-            <p className="text-xs font-medium uppercase tracking-[0.22em] text-moss">Sortiment</p>
-            <h2 className="mt-2 text-3xl font-medium tracking-tight">Das Sortiment</h2>
+            <p className="text-xs font-medium uppercase tracking-[0.22em] text-moss">Collection</p>
+            <h2 className="mt-2 text-3xl font-medium tracking-tight">Our collection</h2>
           </div>
           <Link href="/shop" className="text-sm underline underline-offset-4">
-            Alle Produkte
+            All products
           </Link>
         </div>
         <div className="mt-8 grid grid-cols-2 gap-3 sm:gap-6 lg:grid-cols-3">
@@ -77,20 +77,20 @@ export default async function HomePage() {
       <ShippingSteps shipping={catalog.shipping} products={catalog.products} />
 
       <section className="mx-auto max-w-3xl px-5 py-16">
-        <h2 className="text-3xl font-medium tracking-tight">Häufige Fragen</h2>
+        <h2 className="text-3xl font-medium tracking-tight">Frequently asked questions</h2>
         <div className="mt-6">
           <FaqList items={faqs} />
         </div>
         <Link href="/faq" className="mt-6 inline-block text-sm underline underline-offset-4">
-          Alle Fragen
+          All questions
         </Link>
       </section>
 
       <section className="bg-gradient-to-r from-forest via-[#4C1D95] to-neon/80 bg-[length:200%_100%] text-cream motion-safe:animate-gradient-pan">
         <div className="mx-auto max-w-6xl px-5 py-16">
-          <h2 className="text-3xl font-medium tracking-tight">Neuigkeiten zum Sortiment</h2>
+          <h2 className="text-3xl font-medium tracking-tight">New products and news</h2>
           <p className="mt-3 max-w-xl text-cream/80">
-            Der Newsletter ist freiwillig. Ohne gesetztes Häkchen passiert nichts, und ohne E-Mail-Anbieter verschicken wir keine Bestätigung.
+            The newsletter is optional. We only email you if you check the box, and you can unsubscribe at any time.
           </p>
           <NewsletterForm />
         </div>

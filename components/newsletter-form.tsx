@@ -29,16 +29,16 @@ export function NewsletterForm() {
         const data = (await response.json()) as { error?: string; message?: string };
         setPending(false);
         if (!response.ok) {
-          setError(data.error || "Das hat nicht geklappt.");
+          setError(data.error || "That didn't work.");
           return;
         }
-        setMessage(data.message || "Gespeichert.");
+        setMessage(data.message || "Saved.");
         setEmail("");
         setConsent(false);
       }}
     >
       <label className="block text-sm" htmlFor="newsletter-email">
-        E-Mail
+        Email
         <input
           id="newsletter-email"
           type="email"
@@ -59,8 +59,8 @@ export function NewsletterForm() {
         />
         <span>
           {NEWSLETTER_CONSENT}{" "}
-          <Link href="/datenschutz" className="underline underline-offset-4">
-            Datenschutzerklärung
+          <Link href="/privacy" className="underline underline-offset-4">
+            Privacy Policy
           </Link>
         </span>
       </label>
@@ -71,7 +71,7 @@ export function NewsletterForm() {
         </label>
       </div>
       <button className={`${btnLight} mt-5`} type="submit" disabled={pending}>
-        {pending ? "Wird gespeichert …" : "Newsletter anmelden"}
+        {pending ? "Saving…" : "Sign up for the newsletter"}
       </button>
       {error ? <p className="mt-3 text-sm text-[#f1d2c4]">{error}</p> : null}
       {message ? <p className="mt-3 text-sm text-cream">{message}</p> : null}

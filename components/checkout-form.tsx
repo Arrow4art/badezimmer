@@ -7,8 +7,9 @@ import { StripePayment } from "@/components/stripe-payment";
 import { useCart } from "@/components/cart-context";
 import { PriceBreakdown } from "@/components/price-summary";
 import { btnPrimary, fieldClass } from "@/components/ui";
-import { formatEUR, summarize } from "@/lib/money";
+import { formatPrice, summarize } from "@/lib/money";
 import type { Catalog } from "@/lib/types";
+import { US_STATES } from "@/lib/us-states";
 
 const empty = {
   firstName: "",
@@ -18,6 +19,7 @@ const empty = {
   street: "",
   zip: "",
   city: "",
+  state: "",
   deliveryNote: "",
 };
 
@@ -56,24 +58,24 @@ export function CheckoutForm({ catalog, publishableKey }: { catalog: Catalog; pu
 
   const overview = (
     <>
-      <h2 className="text-lg font-medium">Ihre Auswahl</h2>
+      <h2 className="text-lg font-medium">Your order</h2>
       <ul className="mt-4 space-y-2 text-sm">
         {lines.map((line) => (
           <li key={line.product.slug} className="flex justify-between gap-4">
             <span>
               {line.qty} × {line.product.name}
             </span>
-            <span>{formatEUR(line.product.priceCents * line.qty)}</span>
+            <span>{formatPrice(line.product.priceCents * line.qty)}</span>
           </li>
         ))}
       </ul>
       <div className="mt-4">
-        <PriceBreakdown summary={summary} shippingLabel={catalog.shipping.label} vatRate={catalog.vatRate} />
+        <PriceBreakdown summary={summary} shippingLabel={catalog.shipping.label} vatRate={catalog.vatRate} currency="USD" />
       </div>
       <p className="mt-4 text-sm text-muted">
         {catalog.shipping.deliveryEstimateConfirmed
-          ? `Lieferzeit: ${catalog.shipping.deliveryEstimateText}`
-          : "Lieferzeit: noch nicht vom Lieferanten bestätigt."}
+          ? `Delivery: ${catalog.shipping.deliveryEstimateText}`
+          : "We email you tracking details as soon as your order ships."}
       </p>
     </>
   );
@@ -84,30 +86,30 @@ export function CheckoutForm({ catalog, publishableKey }: { catalog: Catalog; pu
       <div className="mx-auto grid max-w-6xl gap-10 px-5 py-10 lg:grid-cols-[1.1fr_0.9fr]">
         <div>
           <div className="rounded-3xl bg-paper p-5">
-            <h2 className="mb-4 text-lg font-medium">Zahlung</h2>
+            <h2 className="mb-4 text-lg font-medium">Payment</h2>
             <StripePayment
               stripe={payment.stripe}
               clientSecret={payment.clientSecret}
               orderId={payment.id}
               billingAddress={{
                 name: `${customer.firstName} ${customer.lastName}`.trim(),
-                address: { country: "DE", line1: customer.street, postal_code: customer.zip, city: customer.city },
+                address: { country: "US", line1: customer.street, postal_code: customer.zip, city: customer.city, state: customer.state },
               }}
               totalCents={summary.totalGrossCents}
             />
           </div>
           <Link
-            href={`/kasse/abbruch?order=${encodeURIComponent(payment.id)}`}
+            href={`/checkout/cancel?order=${encodeURIComponent(payment.id)}`}
             className="mt-4 inline-block text-sm underline underline-offset-4"
           >
-            Zahlung abbrechen und Angaben ändern
+            Cancel payment and edit details
           </Link>
         </div>
         <aside className="h-fit rounded-3xl bg-paper p-5">
           {overview}
           <p className="mt-3 text-sm leading-relaxed">
-            Die Zahlung gilt erst, wenn Stripe sie als bezahlt bestätigt. Kartendaten gehen direkt an Stripe, nicht an
-            diesen Shop.
+            Your order is placed once Stripe confirms payment. Card details go directly to Stripe, not to this
+            shop.
           </p>
         </aside>
       </div>
@@ -117,9 +119,9 @@ export function CheckoutForm({ catalog, publishableKey }: { catalog: Catalog; pu
   if (lines.length === 0) {
     return (
       <div className="mx-auto max-w-3xl px-5 py-16">
-        <p>Ihr Warenkorb ist leer.</p>
+        <p>Your cart is empty.</p>
         <Link href="/shop" className="mt-4 inline-block underline underline-offset-4">
-          Zum Shop
+          Go to shop
         </Link>
       </div>
     );
@@ -137,7 +139,7 @@ export function CheckoutForm({ catalog, publishableKey }: { catalog: Catalog; pu
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({
             items: lines.map((line) => ({ slug: line.product.slug, qty: line.qty })),
-            customer: { ...customer, country: "Deutschland" },
+            customer: { ...customer, country: "United States" },
             acceptTerms,
             companyWebsite,
           }),
@@ -151,7 +153,7 @@ export function CheckoutForm({ catalog, publishableKey }: { catalog: Catalog; pu
         };
         if (!response.ok || !data.id) {
           setPending(false);
-          setError(data.error || "Die Kasse konnte nicht abgeschlossen werden.");
+          setError(data.error || "We couldn't complete checkout.");
           return;
         }
         if (data.mode === "stripe" && data.clientSecret && publishableKey) {
@@ -163,26 +165,26 @@ export function CheckoutForm({ catalog, publishableKey }: { catalog: Catalog; pu
           window.location.href = data.url;
           return;
         }
-        window.location.href = `/bestellung/${data.id}`;
+        window.location.href = `/order/${data.id}`;
       }}
     >
       <div className="space-y-4">
         <div className="grid gap-4 sm:grid-cols-2">
           <label className="text-sm">
-            Vorname
+            First name
             <input className={fieldClass} required value={customer.firstName} onChange={(event) => update("firstName", event.target.value)} autoComplete="given-name" />
           </label>
           <label className="text-sm">
-            Nachname
+            Last name
             <input className={fieldClass} required value={customer.lastName} onChange={(event) => update("lastName", event.target.value)} autoComplete="family-name" />
           </label>
         </div>
         <label className="block text-sm">
-          E-Mail
+          Email
           <input className={fieldClass} type="email" required value={customer.email} onChange={(event) => update("email", event.target.value)} autoComplete="email" />
         </label>
         <label className="block text-sm">
-          Telefon, optional
+          Phone (optional)
           <input
             className={fieldClass}
             value={customer.phone}
@@ -191,32 +193,43 @@ export function CheckoutForm({ catalog, publishableKey }: { catalog: Catalog; pu
           />
         </label>
         <label className="block text-sm">
-          Straße und Hausnummer
+          Street address
           <input className={fieldClass} required value={customer.street} onChange={(event) => update("street", event.target.value)} autoComplete="street-address" />
         </label>
-        <div className="grid gap-4 sm:grid-cols-[8rem_1fr]">
+        <div className="grid gap-4 sm:grid-cols-[1fr_9rem_8rem]">
           <label className="text-sm">
-            PLZ
-            <input className={fieldClass} required inputMode="numeric" pattern="[0-9]{5}" value={customer.zip} onChange={(event) => update("zip", event.target.value)} autoComplete="postal-code" />
+            City
+            <input className={fieldClass} required value={customer.city} onChange={(event) => update("city", event.target.value)} autoComplete="address-level2" />
           </label>
           <label className="text-sm">
-            Ort
-            <input className={fieldClass} required value={customer.city} onChange={(event) => update("city", event.target.value)} autoComplete="address-level2" />
+            State
+            <select className={fieldClass} required value={customer.state} onChange={(event) => update("state", event.target.value)} autoComplete="address-level1">
+              <option value="">Select</option>
+              {US_STATES.map(([code, name]) => (
+                <option key={code} value={code}>
+                  {name}
+                </option>
+              ))}
+            </select>
+          </label>
+          <label className="text-sm">
+            ZIP code
+            <input className={fieldClass} required inputMode="numeric" pattern="[0-9]{5}(-[0-9]{4})?" value={customer.zip} onChange={(event) => update("zip", event.target.value)} autoComplete="postal-code" />
           </label>
         </div>
         <label className="block text-sm">
-          Land
-          <input className={fieldClass} value="Deutschland" readOnly />
+          Country
+          <input className={fieldClass} value="United States" readOnly />
         </label>
         <label className="block text-sm">
-          Hinweise zur Anlieferung
-          <textarea className={fieldClass} rows={3} value={customer.deliveryNote} onChange={(event) => update("deliveryNote", event.target.value)} placeholder="Klingel, Paketstation, Hinweis" />
+          Delivery notes
+          <textarea className={fieldClass} rows={3} value={customer.deliveryNote} onChange={(event) => update("deliveryNote", event.target.value)} placeholder="Gate code, where to leave the package" />
         </label>
         <label className="flex items-start gap-3 text-sm leading-relaxed">
           <input type="checkbox" checked={acceptTerms} onChange={(event) => setAcceptTerms(event.target.checked)} className="mt-1" required />
           <span>
-            Ich habe die <Link href="/agb" className="underline underline-offset-4">AGB</Link> und die{" "}
-            <Link href="/widerruf" className="underline underline-offset-4">Widerrufsbelehrung</Link> gelesen.
+            I have read and accept the <Link href="/terms" className="underline underline-offset-4">Terms of Service</Link> and the{" "}
+            <Link href="/returns" className="underline underline-offset-4">Return Policy</Link>.
           </span>
         </label>
         <div className="absolute left-[-9999px]" aria-hidden="true">
@@ -231,13 +244,13 @@ export function CheckoutForm({ catalog, publishableKey }: { catalog: Catalog; pu
         <p className="mt-3 text-sm leading-relaxed">
           {catalog.checkoutMode === "stripe"
             ? publishableKey
-              ? "Danach erscheint hier das Zahlungsformular von Stripe, mit Karte oder Klarna. Zahlungsdaten gehen direkt an Stripe, nicht an diesen Shop. Nachnahme gibt es nicht."
-              : "Weiter geht es zu Stripe. Die Zahlung gilt erst, wenn Stripe sie als bezahlt bestätigt. Kartendaten geben Sie nur dort ein, nicht in diesem Shop. Nachnahme gibt es nicht."
-            : "Kartenzahlung über Stripe ist noch nicht freigeschaltet. Nachnahme gibt es nicht. Es wird nichts abgebucht."}
+              ? "Next, Stripe's secure payment form appears on this page. Card details go directly to Stripe, not to this shop."
+              : "Next, you continue to Stripe. Your order is placed once Stripe confirms payment. You enter card details only there, not in this shop."
+            : "Card payment isn't available yet. You will not be charged."}
         </p>
         {error ? <p className="mt-3 text-sm text-oak">{error}</p> : null}
         <button className={`${btnPrimary} mt-5 w-full`} type="submit" disabled={pending || catalog.checkoutMode !== "stripe"}>
-          {pending ? "Bitte warten …" : "Weiter zur sicheren Zahlung"}
+          {pending ? "Please wait…" : "Continue to secure payment"}
         </button>
       </aside>
     </form>

@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { useEffect, useId, useMemo, useRef, useState } from "react";
-import { formatEUR } from "@/lib/money";
+import { formatPrice } from "@/lib/money";
 
 export type SearchItem = {
   slug: string;
@@ -35,11 +35,11 @@ export function SearchField({
   const [active, setActive] = useState(-1);
 
   const matches = useMemo(() => {
-    const needle = value.trim().toLocaleLowerCase("de");
+    const needle = value.trim().toLowerCase();
     if (needle.length < 2) return [];
     return items
       .filter((item) =>
-        `${item.name} ${item.sku} ${item.kind}`.toLocaleLowerCase("de").includes(needle),
+        `${item.name} ${item.sku} ${item.kind}`.toLowerCase().includes(needle),
       )
       .slice(0, 6);
   }, [items, value]);
@@ -89,7 +89,7 @@ export function SearchField({
             setOpen(false);
           } else if (event.key === "Enter" && active >= 0) {
             event.preventDefault();
-            window.location.href = `/produkt/${matches[active].slug}`;
+            window.location.href = `/product/${matches[active].slug}`;
           }
         }}
       />
@@ -100,18 +100,18 @@ export function SearchField({
           className="absolute left-0 right-0 top-[calc(100%+0.4rem)] z-50 overflow-hidden rounded-2xl border border-ink/10 bg-panel shadow-card"
         >
           {matches.length === 0 ? (
-            <li className="px-4 py-3 text-sm text-muted">Keine passenden Produkte.</li>
+            <li className="px-4 py-3 text-sm text-muted">No matching products.</li>
           ) : (
             matches.map((item, index) => (
               <li key={item.slug} role="option" aria-selected={index === active}>
                 <Link
-                  href={`/produkt/${item.slug}`}
+                  href={`/product/${item.slug}`}
                   className={`block px-4 py-3 ${index === active ? "bg-paper" : "hover:bg-paper"}`}
                   onMouseEnter={() => setActive(index)}
                 >
                   <span className="block text-sm font-medium">{item.name}</span>
                   <span className="mt-0.5 block text-xs text-muted">
-                    {item.kind} · {item.sku} · {formatEUR(item.priceCents)}
+                    {item.kind} · {item.sku} · {formatPrice(item.priceCents)}
                   </span>
                 </Link>
               </li>
@@ -120,7 +120,7 @@ export function SearchField({
           {matches.length > 0 ? (
             <li className="border-t border-ink/10">
               <Link href={`/shop?q=${encodeURIComponent(value.trim())}`} className="block px-4 py-3 text-sm text-moss">
-                Alle Treffer im Shop anzeigen
+                See all results in the shop
               </Link>
             </li>
           ) : null}

@@ -1,23 +1,23 @@
 import type { PublicProduct } from "@/lib/types";
 
 export const NEWSLETTER_CONSENT =
-  "Ich willige ein, dass Iwoody mich per E-Mail über das Sortiment und Angebote informiert. Die Einwilligung kann ich jederzeit mit Wirkung für die Zukunft widerrufen. Details stehen in der Datenschutzerklärung.";
+  "I agree to receive emails from Pilands Cards about products and offers. I can unsubscribe at any time. Details are in the Privacy Policy.";
 
 export const nav = [
   { href: "/shop", label: "Shop" },
-  { href: "/ueber-uns", label: "Über uns" },
-  { href: "/versand", label: "Versand" },
+  { href: "/about", label: "About" },
+  { href: "/shipping", label: "Shipping" },
   { href: "/faq", label: "FAQ" },
-  { href: "/kontakt", label: "Kontakt" },
+  { href: "/contact", label: "Contact" },
 ];
 
 export const legalNav = [
-  { href: "/impressum", label: "Impressum" },
-  { href: "/datenschutz", label: "Datenschutz" },
-  { href: "/agb", label: "AGB" },
-  { href: "/widerruf", label: "Widerruf" },
-  { href: "/versand", label: "Versand" },
-  { href: "/zahlung", label: "Zahlung" },
+  { href: "/legal", label: "Business Info" },
+  { href: "/privacy", label: "Privacy Policy" },
+  { href: "/terms", label: "Terms of Service" },
+  { href: "/returns", label: "Return Policy" },
+  { href: "/shipping", label: "Shipping" },
+  { href: "/payment", label: "Payment" },
 ];
 
 export function productDescription(product: Pick<PublicProduct, "shortDescription" | "description">): string {
@@ -26,16 +26,16 @@ export function productDescription(product: Pick<PublicProduct, "shortDescriptio
 
 export const benefits = [
   {
-    title: "Versiegelt",
-    text: "Displays und Boxen werden originalverpackt angeboten.",
+    title: "Factory sealed",
+    text: "Displays and boxes come in their original sealed packaging.",
   },
   {
-    title: "Klare Preise",
-    text: "Jeder Preis enthält die Mehrwertsteuer. Der Versand steht vor dem Abschluss.",
+    title: "Clear prices",
+    text: "Prices in USD with free US shipping. The total at checkout is what you pay.",
   },
   {
-    title: "Mehrere Spiele",
-    text: "Pokémon, Magic: The Gathering, One Piece, Yu-Gi-Oh! und Lorcana.",
+    title: "Top games",
+    text: "Pokémon, Magic: The Gathering, One Piece, Yu-Gi-Oh! and Lorcana.",
   },
 ];
 
@@ -46,39 +46,43 @@ export function buildFaqs(
 ) {
   return [
     {
-      q: "Welche Spiele sind im Sortiment?",
-      a: "Pokémon, Magic: The Gathering, One Piece, Yu-Gi-Oh! und Disney Lorcana. Sprache und Inhalt stehen auf der jeweiligen Produktseite.",
+      q: "Which games do you carry?",
+      a: "Pokémon, Magic: The Gathering, One Piece, Yu-Gi-Oh! and Disney Lorcana. Each product page states the contents and the edition language.",
     },
     {
-      q: "Sind die Produkte versiegelt?",
-      a: "Ja. Displays, Boxen und Decks werden originalverpackt angeboten. Der genaue Inhalt steht in der Produktbeschreibung.",
+      q: "Are the cards in English?",
+      a: "Not always. Many products are German-language editions, and a few are Japanese. The edition is stated in the product name, so please check before you order."
     },
     {
-      q: "Wie hoch sind die Versandkosten?",
-      a: "Der Versand innerhalb Deutschlands ist kostenlos. Die Summe im Warenkorb und an der Kasse ist der Endpreis.",
+      q: "Are products sealed?",
+      a: "Yes. Displays, boxes and decks come in their original sealed packaging. The product description lists the exact contents.",
     },
     {
-      q: "Wie lange dauert die Lieferung?",
-      a: "Die Lieferung innerhalb Deutschlands dauert 0–3 Werktage.",
+      q: "How much is shipping?",
+      a: "Shipping within the United States is free. We cover any import duties, and no sales tax is added at checkout. The total in your cart and at checkout is your final price.",
     },
     {
-      q: "Welche Zahlungsmöglichkeiten gibt es?",
+      q: "How long does delivery take?",
+      a: "See the Shipping page for the current delivery time. We email you tracking details as soon as your order ships.",
+    },
+    {
+      q: "How can I pay?",
       a:
         checkoutMode === "stripe"
-          ? "Sie zahlen im Formular von Stripe, per Karte oder Klarna. Kartendaten werden in diesem Shop nicht eingegeben. Nachnahme gibt es nicht."
-          : "Kartenzahlung über Stripe ist derzeit nicht freigeschaltet. Nachnahme gibt es nicht. Es wird nichts abgebucht.",
+          ? "You pay by card in Stripe's secure form. You don't enter card details in this shop."
+          : "Card payment isn't available yet. You won't be charged.",
     },
     {
-      q: "Kann ich widerrufen?",
-      a: "Ja. Sie können innerhalb von 14 Tagen nach Erhalt ohne Angabe von Gründen widerrufen. Die Rücksendung ist kostenlos. Sie erhalten den Kaufpreis zurück, ein Umtausch wird nicht angeboten. Ablauf und Musterformular stehen auf der Seite Rückgabe und Widerruf.",
+      q: "Can I return an order?",
+      a: "Yes. You can return an order within 14 days of delivery, no reason needed. Return shipping is free and you get the purchase price back. We don't offer exchanges. The steps are on the Return Policy page.",
     },
     {
-      q: "Gibt es Bewertungen, Garantien oder Prüfzeichen?",
-      a: "Es gilt die gesetzliche Gewährleistung. Eine zusätzliche Garantie bieten wir derzeit nicht an. Kundenbewertungen und Prüfzeichen zeigen wir nur, wenn sie belegt sind.",
+      q: "Do you offer a warranty?",
+      a: "We don't offer a separate warranty. Your rights under the law still apply. We only show customer reviews and trust seals when they're verified.",
     },
     {
-      q: "Was tue ich bei einem Transportschaden?",
-      a: "Vermerken Sie sichtbare Schäden bei der Annahme und fotografieren Sie Verpackung und Inhalt. Melden Sie den Schaden unverzüglich an support@iwoody.de. Der Ablauf steht auf der Seite Versand.",
+      q: "What if my order arrives damaged?",
+      a: "Take photos of the packaging and the contents, and email support@iwoody.de as soon as you can. The steps are on the Shipping page.",
     },
   ];
 }

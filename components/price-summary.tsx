@@ -1,10 +1,10 @@
-import { formatEUR, type PriceSummary } from "@/lib/money";
+import { formatMoney, type PriceSummary } from "@/lib/money";
 
-function Row({ label, value, strong = false }: { label: string; value: number; strong?: boolean }) {
+function Row({ label, value, currency, strong = false }: { label: string; value: number; currency?: string; strong?: boolean }) {
   return (
     <div className={`flex justify-between gap-6 ${strong ? "border-t border-ink/10 pt-3 text-base font-medium" : ""}`}>
       <dt>{label}</dt>
-      <dd>{formatEUR(value)}</dd>
+      <dd>{formatMoney(value, currency)}</dd>
     </div>
   );
 }
@@ -13,26 +13,25 @@ export function PriceBreakdown({
   summary,
   shippingLabel,
   vatRate,
+  currency,
 }: {
   summary: PriceSummary;
   shippingLabel: string;
   vatRate: number;
+  /** Leave out only for orders from before the US switch, which are in EUR. */
+  currency?: string;
 }) {
   const percent = Math.round(vatRate * 100);
   return (
     <div>
       <dl className="space-y-2 text-sm">
-        <Row label="Warenwert netto" value={summary.goodsNetCents} />
-        <Row label={`MwSt. ${percent} % auf Waren`} value={summary.goodsVatCents} />
-        <Row label="Warenwert brutto" value={summary.goodsGrossCents} />
-        <Row label={`Versand brutto · ${shippingLabel}`} value={summary.shippingGrossCents} />
-        <Row label={`MwSt. ${percent} % auf Versand`} value={summary.shippingVatCents} />
-        <Row label="Netto gesamt" value={summary.totalNetCents} />
-        <Row label="MwSt. gesamt" value={summary.totalVatCents} />
-        <Row label="Gesamtbetrag" value={summary.totalGrossCents} strong />
+        <Row label="Subtotal" value={summary.goodsGrossCents} currency={currency} />
+        <Row label={`Shipping · ${shippingLabel}`} value={summary.shippingGrossCents} currency={currency} />
+        {percent > 0 ? <Row label={`Included VAT (${percent}%)`} value={summary.totalVatCents} currency={currency} /> : null}
+        <Row label="Total" value={summary.totalGrossCents} currency={currency} strong />
       </dl>
       <p className="mt-3 text-sm text-muted">
-        Der Gesamtbetrag enthält die Mehrwertsteuer und den konfigurierten Versand. Weitere Gebühren kommen nicht hinzu.
+        The total is the amount you pay. No other fees are added.
       </p>
     </div>
   );

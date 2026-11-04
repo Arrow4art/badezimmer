@@ -21,7 +21,7 @@ export function PurchaseConversion({ orderId, valueCents }: { orderId: string; v
     window.gtag("event", "conversion", {
       send_to: `${googleAdsId}/${purchaseLabel}`,
       value: valueCents / 100,
-      currency: "EUR",
+      currency: "USD",
       transaction_id: orderId,
     });
   }, [orderId, valueCents]);

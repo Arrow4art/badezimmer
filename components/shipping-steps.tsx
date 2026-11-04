@@ -3,23 +3,23 @@ import { ProductPhoto } from "@/components/product-photo";
 import type { PublicProduct, ShippingConfig } from "@/lib/types";
 
 // The three steps from payment to the door, next to a parcel with real products rising out of it.
-// Every line comes from the shipping settings or the Widerruf page, so it stays true when those change.
+// Every line comes from the shipping settings or the returns page, so it stays true when those change.
 export function ShippingSteps({ shipping, products }: { shipping: ShippingConfig; products: PublicProduct[] }) {
   const free = shipping.costCents === 0;
   const steps = [
     {
-      title: "Bestellen und bezahlen",
-      text: "Sobald Ihre Zahlung bestätigt ist, beginnen wir mit Ihrer Bestellung.",
+      title: "Order and pay",
+      text: "As soon as your payment is confirmed, we start on your order.",
     },
     {
-      title: "Verpackt und versendet",
-      text: "Originalverpackt und versiegelt, sicher als Paket. Die Sendungsreferenz kommt per E-Mail.",
+      title: "Packed and shipped",
+      text: "Sealed, in the original packaging, and packed safely as a parcel. Your shipment reference comes by email.",
     },
     {
-      title: "Bei Ihnen zu Hause",
+      title: "At your door",
       text: shipping.deliveryEstimateConfirmed
-        ? `In ${shipping.deliveryEstimateText}, direkt an Ihre Tür.`
-        : "Als Paket direkt an Ihre Tür in Deutschland.",
+        ? `In ${shipping.deliveryEstimateText}, right to your door.`
+        : "As a parcel, right to your door in the United States.",
     },
   ];
   const fan = products.filter((product) => product.images[0]).slice(0, 3);
@@ -32,10 +32,10 @@ export function ShippingSteps({ shipping, products }: { shipping: ShippingConfig
       />
       <div className="relative mx-auto grid max-w-6xl items-center gap-10 px-5 py-16 lg:grid-cols-[1.05fr_0.95fr]">
         <div>
-          <p className="text-xs font-medium uppercase tracking-[0.22em] text-moss">Versand und Rückgabe</p>
+          <p className="text-xs font-medium uppercase tracking-[0.22em] text-moss">Shipping and returns</p>
           <h2 className="mt-3 text-4xl font-semibold leading-[1.05] tracking-tight sm:text-5xl">
-            {free ? "Kostenloser Versand in " : "Versand in "}
-            <span className="text-holo font-light italic">ganz</span> Deutschland
+            {free ? "Free shipping " : "Shipping "}
+            <span className="text-holo font-light italic">across</span> the United States
           </h2>
 
           <ol className="relative mt-10 space-y-8">
@@ -60,13 +60,13 @@ export function ShippingSteps({ shipping, products }: { shipping: ShippingConfig
               </svg>
             </span>
             <div>
-              <h3 className="text-lg font-semibold">14 Tage kostenlose Rückgabe</h3>
+              <h3 className="text-lg font-semibold">14-day returns with free return shipping</h3>
               <p className="mt-1 leading-relaxed text-muted">
-                Sie können jede Bestellung innerhalb von 14 Tagen nach Erhalt ohne Angabe von Gründen zurückgeben. Die
-                Rücksendung ist kostenlos, das Rücksendeetikett schicken wir Ihnen per E-Mail.
+                You can return any order within 14 days of receiving it, no reason needed. Return shipping is free:
+                we email you a prepaid return label.
               </p>
-              <Link href="/widerruf" className="mt-3 inline-flex items-center gap-2 text-sm font-medium underline-offset-4 hover:underline">
-                Zur Widerrufsbelehrung <span aria-hidden="true">→</span>
+              <Link href="/returns" className="mt-3 inline-flex items-center gap-2 text-sm font-medium underline-offset-4 hover:underline">
+                See the returns policy <span aria-hidden="true">→</span>
               </Link>
             </div>
           </div>
@@ -123,7 +123,7 @@ function Parcel({ products }: { products: PublicProduct[] }) {
         <polygon points="60,110 340,110 372,138 28,138" fill="#2a2160" stroke="url(#parcel-edge)" strokeWidth="2" />
         <rect x="160" y="138" width="80" height="116" fill="#FF2BD6" opacity="0.18" />
         <text x="200" y="205" textAnchor="middle" fontFamily="inherit" fontSize="18" fontWeight="700" letterSpacing="4" fill="#F3F0FF" opacity="0.85">
-          IWOODY
+          PILANDS CARDS
         </text>
       </svg>
     </div>

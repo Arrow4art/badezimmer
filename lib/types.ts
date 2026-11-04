@@ -29,6 +29,10 @@ export type ShippingConfig = {
   dispatchText: string;
   deliveryEstimateText: string;
   deliveryEstimateConfirmed: boolean;
+  /** For the Merchant Center feed. Used only when deliveryEstimateConfirmed is true. */
+  maxHandlingDays?: number;
+  minTransitDays?: number;
+  maxTransitDays?: number;
   trackingAvailable: boolean;
   trackingText: string;
   bulkyGoodsText: string;
@@ -47,6 +51,8 @@ export type BusinessInfo = {
   street: string;
   zip: string;
   city: string;
+  /** Two-letter US state. */
+  state?: string;
   country: string;
   email: string;
   phone: string;
@@ -103,7 +109,9 @@ export type Customer = {
   street: string;
   zip: string;
   city: string;
-  country: "Deutschland";
+  /** Two-letter US state. Missing on orders from before the US switch. */
+  state?: string;
+  country: string;
   deliveryNote: string;
 };
 
@@ -116,6 +124,8 @@ export type Order = {
   shippingGrossCents: number;
   shippingLabel: string;
   vatRate: number;
+  /** ISO code. Missing on orders from before the US switch, which are in EUR. */
+  currency?: string;
   goodsGrossCents: number;
   totalGrossCents: number;
   paymentProvider: "none" | "stripe" | "cod";

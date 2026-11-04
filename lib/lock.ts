@@ -11,7 +11,7 @@ async function withRedisLock<T>(redis: Redis, task: () => Promise<T>): Promise<T
   const token = `lock-${randomBytes(8).toString("hex")}`;
   const deadline = Date.now() + LOCK_MS;
   while (!(await redis.set(LOCK_KEY, token, { nx: true, px: LOCK_MS }))) {
-    if (Date.now() > deadline) throw new Error("Der Shop ist gerade ausgelastet. Bitte versuchen Sie es erneut.");
+    if (Date.now() > deadline) throw new Error("The shop is busy right now. Please try again.");
     await new Promise((resolve) => setTimeout(resolve, 100));
   }
   try {

@@ -16,19 +16,19 @@ const outfit = Outfit({ subsets: ["latin"], display: "swap" });
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl()),
   title: {
-    default: "Iwoody — Displays, Boxen und Decks",
-    template: "%s · Iwoody",
+    default: "Pilands Cards — Sealed Booster Displays, Boxes & Decks",
+    template: "%s · Pilands Cards",
   },
   description:
-    "Versiegelte Displays, Top-Trainer-Boxen und Decks. Preise inklusive 19 % MwSt., kostenloser Versand innerhalb Deutschlands, Zahlung per Karte oder Klarna über Stripe.",
+    "Sealed booster displays, Elite Trainer Boxes and decks. Prices in USD, free US shipping, free 14-day returns and secure card payment through Stripe.",
   robots:
     process.env.ALLOW_INDEXING === "false"
       ? { index: false, follow: false }
       : { index: true, follow: true },
   openGraph: {
-    title: "Iwoody",
-    description: "Versiegelte Displays, Top-Trainer-Boxen und Decks.",
-    locale: "de_DE",
+    title: "Pilands Cards",
+    description: "Sealed booster displays, Elite Trainer Boxes and decks.",
+    locale: "en_US",
     type: "website",
     images: ["/images/hero-sortiment.jpg"],
   },
@@ -39,7 +39,7 @@ export const viewport: Viewport = { themeColor: "#0A0716" };
 export default async function RootLayout({ children }: { children: React.ReactNode }) {
   const catalog = await getCatalog();
   return (
-    <html lang="de">
+    <html lang="en-US">
       <body className={`${outfit.className} bg-night text-ink antialiased`}>
         <Backdrop />
         <GoogleAdsTag />
@@ -47,7 +47,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
           href="#inhalt"
           className="sr-only focus:not-sr-only focus:absolute focus:left-4 focus:top-4 focus:z-50 focus:rounded-full focus:bg-forest focus:px-4 focus:py-2 focus:text-cream"
         >
-          Zum Inhalt
+          Skip to content
         </a>
         <CartProvider>
           <Header
@@ -65,7 +65,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
               __html: JSON.stringify({
                 "@context": "https://schema.org",
                 "@type": "OnlineStore",
-                name: "Iwoody",
+                name: "Pilands Cards",
                 url: siteUrl(),
                 email: catalog.business.email,
                 ...(catalog.business.phone ? { telephone: catalog.business.phone } : {}),
@@ -74,17 +74,18 @@ export default async function RootLayout({ children }: { children: React.ReactNo
                   streetAddress: catalog.business.street,
                   postalCode: catalog.business.zip,
                   addressLocality: catalog.business.city,
-                  addressCountry: "DE",
+                  addressRegion: catalog.business.state,
+                  addressCountry: "US",
                 },
                 hasMerchantReturnPolicy: {
                   "@type": "MerchantReturnPolicy",
-                  applicableCountry: "DE",
+                  applicableCountry: "US",
                   returnPolicyCategory: "https://schema.org/MerchantReturnFiniteReturnWindow",
                   merchantReturnDays: 14,
                   returnMethod: "https://schema.org/ReturnByMail",
-                  returnFees: "https://schema.org/ReturnFeesCustomerResponsibility",
+                  returnFees: "https://schema.org/FreeReturn",
                   refundType: "https://schema.org/FullRefund",
-                  merchantReturnLink: `${siteUrl()}/widerruf`,
+                  merchantReturnLink: `${siteUrl()}/returns`,
                 },
               }),
             }}
@@ -94,7 +95,6 @@ export default async function RootLayout({ children }: { children: React.ReactNo
             business={catalog.business}
             checkoutMode={catalog.checkoutMode}
             shipping={catalog.shipping}
-            vatRate={catalog.vatRate}
           />
           <ConsentBanner />
         </CartProvider>

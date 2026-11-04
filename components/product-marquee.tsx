@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { ProductPhoto } from "@/components/product-photo";
-import { formatEUR } from "@/lib/money";
+import { formatPrice } from "@/lib/money";
 import { productBrand } from "@/lib/product-ids";
 import type { PublicProduct } from "@/lib/types";
 
@@ -30,13 +30,13 @@ export function ProductMarquee({ products }: { products: PublicProduct[] }) {
   if (items.length < 4) return null;
 
   return (
-    <div className="marquee relative" role="region" aria-label="Produkte aus dem Sortiment">
+    <div className="marquee relative" role="region" aria-label="Products from our catalog">
       <ul className="marquee-track">
         {[0, 1].map((copy) =>
           items.map((product) => (
             <li key={`${copy}-${product.slug}`} className="pr-3 sm:pr-4" aria-hidden={copy === 1 || undefined}>
               <Link
-                href={`/produkt/${product.slug}`}
+                href={`/product/${product.slug}`}
                 tabIndex={copy === 1 ? -1 : undefined}
                 className="group flex w-56 items-center gap-3 rounded-2xl border border-ink/10 bg-panel/70 p-2 pr-4 backdrop-blur-sm transition hover:border-moss/60 hover:shadow-[0_0_24px_-8px_rgba(34,211,238,0.8)] sm:w-64"
               >
@@ -45,7 +45,7 @@ export function ProductMarquee({ products }: { products: PublicProduct[] }) {
                 </span>
                 <span className="min-w-0">
                   <span className="line-clamp-2 text-xs font-medium leading-snug text-cream sm:text-sm">{product.name}</span>
-                  <span className="mt-1 block text-sm font-semibold text-gold">{formatEUR(product.priceCents)}</span>
+                  <span className="mt-1 block text-sm font-semibold text-gold">{formatPrice(product.priceCents)}</span>
                 </span>
               </Link>
             </li>

@@ -12,7 +12,7 @@ export async function sendMail(mail: Mail): Promise<{ sent: boolean; note: strin
   if (!key || !from) {
     return {
       sent: false,
-      note: "E-Mail nicht versendet: Es ist kein E-Mail-Anbieter konfiguriert.",
+      note: "Email not sent: no email provider is configured.",
     };
   }
 
@@ -34,9 +34,9 @@ export async function sendMail(mail: Mail): Promise<{ sent: boolean; note: strin
   if (!response.ok) {
     return {
       sent: false,
-      note: "E-Mail nicht versendet: Der E-Mail-Anbieter hat die Nachricht abgelehnt.",
+      note: "Email not sent: the email provider rejected the message.",
     };
   }
 
-  return { sent: true, note: "E-Mail wurde über den konfigurierten Anbieter versendet." };
+  return { sent: true, note: "Email sent through the configured provider." };
 }

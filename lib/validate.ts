@@ -1,5 +1,6 @@
 import type { CheckoutInput } from "@/lib/catalog";
 import type { Customer } from "@/lib/types";
+import { isUsState } from "@/lib/us-states";
 
 function text(value: unknown, max: number): string {
   return typeof value === "string" ? value.trim().slice(0, max) : "";
@@ -10,9 +11,9 @@ function emailOk(value: string): boolean {
 }
 
 export function parseCheckout(body: unknown): { ok: true; data: CheckoutInput } | { ok: false; error: string } {
-  if (!body || typeof body !== "object") return { ok: false, error: "Die Eingaben sind unvollständig." };
+  if (!body || typeof body !== "object") return { ok: false, error: "Some information is missing." };
   const record = body as Record<string, unknown>;
-  if (text(record.companyWebsite, 200)) return { ok: false, error: "Die Eingaben konnten nicht verarbeitet werden." };
+  if (text(record.companyWebsite, 200)) return { ok: false, error: "We couldn't process your entry." };
 
   const rawItems = Array.isArray(record.items) ? record.items : [];
   const items = rawItems.slice(0, 6).map((item) => {
@@ -30,45 +31,47 @@ export function parseCheckout(body: unknown): { ok: true; data: CheckoutInput } 
     email: text(customerRaw.email, 160).toLowerCase(),
     phone: text(customerRaw.phone, 40),
     street: text(customerRaw.street, 120),
-    zip: text(customerRaw.zip, 5),
+    zip: text(customerRaw.zip, 10),
     city: text(customerRaw.city, 80),
-    country: "Deutschland",
+    state: text(customerRaw.state, 2).toUpperCase(),
+    country: "United States",
     deliveryNote: text(customerRaw.deliveryNote, 400),
   };
 
   if (customer.firstName.length < 2 || customer.lastName.length < 2) {
-    return { ok: false, error: "Bitte geben Sie Vor- und Nachnamen an." };
+    return { ok: false, error: "Please enter your first and last name." };
   }
-  if (!emailOk(customer.email)) return { ok: false, error: "Bitte geben Sie eine gültige E-Mail-Adresse an." };
-  if (customer.street.length < 3) return { ok: false, error: "Bitte geben Sie Straße und Hausnummer an." };
-  if (!/^\d{5}$/.test(customer.zip)) return { ok: false, error: "Bitte geben Sie eine deutsche Postleitzahl an." };
-  if (customer.city.length < 2) return { ok: false, error: "Bitte geben Sie den Ort an." };
-  if (record.acceptTerms !== true) return { ok: false, error: "Bitte bestätigen Sie AGB und Widerrufsbelehrung." };
-  if (items.length === 0) return { ok: false, error: "Der Warenkorb ist leer." };
+  if (!emailOk(customer.email)) return { ok: false, error: "Please enter a valid email address." };
+  if (customer.street.length < 3) return { ok: false, error: "Please enter your street address." };
+  if (!/^\d{5}(-\d{4})?$/.test(customer.zip)) return { ok: false, error: "Please enter a valid US ZIP code." };
+  if (customer.city.length < 2) return { ok: false, error: "Please enter your city." };
+  if (!isUsState(customer.state)) return { ok: false, error: "Please choose your state." };
+  if (record.acceptTerms !== true) return { ok: false, error: "Please accept the Terms and Return Policy." };
+  if (items.length === 0) return { ok: false, error: "Your cart is empty." };
 
   return { ok: true, data: { items, customer } };
 }
 
 export function parseContact(body: unknown): { ok: true; data: { name: string; email: string; message: string } } | { ok: false; error: string } {
-  if (!body || typeof body !== "object") return { ok: false, error: "Die Eingaben sind unvollständig." };
+  if (!body || typeof body !== "object") return { ok: false, error: "Some information is missing." };
   const record = body as Record<string, unknown>;
-  if (text(record.companyWebsite, 200)) return { ok: false, error: "Die Eingaben konnten nicht verarbeitet werden." };
+  if (text(record.companyWebsite, 200)) return { ok: false, error: "We couldn't process your entry." };
   const name = text(record.name, 80);
   const email = text(record.email, 160).toLowerCase();
   const message = text(record.message, 4000);
-  if (name.length < 2) return { ok: false, error: "Bitte geben Sie Ihren Namen an." };
-  if (!emailOk(email)) return { ok: false, error: "Bitte geben Sie eine gültige E-Mail-Adresse an." };
-  if (message.length < 10) return { ok: false, error: "Bitte schreiben Sie eine kurze Nachricht." };
-  if (record.consent !== true) return { ok: false, error: "Bitte bestätigen Sie den Hinweis zum Datenschutz." };
+  if (name.length < 2) return { ok: false, error: "Please enter your name." };
+  if (!emailOk(email)) return { ok: false, error: "Please enter a valid email address." };
+  if (message.length < 10) return { ok: false, error: "Please write a short message." };
+  if (record.consent !== true) return { ok: false, error: "Please confirm the privacy notice." };
   return { ok: true, data: { name, email, message } };
 }
 
 export function parseNewsletter(body: unknown): { ok: true; email: string } | { ok: false; error: string } {
-  if (!body || typeof body !== "object") return { ok: false, error: "Die Eingaben sind unvollständig." };
+  if (!body || typeof body !== "object") return { ok: false, error: "Some information is missing." };
   const record = body as Record<string, unknown>;
   if (text(record.companyWebsite, 200)) return { ok: true, email: "" };
   const email = text(record.email, 160).toLowerCase();
-  if (!emailOk(email)) return { ok: false, error: "Bitte geben Sie eine gültige E-Mail-Adresse an." };
-  if (record.consent !== true) return { ok: false, error: "Bitte willigen Sie in den Newsletter ein." };
+  if (!emailOk(email)) return { ok: false, error: "Please enter a valid email address." };
+  if (record.consent !== true) return { ok: false, error: "Please agree to receive the newsletter." };
   return { ok: true, email };
 }

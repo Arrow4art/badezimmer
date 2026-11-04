@@ -6,12 +6,12 @@ import { CustomerReviewsOptIn } from "@/components/customer-reviews-opt-in";
 import { PriceBreakdown } from "@/components/price-summary";
 import { PurchaseConversion } from "@/components/purchase-conversion";
 import { getOrder, markPaid } from "@/lib/catalog";
-import { summarize } from "@/lib/money";
+import { formatMoney, summarize } from "@/lib/money";
 import { notifyOrder } from "@/lib/notify";
 import { orderMessage, statusLabel } from "@/lib/order-text";
 import { getStripe } from "@/lib/stripe";
 
-export const metadata: Metadata = { title: "Vorgang", robots: { index: false, follow: false } };
+export const metadata: Metadata = { title: "Order", robots: { index: false, follow: false } };
 
 export default async function OrderPage({
   params,
@@ -34,7 +34,7 @@ export default async function OrderPage({
           order = (await markPaid(order.id, session.id)) ?? order;
         }
       } catch {
-        order = { ...order, note: "Die Zahlung konnte bei Stripe nicht geprüft werden. Nichts wurde als bezahlt angenommen." };
+        order = { ...order, note: "We couldn't check the payment with Stripe, so it isn't marked as paid." };
       }
     }
   }
@@ -48,12 +48,12 @@ export default async function OrderPage({
   const finished = order.status === "bezahlt" || order.status === "anfrage" || order.status === "nachnahme";
   const title =
     order.status === "bezahlt"
-      ? "Bestellung bestätigt"
+      ? "Order confirmed"
       : order.status === "nachnahme"
-        ? "Bestellung mit Nachnahme"
+        ? "Cash on delivery order"
         : order.status === "anfrage"
-          ? "Anfrage gespeichert"
-          : "Zahlung nicht abgeschlossen";
+          ? "Request saved"
+          : "Payment not completed";
 
   return (
     <div className="mx-auto max-w-3xl px-5 py-14">
@@ -67,7 +67,7 @@ export default async function OrderPage({
         {title}
       </h1>
       <p className="mt-4 leading-relaxed text-muted">{order.note}</p>
-      <p className="mt-2 text-sm">Vorgang {order.id}</p>
+      <p className="mt-2 text-sm">Order {order.id}</p>
       <ul className="mt-8 divide-y divide-ink/10 border-y border-ink/10">
         {order.items.map((item) => (
           <li key={item.slug} className="flex justify-between gap-4 py-3 text-sm">
@@ -75,22 +75,22 @@ export default async function OrderPage({
               {item.qty} × {item.name}
               <span className="block text-muted">{item.sku}</span>
             </span>
-            <span>{(item.unitGrossCents * item.qty / 100).toLocaleString("de-DE", { style: "currency", currency: "EUR" })}</span>
+            <span>{formatMoney(item.unitGrossCents * item.qty, order.currency)}</span>
           </li>
         ))}
       </ul>
       <div className="mt-6">
-        <PriceBreakdown summary={summary} shippingLabel={order.shippingLabel} vatRate={order.vatRate} />
+        <PriceBreakdown summary={summary} shippingLabel={order.shippingLabel} vatRate={order.vatRate} currency={order.currency} />
       </div>
       <p className="mt-6 text-sm leading-relaxed">
         {order.emailSent
-          ? "Die E-Mail zu diesem Vorgang wurde versendet."
-          : order.emailNote || "Es wurde keine E-Mail versendet."}
+          ? "We sent the email for this order."
+          : order.emailNote || "No email was sent."}
       </p>
-      <h2 className="mt-8 text-lg font-medium">Inhalt der Nachricht</h2>
+      <h2 className="mt-8 text-lg font-medium">Email contents</h2>
       <pre className="mt-3 whitespace-pre-wrap rounded-3xl bg-paper p-5 text-sm leading-relaxed">{message.text}</pre>
       <Link href="/shop" className="mt-8 inline-block text-sm underline underline-offset-4">
-        Zurück zum Shop
+        Back to shop
       </Link>
     </div>
   );

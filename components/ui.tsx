@@ -34,7 +34,7 @@ export function PageHeader({
 
 export function Placeholder({ value, label }: { value?: string; label: string }) {
   if (value?.trim()) return <>{value}</>;
-  return <span className="italic text-oak">[{label} noch einzutragen]</span>;
+  return <span className="italic text-oak">[{label} to be added]</span>;
 }
 
 export function TextLink({ href, children }: { href: string; children: React.ReactNode }) {

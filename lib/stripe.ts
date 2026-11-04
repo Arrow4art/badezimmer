@@ -9,7 +9,7 @@ export function getStripe(): Stripe | null {
   return client;
 }
 
-/** Public key for Stripe's payment form embedded in /kasse. Without it the shop falls back to Stripe's own page. */
+/** Public key for Stripe's payment form embedded in /checkout. Without it the shop falls back to Stripe's own page. */
 export function stripePublishableKey(): string | null {
   // Bracket access stays a runtime lookup, so a key set only in Vercel is not inlined as empty at build time.
   const key = process.env["NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY"] || process.env["STRIPE_PUBLISHABLE_KEY"];
