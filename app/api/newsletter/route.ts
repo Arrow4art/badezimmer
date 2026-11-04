@@ -11,23 +11,23 @@ export async function POST(request: Request) {
   try {
     body = await request.json();
   } catch {
-    return NextResponse.json({ error: "Die Eingaben sind unvollständig." }, { status: 400 });
+    return NextResponse.json({ error: "Some information is missing." }, { status: 400 });
   }
   const parsed = parseNewsletter(body);
   if (!parsed.ok) return NextResponse.json({ error: parsed.error }, { status: 400 });
-  if (!parsed.email) return NextResponse.json({ message: "Gespeichert." });
+  if (!parsed.email) return NextResponse.json({ message: "Saved." });
 
   await saveNewsletter(parsed.email, NEWSLETTER_CONSENT);
   const mail = await sendMail({
     to: parsed.email,
-    subject: "Bitte bestätigen Sie Ihre Newsletter-Anmeldung",
-    text: `${NEWSLETTER_CONSENT}\n\nDiese Nachricht bestätigt nur, dass wir Ihre Adresse erhalten haben. Ein abgeschlossenes Double-Opt-in entsteht erst, wenn ein Bestätigungslink eingerichtet ist. Sie können die Einwilligung jederzeit widerrufen.`,
+    subject: "Please confirm your newsletter signup",
+    text: `${NEWSLETTER_CONSENT}\n\nThis message only confirms that we received your address. Double opt-in is complete only once a confirmation link is set up. You can withdraw your consent at any time.`,
   });
   if (mail.sent) await markNewsletterMailed(parsed.email);
 
   return NextResponse.json({
     message: mail.sent
-      ? "Wir haben eine E-Mail gesendet. Die Anmeldung ist noch kein abgeschlossenes Double-Opt-in, solange kein Bestätigungslink enthalten ist."
-      : "Ihre Einwilligung ist gespeichert. Eine Bestätigungs-E-Mail wurde nicht versendet, weil kein E-Mail-Anbieter konfiguriert ist. Damit ist das Double-Opt-in noch nicht abgeschlossen.",
+      ? "We sent you an email. Your signup isn't a completed double opt-in until the email includes a confirmation link."
+      : "Your consent has been saved. No confirmation email was sent because no email provider is configured, so double opt-in isn't complete yet.",
   });
 }

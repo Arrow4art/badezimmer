@@ -117,13 +117,13 @@ export function CardFan() {
   }, []);
 
   return (
-    <nav ref={fanRef} className="card-fan" aria-label="Nach Spiel einkaufen">
+    <nav ref={fanRef} className="card-fan" aria-label="Shop by game">
       {cards.map((card) => (
         <Link
           key={card.id}
           href={`/shop?q=${encodeURIComponent(card.query)}`}
           className="tcg"
-          aria-label={`${card.label}: Produkte ansehen`}
+          aria-label={`${card.label}: view products`}
           style={
             {
               "--r": `${card.rotate}deg`,
@@ -138,7 +138,7 @@ export function CardFan() {
             <span className="tcg-holo" />
             <span className="tcg-glare" />
             <span className="tcg-cta" aria-hidden="true">
-              Ansehen →
+              View →
             </span>
           </span>
         </Link>

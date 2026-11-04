@@ -10,17 +10,17 @@ export async function POST(request: Request) {
   const stripe = getStripe();
   const secret = process.env.STRIPE_WEBHOOK_SECRET;
   if (!stripe || !secret) {
-    return NextResponse.json({ error: "Der Webhook ist nicht konfiguriert." }, { status: 503 });
+    return NextResponse.json({ error: "The webhook isn't configured." }, { status: 503 });
   }
 
   const signature = request.headers.get("stripe-signature");
-  if (!signature) return NextResponse.json({ error: "Signatur fehlt." }, { status: 400 });
+  if (!signature) return NextResponse.json({ error: "Signature is missing." }, { status: 400 });
 
   let event: Stripe.Event;
   try {
     event = stripe.webhooks.constructEvent(await request.text(), signature, secret);
   } catch {
-    return NextResponse.json({ error: "Signatur ungültig." }, { status: 400 });
+    return NextResponse.json({ error: "Signature is invalid." }, { status: 400 });
   }
 
   if (event.type === "checkout.session.completed" || event.type === "checkout.session.async_payment_succeeded") {
@@ -36,7 +36,7 @@ export async function POST(request: Request) {
     if (session.client_reference_id) {
       await cancelPendingOrder(
         session.client_reference_id,
-        "Die Zahlung wurde nicht abgeschlossen. Es wurde nichts berechnet.",
+        "The payment wasn't completed. Nothing was charged.",
       );
     }
   }

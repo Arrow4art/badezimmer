@@ -16,13 +16,13 @@ export default async function ShopPage({
     <>
       <PageHeader
         eyebrow="Shop"
-        title="Displays, Boxen und Decks."
+        title="Displays, boxes, and decks."
         lede={[
-          `Jeder Preis enthält ${Math.round(catalog.vatRate * 100)} % MwSt.`,
+          "All prices are in USD. No sales tax is added at checkout.",
           catalog.shipping.costCents === 0
-            ? "Der Versand innerhalb Deutschlands ist kostenlos."
-            : "Die Versandkosten stehen vor dem Abschluss.",
-          catalog.shipping.deliveryEstimateConfirmed ? `Lieferzeit: ${catalog.shipping.deliveryEstimateText}.` : "",
+            ? "Shipping within the United States is free."
+            : "Shipping costs are shown before you place your order.",
+          catalog.shipping.deliveryEstimateConfirmed ? `Delivery time: ${catalog.shipping.deliveryEstimateText}.` : "",
         ]
           .filter(Boolean)
           .join(" ")}

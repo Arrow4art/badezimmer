@@ -18,7 +18,7 @@ function xml(value: string): string {
 }
 
 function price(cents: number): string {
-  return `${(cents / 100).toFixed(2)} EUR`;
+  return `${(cents / 100).toFixed(2)} USD`;
 }
 
 function tag(name: string, value: string): string {
@@ -49,7 +49,7 @@ export function buildGoogleFeed(catalog: Catalog, origin: string): string {
         tag("g:id", product.sku),
         tag("g:title", title),
         tag("g:description", description),
-        tag("g:link", `${origin}/produkt/${product.slug}`),
+        tag("g:link", `${origin}/product/${product.slug}`),
         tag("g:image_link", images[0]),
         ...images.slice(1, 10).map((image) => tag("g:additional_image_link", image)),
         tag("g:availability", product.available > 0 ? "in_stock" : "out_of_stock"),
@@ -60,22 +60,22 @@ export function buildGoogleFeed(catalog: Catalog, origin: string): string {
         ...(gtin ? [tag("g:gtin", gtin)] : []),
         tag("g:condition", "new"),
         tag("g:google_product_category", GOOGLE_PRODUCT_CATEGORY),
-        tag("g:product_type", product.targetUse || "Sammelkarten"),
+        tag("g:product_type", product.targetUse || "Trading Cards"),
         ...product.features
           .map((feature) => clean(feature).slice(0, 150))
           .filter(Boolean)
           .slice(0, 10)
           .map((feature) => tag("g:product_highlight", feature)),
         "      <g:shipping>",
-        `        <g:country>DE</g:country>`,
+        `        <g:country>US</g:country>`,
         `        <g:service>${xml(catalog.shipping.label)}</g:service>`,
         `        <g:price>${price(catalog.shipping.costCents)}</g:price>`,
         ...(catalog.shipping.deliveryEstimateConfirmed
           ? [
-              "        <g:min_handling_time>0</g:min_handling_time>",
-              "        <g:max_handling_time>0</g:max_handling_time>",
-              "        <g:min_transit_time>0</g:min_transit_time>",
-              "        <g:max_transit_time>3</g:max_transit_time>",
+              "        <g:min_handling_time>1</g:min_handling_time>",
+              `        <g:max_handling_time>${catalog.shipping.maxHandlingDays ?? 0}</g:max_handling_time>`,
+              `        <g:min_transit_time>${catalog.shipping.minTransitDays ?? 0}</g:min_transit_time>`,
+              `        <g:max_transit_time>${catalog.shipping.maxTransitDays ?? 0}</g:max_transit_time>`,
             ]
           : []),
         "      </g:shipping>",
@@ -88,9 +88,9 @@ export function buildGoogleFeed(catalog: Catalog, origin: string): string {
   return `<?xml version="1.0" encoding="UTF-8"?>
 <rss version="2.0" xmlns:g="http://base.google.com/ns/1.0">
   <channel>
-    <title>Iwoody</title>
+    <title>Pilands Cards</title>
     <link>${xml(origin)}</link>
-    <description>Versiegelte Displays, Boxen und Decks. Preise inklusive Mehrwertsteuer.</description>
+    <description>Sealed booster displays, boxes and decks. Prices in USD.</description>
 ${items}
   </channel>
 </rss>

@@ -18,7 +18,7 @@ export function Header({ searchItems }: { searchItems: SearchItem[] }) {
         <Logo />
         <form action="/shop" className="min-w-0 flex-1">
           <label htmlFor="site-search" className="sr-only">
-            Produkte suchen
+            Search products
           </label>
           <SearchField
             items={searchItems}
@@ -26,11 +26,11 @@ export function Header({ searchItems }: { searchItems: SearchItem[] }) {
             name="q"
             value={query}
             onChange={setQuery}
-            placeholder="Produkte suchen"
+            placeholder="Search products"
             inputClassName="w-full rounded-full border border-ink/15 bg-panel px-4 py-2 text-sm outline-none placeholder:text-muted focus:border-forest focus:ring-2 focus:ring-forest/20"
           />
         </form>
-        <nav className="hidden items-center gap-7 text-sm lg:flex" aria-label="Hauptnavigation">
+        <nav className="hidden items-center gap-7 text-sm lg:flex" aria-label="Main navigation">
           {nav.map((item) => (
             <Link key={item.href} href={item.href} className="text-ink/80 transition hover:text-moss">
               {item.label}
@@ -38,8 +38,8 @@ export function Header({ searchItems }: { searchItems: SearchItem[] }) {
           ))}
         </nav>
         <div className="flex items-center gap-2">
-          <Link href="/warenkorb" className="relative rounded-full px-3 py-2 text-sm font-medium transition hover:bg-panel">
-            Warenkorb
+          <Link href="/cart" className="relative rounded-full px-3 py-2 text-sm font-medium transition hover:bg-panel">
+            Cart
             <span className="ml-2 inline-flex min-w-6 justify-center rounded-full bg-neon px-1.5 py-0.5 text-xs font-semibold text-night shadow-[0_0_12px_rgba(255,43,214,0.8)]">
               {count}
             </span>
@@ -51,12 +51,12 @@ export function Header({ searchItems }: { searchItems: SearchItem[] }) {
             aria-controls="mobile-nav"
             onClick={() => setOpen((value) => !value)}
           >
-            Menü
+            Menu
           </button>
         </div>
       </div>
       {open ? (
-        <nav id="mobile-nav" className="border-t border-ink/10 px-5 py-3 lg:hidden" aria-label="Mobile Navigation">
+        <nav id="mobile-nav" className="border-t border-ink/10 px-5 py-3 lg:hidden" aria-label="Mobile navigation">
           {nav.map((item) => (
             <Link
               key={item.href}

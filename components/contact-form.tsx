@@ -29,10 +29,10 @@ export function ContactForm() {
         const data = (await response.json()) as { error?: string; message?: string };
         setPending(false);
         if (!response.ok) {
-          setError(data.error || "Die Nachricht konnte nicht gespeichert werden.");
+          setError(data.error || "Your message couldn't be saved.");
           return;
         }
-        setDone(data.message || "Gespeichert.");
+        setDone(data.message || "Saved.");
         setName("");
         setEmail("");
         setMessage("");
@@ -44,16 +44,16 @@ export function ContactForm() {
         <input className={fieldClass} required value={name} onChange={(event) => setName(event.target.value)} autoComplete="name" />
       </label>
       <label className="block text-sm">
-        E-Mail
+        Email
         <input className={fieldClass} type="email" required value={email} onChange={(event) => setEmail(event.target.value)} autoComplete="email" />
       </label>
       <label className="block text-sm">
-        Nachricht
+        Message
         <textarea className={fieldClass} required rows={6} value={message} onChange={(event) => setMessage(event.target.value)} />
       </label>
       <label className="flex items-start gap-3 text-sm leading-relaxed">
         <input type="checkbox" checked={consent} onChange={(event) => setConsent(event.target.checked)} className="mt-1" required />
-        <span>Ich habe die Datenschutzerklärung gelesen und bin einverstanden, dass diese Nachricht zur Beantwortung gespeichert wird.</span>
+        <span>I have read the Privacy Policy and agree that this message is stored so you can reply.</span>
       </label>
       <div className="absolute left-[-9999px]" aria-hidden="true">
         <label>
@@ -64,7 +64,7 @@ export function ContactForm() {
       {error ? <p className="text-sm text-oak">{error}</p> : null}
       {done ? <p className="text-sm text-moss">{done}</p> : null}
       <button className={btnPrimary} type="submit" disabled={pending}>
-        {pending ? "Wird gesendet …" : "Nachricht senden"}
+        {pending ? "Sending…" : "Send message"}
       </button>
     </form>
   );

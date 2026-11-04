@@ -3,7 +3,7 @@ import Link from "next/link";
 export function Logo({ tone = "dark" }: { tone?: "dark" | "light" }) {
   const color = tone === "light" ? "text-cream" : "text-ink";
   return (
-    <Link href="/" className={`inline-flex items-center gap-2.5 ${color}`} aria-label="Iwoody, Startseite">
+    <Link href="/" className={`inline-flex items-center gap-2.5 ${color}`} aria-label="Pilands Cards, home">
       <svg viewBox="0 0 32 32" className="h-8 w-8 drop-shadow-[0_0_6px_rgba(255,43,214,0.7)]" aria-hidden="true">
         <defs>
           <linearGradient id="logo-holo" x1="0" y1="0" x2="1" y2="1">
@@ -15,7 +15,7 @@ export function Logo({ tone = "dark" }: { tone?: "dark" | "light" }) {
         <rect x="6" y="4" width="16" height="22" rx="2" fill="none" stroke="url(#logo-holo)" strokeWidth="1.8" />
         <rect x="10" y="8" width="16" height="22" rx="2" fill="#0A0716" fillOpacity="0.6" stroke="url(#logo-holo)" strokeWidth="1.8" />
       </svg>
-      <span className="text-[1.2rem] font-medium tracking-tight">Iwoody</span>
+      <span className="text-[1.2rem] font-medium tracking-tight">Pilands Cards</span>
     </Link>
   );
 }

@@ -39,7 +39,7 @@ async function expireStale(now = Date.now()): Promise<void> {
     if (now - Date.parse(order.createdAt) <= limit) continue;
     order.status = "abgelaufen";
     order.note =
-      "Die Zahlungsfrist ist abgelaufen. Es wurde nichts berechnet und der Bestand nicht verringert.";
+      "The payment window has expired. Nothing was charged and stock wasn't reduced.";
     changed = true;
   }
   if (changed) await writeOrders(orders);
@@ -96,17 +96,17 @@ function buildItems(
   catalogProducts: PublicProduct[],
   requested: { slug: string; qty: number }[],
 ): { items: OrderItem[] } | { error: string } {
-  if (requested.length === 0) return { error: "Der Warenkorb ist leer." };
+  if (requested.length === 0) return { error: "Your cart is empty." };
   const items: OrderItem[] = [];
   for (const line of requested) {
     const product = catalogProducts.find((entry) => entry.slug === line.slug);
-    if (!product) return { error: "Ein Produkt ist nicht mehr im Sortiment." };
+    if (!product) return { error: "A product is no longer in our catalog." };
     if (!Number.isInteger(line.qty) || line.qty < 1) {
-      return { error: "Bitte wählen Sie eine gültige Menge." };
+      return { error: "Please choose a valid quantity." };
     }
     if (line.qty > product.available) {
       return {
-        error: `„${product.name}“ ist in dieser Menge nicht mehr verfügbar.`,
+        error: `"${product.name}" is no longer available in this quantity.`,
       };
     }
     items.push({
@@ -138,12 +138,13 @@ export async function createInquiry(input: CheckoutInput): Promise<CheckoutResul
       shippingGrossCents: store.shipping.costCents,
       shippingLabel: store.shipping.label,
       vatRate: store.vatRate,
+      currency: "USD",
       goodsGrossCents: summary.goodsGrossCents,
       totalGrossCents: summary.totalGrossCents,
       paymentProvider: "none",
       emailSent: false,
       emailNote: "",
-      note: "Unverbindliche Anfrage. Es wurde keine Zahlung ausgeführt und der Bestand nicht verringert.",
+      note: "Non-binding inquiry. No payment was made and stock wasn't reduced.",
     };
     orders.unshift(order);
     await writeOrders(orders);
@@ -169,12 +170,13 @@ export async function createPendingOrder(input: CheckoutInput): Promise<Checkout
       shippingGrossCents: store.shipping.costCents,
       shippingLabel: store.shipping.label,
       vatRate: store.vatRate,
+      currency: "USD",
       goodsGrossCents: summary.goodsGrossCents,
       totalGrossCents: summary.totalGrossCents,
       paymentProvider: "stripe",
       emailSent: false,
       emailNote: "",
-      note: "Wartet auf eine bestätigte Zahlung bei Stripe. Noch nicht bezahlt.",
+      note: "Waiting for a confirmed payment from Stripe. Not paid yet.",
     };
     orders.unshift(order);
     await writeOrders(orders);
@@ -205,7 +207,7 @@ export async function failPendingOrder(orderId: string, note: string): Promise<v
 
 export async function cancelPendingOrder(
   orderId: string,
-  note = "Der Zahlungsvorgang wurde abgebrochen. Es wurde nichts berechnet.",
+  note = "The payment was canceled. Nothing was charged.",
 ): Promise<Order | null> {
   return withLock(async () => {
     const orders = await readOrders();
@@ -237,7 +239,7 @@ export async function markPaid(orderId: string, sessionId: string): Promise<Orde
     order.status = "bezahlt";
     order.stripeSessionId = sessionId;
     order.note =
-      "Zahlung bei Stripe bestätigt. Kartendaten liegen Iwoody nicht vor. Der Shop-Bestand wurde um die bezahlte Menge verringert.";
+      "Payment confirmed by Stripe. Pilands Cards doesn't hold card details. Shop stock was reduced by the paid quantity.";
     await writeStore(store);
     await writeOrders(orders);
     return order;
@@ -277,30 +279,30 @@ export async function listOrders(): Promise<Order[]> {
 }
 
 export function validateAdminUpdate(input: AdminUpdate): string | null {
-  if (input.products.length < 1) return "Es muss mindestens ein Produkt bleiben.";
+  if (input.products.length < 1) return "At least one product must remain.";
   for (const product of input.products) {
     if (!Number.isInteger(product.stock) || product.stock < 0 || product.stock > 9999) {
-      return "Der Bestand muss eine ganze Zahl zwischen 0 und 9999 sein.";
+      return "Stock must be a whole number between 0 and 9999.";
     }
     if (!Number.isInteger(product.priceCents) || product.priceCents < 50 || product.priceCents > 500000) {
-      return "Jeder Preis muss zwischen 0,50 € und 5.000,00 € liegen.";
+      return "Each price must be between $0.50 and $5,000.00.";
     }
     if (product.gtin.trim() && !normalizeGtin(product.gtin)) {
-      return `Die EAN bei „${product.slug}“ ist ungültig. Bitte die 8, 12, 13 oder 14 Ziffern unter dem Barcode prüfen.`;
+      return `The EAN for "${product.slug}" is invalid. Please check the 8, 12, 13, or 14 digits under the barcode.`;
     }
   }
   const shipping = input.shipping;
   if (!Number.isInteger(shipping.costCents) || shipping.costCents < 0 || shipping.costCents > 500000) {
-    return "Die Versandkosten müssen zwischen 0,00 € und 5.000,00 € liegen.";
+    return "Shipping cost must be between $0.00 and $5,000.00.";
   }
   if (!Number.isInteger(shipping.reservationHours) || shipping.reservationHours < 1 || shipping.reservationHours > 72) {
-    return "Die Reservierungsdauer muss zwischen 1 und 72 Stunden liegen.";
+    return "The hold time must be between 1 and 72 hours.";
   }
   if (shipping.deliveryEstimateConfirmed && !shipping.deliveryEstimateText.trim()) {
-    return "Eine bestätigte Lieferzeit braucht einen Text.";
+    return "A confirmed delivery time needs text.";
   }
   if (input.installationText.trim().length < 20) {
-    return "Bitte hinterlegen Sie einen verständlichen Lieferhinweis.";
+    return "Please add a clear delivery note.";
   }
   return null;
 }

@@ -3,16 +3,16 @@ import path from "node:path";
 import { unstable_noStore as noStore } from "next/cache";
 import { getRedis } from "@/lib/kv";
 
-// One Redis hash per shop day (product slug → clicks on "In den Warenkorb"). No visitor data is stored.
+// One Redis hash per shop day (product slug → clicks on "Add to cart"). No visitor data is stored.
 const KEY_PREFIX = "badezimmer:cart-adds:";
 const KEEP_DAYS = 120;
 const filePath = path.join(process.cwd(), "data", "cart-adds.json");
 
 export type CartAddDay = { day: string; counts: Record<string, number> };
 
-/** Calendar day in German time, as YYYY-MM-DD. */
+/** Calendar day in US Eastern time, as YYYY-MM-DD. */
 export function shopDay(date = new Date()): string {
-  return new Intl.DateTimeFormat("en-CA", { timeZone: "Europe/Berlin" }).format(date);
+  return new Intl.DateTimeFormat("en-CA", { timeZone: "America/New_York" }).format(date);
 }
 
 function lastDays(count: number): string[] {

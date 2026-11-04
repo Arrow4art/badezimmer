@@ -4,7 +4,7 @@ import { PageHeader } from "@/components/ui";
 import { getCatalog } from "@/lib/catalog";
 import { buildFaqs } from "@/lib/copy";
 
-export const metadata: Metadata = { title: "Häufig gestellte Fragen" };
+export const metadata: Metadata = { title: "Frequently asked questions" };
 
 export default async function FaqPage() {
   const catalog = await getCatalog();
@@ -12,8 +12,8 @@ export default async function FaqPage() {
     <>
       <PageHeader
         eyebrow="FAQ"
-        title="Häufig gestellte Fragen"
-        lede="Kurze Antworten zu Produktart, Bestand, Versand und Zahlung. Gesundheitliche Wirkungen versprechen wir nicht."
+        title="Frequently asked questions"
+        lede="Short answers about products, stock, shipping, and payment."
       />
       <div className="mx-auto max-w-3xl px-5 py-12">
         <FaqList items={buildFaqs(catalog.products, catalog.checkoutMode)} />

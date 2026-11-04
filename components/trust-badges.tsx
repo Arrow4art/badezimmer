@@ -1,7 +1,7 @@
 // Payment logos and security badges for the footer. Every badge states something that is
 // true for this shop: HTTPS with HSTS, payment in Stripe's form (no card data stored
-// here), sealed goods, the 14-day withdrawal right and free shipping within Germany.
-// Only the payment methods the checkout promises ("Zahlung per Karte oder Klarna über Stripe") are shown.
+// here), sealed goods, 14-day free returns and free shipping within the US.
+// Only the payment methods the checkout promises (card through Stripe) are shown.
 
 function VisaLogo() {
   return (
@@ -31,17 +31,6 @@ function MastercardLogo() {
       <circle cx="19.5" cy="16" r="9" fill="#eb001b" />
       <circle cx="28.5" cy="16" r="9" fill="#f79e1b" />
       <path d="M24 8.2a9 9 0 0 1 0 15.6 9 9 0 0 1 0-15.6Z" fill="#ff5f00" />
-    </svg>
-  );
-}
-
-function KlarnaLogo() {
-  return (
-    <svg viewBox="0 0 48 32" className="h-full w-full" role="img" aria-label="Klarna">
-      <rect width="48" height="32" rx="5" fill="#ffb3c7" />
-      <text x="24" y="20.5" textAnchor="middle" fontFamily="Arial, sans-serif" fontSize="11" fontWeight="700" fill="#0b051d">
-        Klarna.
-      </text>
     </svg>
   );
 }
@@ -83,27 +72,24 @@ export function TrustBadges({ checkoutMode, freeShipping }: { checkoutMode: "str
   return (
     <div className="mx-auto max-w-6xl px-5 py-8">
       <ul className="grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-4">
-        <Badge icon="lock" title="SSL-verschlüsselt" text="Die gesamte Seite läuft über eine verschlüsselte HTTPS-Verbindung." />
-        <Badge icon="shield" title="Sichere Zahlung" text="Sie zahlen im Formular von Stripe, per Karte oder Klarna. Kartendaten speichern wir nicht." />
-        <Badge icon="box" title="Originalverpackt" text="Displays, Boxen und Decks kommen versiegelt." />
+        <Badge icon="lock" title="SSL encrypted" text="The whole site runs over an encrypted HTTPS connection." />
+        <Badge icon="shield" title="Secure payment" text="You pay by card in Stripe's form. We don't store card details." />
+        <Badge icon="box" title="Factory sealed" text="Displays, boxes and decks arrive sealed." />
         <Badge
           icon={freeShipping ? "truck" : "back"}
-          title={freeShipping ? "Gratis Versand & Rückgabe" : "Kostenlose Rückgabe"}
-          text={freeShipping ? "Kostenlose Lieferung innerhalb Deutschlands, kostenlose Rückgabe binnen 14 Tagen." : "Kostenlose Rückgabe binnen 14 Tagen ohne Angabe von Gründen."}
+          title={freeShipping ? "Free shipping & returns" : "Free returns"}
+          text={freeShipping ? "Free US delivery, and free returns within 14 days." : "Free returns within 14 days, no reason needed."}
         />
       </ul>
       {checkoutMode === "stripe" ? (
         <div className="mt-6 flex flex-wrap items-center gap-3">
-          <p className="text-xs uppercase tracking-[0.18em] text-cream/50">Sicher bezahlen mit</p>
+          <p className="text-xs uppercase tracking-[0.18em] text-cream/50">Pay securely with</p>
           <ul className="flex items-center gap-2">
             <li className="h-8 w-12">
               <VisaLogo />
             </li>
             <li className="h-8 w-12">
               <MastercardLogo />
-            </li>
-            <li className="h-8 w-12">
-              <KlarnaLogo />
             </li>
             <li className="h-8 w-12">
               <StripeLogo />

@@ -4,10 +4,10 @@ import { btnPrimary } from "@/components/ui";
 export default function NotFound() {
   return (
     <div className="mx-auto max-w-2xl px-5 py-20">
-      <h1 className="text-4xl font-medium tracking-tight">Seite nicht gefunden</h1>
-      <p className="mt-4 text-muted">Diese Adresse gehört nicht zum Shop.</p>
+      <h1 className="text-4xl font-medium tracking-tight">Page not found</h1>
+      <p className="mt-4 text-muted">This address isn’t part of the shop.</p>
       <Link href="/" className={`${btnPrimary} mt-8`}>
-        Zur Startseite
+        Back to home
       </Link>
     </div>
   );

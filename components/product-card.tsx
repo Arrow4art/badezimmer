@@ -5,12 +5,11 @@ import { useState } from "react";
 import { useCart } from "@/components/cart-context";
 import { ProductPhoto } from "@/components/product-photo";
 import { btnPrimary, btnSecondary } from "@/components/ui";
-import { formatEUR } from "@/lib/money";
+import { formatPrice } from "@/lib/money";
 import type { PublicProduct } from "@/lib/types";
 
 export function ProductCard({
   product,
-  vatRate,
   shippingCents,
 }: {
   product: PublicProduct;
@@ -19,11 +18,10 @@ export function ProductCard({
 }) {
   const { add } = useCart();
   const [note, setNote] = useState("");
-  const percent = Math.round(vatRate * 100);
 
   return (
     <article className="holo-card flex h-full flex-col overflow-hidden rounded-3xl bg-paper/90 shadow-card">
-      <Link href={`/produkt/${product.slug}`} className="holo-shine relative block aspect-[4/3] overflow-hidden bg-night">
+      <Link href={`/product/${product.slug}`} className="holo-shine relative block aspect-[4/3] overflow-hidden bg-night">
         {product.images[0] ? (
           <ProductPhoto
             image={product.images[0]}
@@ -38,23 +36,23 @@ export function ProductCard({
           {product.targetUse}
         </p>
         <h2 className="mt-1.5 text-sm font-medium leading-snug tracking-tight sm:mt-2 sm:text-xl">
-          <Link href={`/produkt/${product.slug}`}>{product.name}</Link>
+          <Link href={`/product/${product.slug}`}>{product.name}</Link>
         </h2>
-        <p className="mt-2 text-lg font-semibold text-gold sm:mt-3 sm:text-2xl">{formatEUR(product.priceCents)}</p>
+        <p className="mt-2 text-lg font-semibold text-gold sm:mt-3 sm:text-2xl">{formatPrice(product.priceCents)}</p>
         <p className="text-xs text-muted sm:text-sm">
-          inkl. {percent} % MwSt., {shippingCents === 0 ? "kostenloser Versand" : "zzgl. Versand"}
+          No sales tax at checkout, {shippingCents === 0 ? "free shipping" : "plus shipping"}
         </p>
         <p className="mt-2 flex items-center gap-2 text-xs sm:text-sm">
           <span
             className={`h-2 w-2 rounded-full ${product.available > 0 ? "bg-emerald-400 shadow-[0_0_8px_#34d399]" : "bg-muted"}`}
             aria-hidden="true"
           />
-          {product.available > 0 ? "Auf Lager" : "Nicht verfügbar"}
+          {product.available > 0 ? "In stock" : "Unavailable"}
         </p>
         <div className="mt-auto flex flex-col gap-2 pt-4 sm:pt-5">
           {/* Image and title already link to the product, so phones keep only the cart button. */}
-          <Link href={`/produkt/${product.slug}`} className={`${btnSecondary} max-sm:hidden`}>
-            Produkt ansehen
+          <Link href={`/product/${product.slug}`} className={`${btnSecondary} max-sm:hidden`}>
+            View product
           </Link>
           <button
             type="button"
@@ -62,10 +60,10 @@ export function ProductCard({
             disabled={product.available < 1}
             onClick={() => {
               const ok = add(product.slug, 1, product.available);
-              setNote(ok ? "In den Warenkorb gelegt." : "Nicht mehr genug verfügbar.");
+              setNote(ok ? "Added to cart." : "Not enough left in stock.");
             }}
           >
-            In den Warenkorb
+            Add to cart
           </button>
         </div>
         {note ? <p className="mt-3 text-sm text-moss" role="status">{note}</p> : null}

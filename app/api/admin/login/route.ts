@@ -7,7 +7,7 @@ export const dynamic = "force-dynamic";
 export async function POST(request: Request) {
   const expected = adminPassword();
   if (!expected) {
-    return NextResponse.json({ error: "Die Verwaltung ist nicht konfiguriert." }, { status: 503 });
+    return NextResponse.json({ error: "The admin area isn't configured." }, { status: 503 });
   }
   let password = "";
   try {
@@ -17,7 +17,7 @@ export async function POST(request: Request) {
     password = "";
   }
   if (!passwordsMatch(password, expected)) {
-    return NextResponse.json({ error: "Das Passwort ist nicht korrekt." }, { status: 401 });
+    return NextResponse.json({ error: "The password is incorrect." }, { status: 401 });
   }
   const jar = await cookies();
   jar.set(ADMIN_COOKIE, createSessionToken(), {

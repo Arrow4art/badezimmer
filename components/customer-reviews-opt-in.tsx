@@ -5,8 +5,8 @@ import { useEffect } from "react";
 // Merchant Center account that runs Google Customer Reviews. The env variable overrides it.
 const merchantId = Number(process.env.NEXT_PUBLIC_GOOGLE_MERCHANT_ID?.trim() || "5874940707");
 
-// The survey email should arrive after the parcel: the shop promises 0–3 working days, plus one spare day.
-const deliveryWorkingDays = 4;
+// The survey email should arrive after the parcel.
+const deliveryWorkingDays = 7;
 
 declare global {
   interface Window {
@@ -45,7 +45,7 @@ export function CustomerReviewsOptIn({ orderId, email, createdAt }: { orderId: s
           merchant_id: merchantId,
           order_id: orderId,
           email,
-          delivery_country: "DE",
+          delivery_country: "US",
           estimated_delivery_date: addWorkingDays(new Date(createdAt), deliveryWorkingDays),
           opt_in_style: "CENTER_DIALOG",
         });

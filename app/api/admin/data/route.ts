@@ -46,7 +46,7 @@ function parseUpdate(body: unknown): AdminUpdate | null {
     street: text(businessRaw.street, 160),
     zip: text(businessRaw.zip, 12),
     city: text(businessRaw.city, 80),
-    country: text(businessRaw.country, 80) || "Deutschland",
+    country: text(businessRaw.country, 80) || "United States",
     email: text(businessRaw.email, 160),
     phone: text(businessRaw.phone, 40),
     register: text(businessRaw.register, 160),
@@ -71,7 +71,7 @@ function parseUpdate(body: unknown): AdminUpdate | null {
 }
 
 export async function GET() {
-  if (!(await isAdmin())) return NextResponse.json({ error: "Nicht angemeldet." }, { status: 401 });
+  if (!(await isAdmin())) return NextResponse.json({ error: "Not signed in." }, { status: 401 });
   const [catalog, orders, cartAdds, messages, newsletter] = await Promise.all([
     getCatalog(),
     listOrders(),
@@ -83,15 +83,15 @@ export async function GET() {
 }
 
 export async function PUT(request: Request) {
-  if (!(await isAdmin())) return NextResponse.json({ error: "Nicht angemeldet." }, { status: 401 });
+  if (!(await isAdmin())) return NextResponse.json({ error: "Not signed in." }, { status: 401 });
   let body: unknown;
   try {
     body = await request.json();
   } catch {
-    return NextResponse.json({ error: "Die Eingaben sind unvollständig." }, { status: 400 });
+    return NextResponse.json({ error: "Some information is missing." }, { status: 400 });
   }
   const update = parseUpdate(body);
-  if (!update) return NextResponse.json({ error: "Die Eingaben sind unvollständig." }, { status: 400 });
+  if (!update) return NextResponse.json({ error: "Some information is missing." }, { status: 400 });
   const error = validateAdminUpdate(update);
   if (error) return NextResponse.json({ error }, { status: 400 });
   await updateCatalog(update);
